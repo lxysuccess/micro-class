@@ -2,16 +2,15 @@ package yinzhi.micro_client.activity;
 
 import java.util.ArrayList;
 
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.fragment.VideoCatalogFragment;
-import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
-import yinzhi.micro_client.fragment.VideoDescriptionFragment;
-import yinzhi.micro_client.fragment.VideoDescriptionFragment.IUpdateData;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZCatalogVO;
-import yinzhi.micro_client.network.vo.YZCourseVO;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.viewpagerindicator.TabPageIndicator;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,14 +22,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.fragment.VideoCatalogFragment;
+import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
+import yinzhi.micro_client.fragment.VideoDescriptionFragment;
+import yinzhi.micro_client.fragment.VideoDescriptionFragment.IUpdateData;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZCatalogVO;
+import yinzhi.micro_client.network.vo.YZCourseVO;
 
 public class IntroductionActivity extends BaseActivity implements
 		IUpdateData, IUpdateCatalogData {
@@ -44,8 +45,8 @@ public class IntroductionActivity extends BaseActivity implements
 	/**
 	 * tab页切换指示标签
 	 */
-//	@ViewInject(R.id.introduction_indicator)
-//	private TabPageIndicator indicator;
+	@ViewInject(R.id.introduction_indicator)
+	private TabPageIndicator indicator;
 
 	/**
 	 * 课程介绍图片
@@ -78,13 +79,13 @@ public class IntroductionActivity extends BaseActivity implements
 	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
 	private String courseId ;
+	
 
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activiyt_introduction);
 		ViewUtils.inject(this);
-
 		courseId = getIntent().getExtras().getString("courseId", "-1");
 
 		initFragment();
@@ -103,7 +104,7 @@ public class IntroductionActivity extends BaseActivity implements
 				getSupportFragmentManager(), fragments);
 		pager.setAdapter(myFragmentPagerAdapter);
 		pager.setCurrentItem(0);
-//		indicator.setViewPager(pager);
+		indicator.setViewPager(pager);
 
 	}
 

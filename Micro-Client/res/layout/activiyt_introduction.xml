@@ -51,11 +51,13 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <yinzhi.micro_client.view.TabPageIndicator
+            <com.viewpagerindicator.TabPageIndicator
                 android:id="@+id/introduction_indicator"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:background="@android:color/transparent" >
+            </com.viewpagerindicator.TabPageIndicator>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/introduction_viewpager"

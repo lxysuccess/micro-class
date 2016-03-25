@@ -1,0 +1,37 @@
+package com.lixuyu.mreader.adapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+import com.lixuyu.mreader.fragment.LibraryTabFragment;
+
+/**
+ * Created by LIXUYU on 16/2/4.
+ */
+public class TabAdapter extends FragmentPagerAdapter {
+
+    public static String[] TITLES = new String[]
+            {"出版图书", "原创文学"};
+
+    public TabAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        LibraryTabFragment fragment = new LibraryTabFragment(position);
+
+        return fragment;
+    }
+
+    @Override
+    public int getCount() {
+        return TITLES.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLES[position];
+    }
+}
