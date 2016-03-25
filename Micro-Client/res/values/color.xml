@@ -34,4 +34,8 @@
     <color name="lightgrey">#999999</color>
      <color name="blue">#39adf9</color>
      <color name="bgtitlebar">#f5f5f5</color>
+     
+     
+     <!-- 条目按压事的颜色pressed -->
+     <color name="personal_item_selected">#e7e7e7</color>
 </resources>

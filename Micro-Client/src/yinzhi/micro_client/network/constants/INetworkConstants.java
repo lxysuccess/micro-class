@@ -10,7 +10,7 @@ public interface INetworkConstants {
     public final static String CHARSET = "UTF-8";
     
     //============接口相关==============
-    public final static String YZMC_SERVER = "http://10.189.234.155:8080";
+    public final static String YZMC_SERVER = "http://10.189.250.132:8080";
     //首页
     public final static String API_COURSE_SLIDELIST = YZMC_SERVER + "/api/v1/course/slide/list";
     public final static String API_COURSE_HOTRECOMMEND = YZMC_SERVER + "/api/v1/course/hotRecommend ";

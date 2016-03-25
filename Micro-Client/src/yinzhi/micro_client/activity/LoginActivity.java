@@ -84,21 +84,19 @@ public class LoginActivity extends Activity {
 				YZUserVO user = YZResponseUtils.parseObject(response,
 						YZUserVO.class);
 				if (user.getStatus() != 1) {
-					Toast.makeText(getApplicationContext(),
-							user.getMsg(), Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), user.getMsg(), Toast.LENGTH_LONG).show();
 					return;
 				}
 				Integer result = SpMessageUtil.storeYZUserVO(user,
 						getApplicationContext());
 
 				if (result != 1) {
-					Toast.makeText(getApplicationContext(), "服务器忙(LA)",
+					Toast.makeText(getApplicationContext(), "写入信息失败(LA)",
 							Toast.LENGTH_LONG).show();
 					return;
 				}
 
 				finish();
-				
 			}
 			
 			@Override

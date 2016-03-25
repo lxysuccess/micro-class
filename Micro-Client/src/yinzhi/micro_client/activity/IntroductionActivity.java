@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.fragment.VideoCatalogFragment;
 import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
@@ -161,6 +162,14 @@ public class IntroductionActivity extends BaseActivity implements
 
 						YZCourseVO course = YZResponseUtils.parseObject(
 								response, YZCourseVO.class);
+						
+						if (course == null) {
+							Toast.makeText(IntroductionActivity.this, "尚无详情数据！", Toast.LENGTH_LONG).show();
+							// 去掉正在加载
+							wait.setVisibility(View.GONE);
+							return;
+						}
+						
 						((VideoDescriptionFragment) fragments.get(0)).updateDataCompleted(course);
 
 						BitmapUtils bitmapUtils = new BitmapUtils(
@@ -199,9 +208,20 @@ public class IntroductionActivity extends BaseActivity implements
 				
 				YZCatalogVO catalog = YZResponseUtils.parseCatalog(response);
 				
+				if (catalog == null) {
+					Toast.makeText(IntroductionActivity.this, "尚无目录数据！", Toast.LENGTH_LONG).show();
+					// 去掉正在加载
+					wait.setVisibility(View.GONE);
+					return;
+				}
+				//通知目录页更新完成
 				((VideoCatalogFragment)fragments.get(1)).updateCatalogCompleted(catalog);
 				
+				// 去掉正在加载
+				wait.setVisibility(View.GONE);
 			}
+			
 		});
 	}
+	
 }

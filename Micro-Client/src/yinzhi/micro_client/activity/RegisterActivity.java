@@ -62,15 +62,12 @@ public class RegisterActivity extends BaseActivity {
 			return;
 		}
 
-		YZNetworkUtils.doRegister(inputName.getText().toString(), inputPwd
-				.getText().toString(), null, "YZ"
-				+ (int) (Math.random() * 1000000),
-				new RequestCallBack<String>() {
+		YZNetworkUtils.doRegister(inputName.getText().toString(), inputPwd.getText().toString(), null,
+				"YZ" + (int) (Math.random() * 1000000), new RequestCallBack<String>() {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
-						Toast.makeText(getApplicationContext(),
-								"register error", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "register error", Toast.LENGTH_LONG).show();
 					}
 
 					@Override
@@ -79,26 +76,28 @@ public class RegisterActivity extends BaseActivity {
 						String response = arg0.result;
 						LogUtils.i("" + response);
 
-						YZUserVO user = YZResponseUtils.parseObject(response,
-								YZUserVO.class);
-						if (user.getStatus() != 1) {
-							Toast.makeText(getApplicationContext(),
-									user.getMsg(), Toast.LENGTH_LONG).show();
-							return;
+						YZUserVO user = YZResponseUtils.parseObject(response, YZUserVO.class);
+
+						try {
+							if (user.getStatus() != 1) {
+								Toast.makeText(getApplicationContext(), user.getMsg(), Toast.LENGTH_LONG).show();
+								return;
+							}
+						} catch (NullPointerException e) {
+							Toast.makeText(getApplicationContext(), "返回数据错误", Toast.LENGTH_LONG).show();
+							e.printStackTrace();
 						}
-						Integer result = SpMessageUtil.storeYZUserVO(user,
-								getApplicationContext());
+						
+						Integer result = SpMessageUtil.storeYZUserVO(user, getApplicationContext());
 
 						if (result != 1) {
-							Toast.makeText(getApplicationContext(), "服务器忙(RA)",
-									Toast.LENGTH_LONG).show();
+							Toast.makeText(getApplicationContext(), "服务器忙(RA)", Toast.LENGTH_LONG).show();
 							return;
 						}
 
 						// 跳往首页
-						Intent intent = new Intent();
-						intent.setClass(RegisterActivity.this,
-								MainActivity.class);
+						Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 						startActivity(intent);
 
 						finish();
@@ -134,8 +133,8 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	public Boolean isEmailAddress(String email) {
-		Pattern pattern = Pattern
-				.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+		Pattern pattern = Pattern.compile(
+				"^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
 		Matcher matcher = pattern.matcher(email);
 		// return matcher.matches();
 		// TODO

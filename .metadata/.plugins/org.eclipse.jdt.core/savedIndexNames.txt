@@ -1,7 +1,6 @@
 INDEX VERSION 1.127+/Users/lixuyu/Documents/Developer-local/Android/Micro-Class/.metadata/.plugins/org.eclipse.jdt.core
 1543443762.index
 1269771913.index
-740415562.index
 1158156479.index
 3881619719.index
 1897181830.index

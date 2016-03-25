@@ -493,6 +493,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int lightgrey=0x7f060028;
         public static final int main=0x7f060013;
         public static final int menu_section_header=0x7f060019;
+        /**  条目按压事的颜色pressed 
+         */
+        public static final int personal_item_selected=0x7f06002b;
         public static final int possible_result_points=0x7f06001e;
         /**  Android standard ICS color 
          */
@@ -518,8 +521,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vpi__bright_foreground_holo_light=0x7f060003;
         public static final int vpi__bright_foreground_inverse_holo_dark=0x7f060006;
         public static final int vpi__bright_foreground_inverse_holo_light=0x7f060007;
-        public static final int vpi__dark_theme=0x7f06002b;
-        public static final int vpi__light_theme=0x7f06002c;
+        public static final int vpi__dark_theme=0x7f06002c;
+        public static final int vpi__light_theme=0x7f06002d;
         public static final int white=0x7f060011;
     }
     public static final class dimen {
@@ -617,34 +620,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int my_edit=0x7f02003b;
         public static final int page_indicator_focused=0x7f02003c;
         public static final int page_indicator_unfocused=0x7f02003d;
-        public static final int polyv_logo=0x7f02003e;
-        public static final int register_email=0x7f02003f;
-        public static final int register_password=0x7f020040;
-        public static final int scrubber_control_disabled_holo=0x7f020041;
-        public static final int scrubber_control_focused_holo=0x7f020042;
-        public static final int scrubber_control_normal_holo=0x7f020043;
-        public static final int scrubber_control_pressed_holo=0x7f020044;
-        public static final int scrubber_control_selector_holo=0x7f020045;
-        public static final int scrubber_primary_holo=0x7f020046;
-        public static final int scrubber_progress_horizontal_holo_dark=0x7f020047;
-        public static final int scrubber_secondary_holo=0x7f020048;
-        public static final int scrubber_track_holo_dark=0x7f020049;
-        public static final int search=0x7f02004a;
-        public static final int seekbar_style=0x7f02004b;
-        public static final int seekbar_thumb=0x7f02004c;
-        public static final int selector_tabtextcolor=0x7f02004d;
-        public static final int shadow_left=0x7f02004e;
-        public static final int start_bg=0x7f02004f;
-        public static final int teacher1=0x7f020050;
-        public static final int touxiang=0x7f020051;
-        public static final int video_pause=0x7f020052;
-        public static final int vpi__tab_indicator=0x7f020053;
-        public static final int vpi__tab_selected_focused_holo=0x7f020054;
-        public static final int vpi__tab_selected_holo=0x7f020055;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020056;
-        public static final int vpi__tab_unselected_focused_holo=0x7f020057;
-        public static final int vpi__tab_unselected_holo=0x7f020058;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f020059;
+        public static final int personal_item_bg=0x7f02003e;
+        public static final int polyv_logo=0x7f02003f;
+        public static final int register_email=0x7f020040;
+        public static final int register_password=0x7f020041;
+        public static final int scrubber_control_disabled_holo=0x7f020042;
+        public static final int scrubber_control_focused_holo=0x7f020043;
+        public static final int scrubber_control_normal_holo=0x7f020044;
+        public static final int scrubber_control_pressed_holo=0x7f020045;
+        public static final int scrubber_control_selector_holo=0x7f020046;
+        public static final int scrubber_primary_holo=0x7f020047;
+        public static final int scrubber_progress_horizontal_holo_dark=0x7f020048;
+        public static final int scrubber_secondary_holo=0x7f020049;
+        public static final int scrubber_track_holo_dark=0x7f02004a;
+        public static final int search=0x7f02004b;
+        public static final int seekbar_style=0x7f02004c;
+        public static final int seekbar_thumb=0x7f02004d;
+        public static final int selector_tabtextcolor=0x7f02004e;
+        public static final int shadow_left=0x7f02004f;
+        public static final int start_bg=0x7f020050;
+        public static final int teacher1=0x7f020051;
+        public static final int touxiang=0x7f020052;
+        public static final int video_pause=0x7f020053;
+        public static final int vpi__tab_indicator=0x7f020054;
+        public static final int vpi__tab_selected_focused_holo=0x7f020055;
+        public static final int vpi__tab_selected_holo=0x7f020056;
+        public static final int vpi__tab_selected_pressed_holo=0x7f020057;
+        public static final int vpi__tab_unselected_focused_holo=0x7f020058;
+        public static final int vpi__tab_unselected_holo=0x7f020059;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02005a;
     }
     public static final class id {
         public static final int Layout1=0x7f0500a4;
@@ -981,11 +985,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
 
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
 
 
         
@@ -1013,6 +1019,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int DetailContentTheme=0x7f0a0007;
         public static final int MediaController_SeekBar=0x7f0a000c;
         public static final int MediaController_Text=0x7f0a000d;
+        public static final int MyTextAppearance_TabPageIndicator=0x7f0a0010;
+        public static final int MyTheme=0x7f0a000e;
+        public static final int MyWidget_TabPageIndicator=0x7f0a000f;
         /**  小标题字体style 
          */
         public static final int SmallTitleString=0x7f0a000a;

@@ -347,11 +347,22 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void doLogin(String deviceId, String username,
 			String password, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		
+		paramMap.clear();
+		
 		if (deviceId != null) {
-			params.addBodyParameter("deviceId", deviceId);
+			paramMap.put("deviceId", deviceId);
 		}
-		params.addBodyParameter("username", username);
-		params.addBodyParameter("password", MD5Util.MD5(password));
+		paramMap.put("username", username);
+		paramMap.put("password", MD5Util.MD5(password));
+		
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		http.send(HttpRequest.HttpMethod.POST, API_USER_LOGIN, params, callBack);
 
 	}
