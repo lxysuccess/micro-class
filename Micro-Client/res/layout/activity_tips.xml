@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/tips_menu_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/main"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/tips_close"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/exercise_close" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/tips_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

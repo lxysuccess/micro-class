@@ -2,6 +2,7 @@ package yinzhi.micro_client.fragment;
 
 import yinzhi.micro_client.activity.LoginActivity;
 import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.activity.ProfileActivity;
 import yinzhi.micro_client.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -20,6 +22,11 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 public class SettingFragment extends Fragment {
 	
+	@ViewInject(R.id.setting_logout)
+	private Button logout;
+	
+	@ViewInject(R.id.setting_personal)
+	private RelativeLayout personalRl;
 	
 	private static SettingFragment settingFragment;
 	
@@ -27,8 +34,6 @@ public class SettingFragment extends Fragment {
 	
 	private ImageButton close;
 	
-	@ViewInject(R.id.setting_logout)
-	private Button logout;
 	
 	public synchronized static SettingFragment getInstance(){
 		if(settingFragment == null){
@@ -69,6 +74,14 @@ public class SettingFragment extends Fragment {
 		Intent intent = new Intent(getActivity(),LoginActivity.class);
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.anim.activity_anim_up_in, 0);
+	}
+	
+	
+	@OnClick(R.id.setting_personal)
+	public void personalClick(View v){
+		Intent intent = new Intent(getActivity(),ProfileActivity.class);
+		startActivity(intent);
+		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 	
 }

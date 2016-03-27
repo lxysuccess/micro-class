@@ -27,6 +27,7 @@ public class YZResponseUtils implements INetworkConstants {
 		try {
 			dataResponse = JSON.parseObject(response).get("data").toString();
 		} catch (Exception e) {
+			LogUtils.i("JSON 解析失败:"+response);
 			return null;
 		}
 		if (dataResponse == null || "".equals(dataResponse)) {
@@ -51,6 +52,7 @@ public class YZResponseUtils implements INetworkConstants {
 		try {
 			dataResponse = JSON.parseObject(response).get("data").toString();
 		} catch (Exception e) {
+			LogUtils.i("JSON 解析失败:"+response);
 			return null;
 		}
 		if (dataResponse == null || "".equals(dataResponse)) {

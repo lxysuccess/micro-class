@@ -1,0 +1,8 @@
+package yinzhi.micro_client.network.vo;
+
+public class YZVideoVO extends YZBaseVO{
+
+	private String videoId;
+	private Integer isAllowed;
+	
+}

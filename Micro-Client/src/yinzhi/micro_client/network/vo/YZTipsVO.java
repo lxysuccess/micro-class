@@ -1,6 +1,6 @@
 package yinzhi.micro_client.network.vo;
 
-public class YZTipsVO {
+public class YZTipsVO extends YZBaseVO {
 
 	private String content;
 
@@ -11,5 +11,5 @@ public class YZTipsVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 }

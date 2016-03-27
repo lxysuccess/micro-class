@@ -27,10 +27,10 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-public class ProfileActivity extends Activity{
-	
+public class ProfileActivity extends BaseActivity {
+
 	private PopupWindow popupWindow = null;
-	
+
 	@ViewInject(R.id.profile_close)
 	private ImageButton close;
 	@ViewInject(R.id.profile_save)
@@ -39,25 +39,30 @@ public class ProfileActivity extends Activity{
 	@ViewInject(R.id.profile_mail)
 	private TextView mailTextView;
 
-	@ViewInject(R.id.profile_phone)
-	private EditText phoneEditText;
-	@ViewInject(R.id.profile_phone_layout)
-	private RelativeLayout phoneLayout;
+	@ViewInject(R.id.profile_nick)
+	private EditText nickEditText;
+	@ViewInject(R.id.profile_nick_layout)
+	private RelativeLayout nickLayout;
 
-	@ViewInject(R.id.profile_sex)
-	private TextView sexTextView;
-	@ViewInject(R.id.profile_sex_layout)
-	private RelativeLayout sexLayout;
+	@ViewInject(R.id.profile_classes)
+	private TextView classesTextView;
+	@ViewInject(R.id.profile_grade_layout)
+	private RelativeLayout classesLayout;
 
-	@ViewInject(R.id.profile_birthday)
-	private TextView birthdayTextView;
-	@ViewInject(R.id.profile_birthday_layout)
-	private RelativeLayout birthdayLayout;
+	@ViewInject(R.id.profile_grade)
+	private TextView classes;
+	@ViewInject(R.id.profile_grade_layout)
+	private RelativeLayout gradeLayout;
 
-	@ViewInject(R.id.profile_profession)
-	private TextView professionTextView;
-	@ViewInject(R.id.profile_profession_layout)
-	private RelativeLayout professionLayout;
+	@ViewInject(R.id.profile_college)
+	private TextView collegeTextView;
+	@ViewInject(R.id.profile_college_layout)
+	private RelativeLayout collegeLayout;
+
+	@ViewInject(R.id.profile_school)
+	private TextView schoolTextView;
+	@ViewInject(R.id.profile_school_layout)
+	private RelativeLayout schoolLayout;
 
 	@ViewInject(R.id.profile_layout)
 	private RelativeLayout parentLayout;
@@ -81,109 +86,129 @@ public class ProfileActivity extends Activity{
 	}
 
 	/**
-	 * 
+	 * 保存资料修改
 	 * 
 	 * @param v
 	 */
 	@OnClick(R.id.profile_save)
 	public void saveClick(View v) {
-
+		
 	}
 
 	/**
-	 * 
-	 * 
+	 * 设置昵称 
 	 * @param v
 	 */
-	@OnClick(R.id.profile_phone_layout)
-	public void phoneLayoutClick(View v) {
-		phoneEditText.requestFocus();
-		InputMethodManager imm = (InputMethodManager) phoneEditText
-				.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+	@OnClick(R.id.profile_nick_layout)
+	public void nickLayoutClick(View v) {
+		nickEditText.requestFocus();
+		InputMethodManager imm = (InputMethodManager) nickEditText.getContext()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 	}
 
 	/**
-	 * 
+	 * 点击班级
 	 * 
 	 * @param v
 	 */
-	@OnClick(R.id.profile_sex_layout)
-	public void sexLayoutClick(View v) {
-		popupWindow = new PopupWindows(this,parentLayout);
+	@OnClick(R.id.profile_classes_layout)
+	public void classesLayoutClick(View v) {
+
 	}
 
 	/**
-	 * �༭�޸�����
+	 * 点击年级
 	 * 
 	 * @param v
 	 */
-	@OnClick(R.id.profile_birthday_layout)
-	public void birthdayLayoutClick(View v) {
-		Calendar calendar = Calendar.getInstance();
-		new DatePickerDialog(ProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
-			
-			@Override
-			public void onDateSet(DatePicker arg0, int year, int month, int day) {
-				
-				birthdayTextView.setText(year+"-"+month+"-"+day);
-			}
-		}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+	@OnClick(R.id.profile_grade_layout)
+	public void gradeLayoutClick(View v) {
+
 	}
 
 	/**
-	 * �༭�޸�ְҵ
+	 * 点击院系
 	 * 
 	 * @param v
 	 */
-	@OnClick(R.id.profile_profession_layout)
+	@OnClick(R.id.profile_college_layout)
+	public void collegeLayoutClick(View v) {
+
+	}
+
+	/**
+	 * 点击学校
+	 * 
+	 * @param v
+	 */
+	@OnClick(R.id.profile_school_layout)
 	public void professionLayoutClick(View v) {
 
 	}
-	
-	public class PopupWindows extends PopupWindow {
 
-		public PopupWindows(Context mContext, View parent) {
+	// /**
+	// * 设置日生日期
+	// *
+	// * @param v
+	// */
+	// @OnClick(R.id.profile_birthday_layout)
+	// public void birthdayLayoutClick(View v) {
+	// Calendar calendar = Calendar.getInstance();
+	// new DatePickerDialog(ProfileActivity.this, new
+	// DatePickerDialog.OnDateSetListener() {
+	//
+	// @Override
+	// public void onDateSet(DatePicker arg0, int year, int month, int day) {
+	//
+	// birthdayTextView.setText(year + "-" + month + "-" + day);
+	// }
+	// }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+	// calendar.get(Calendar.DAY_OF_MONTH)).show();
+	// }
 
-			View view = View.inflate(mContext, R.layout.popupwindows, null);
-			view.startAnimation(AnimationUtils.loadAnimation(mContext,
-					R.anim.fade_ins));
-			LinearLayout ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
-			// ll_popup.startAnimation(AnimationUtils.loadAnimation(mContext,
-			// R.anim.push_bottom_in_2));
+	// public class PopupWindows extends PopupWindow {
+	//
+	// public PopupWindows(Context mContext, View parent) {
+	//
+	// View view = View.inflate(mContext, R.layout.popupwindows, null);
+	// view.startAnimation(AnimationUtils.loadAnimation(mContext,
+	// R.anim.fade_ins));
+	// LinearLayout ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
+	// // ll_popup.startAnimation(AnimationUtils.loadAnimation(mContext,
+	// // R.anim.push_bottom_in_2));
+	//
+	// setWidth(LayoutParams.FILL_PARENT);
+	// setHeight(LayoutParams.FILL_PARENT);
+	// setBackgroundDrawable(new BitmapDrawable());
+	// setFocusable(true);
+	// setOutsideTouchable(true);
+	// setContentView(view);
+	// showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+	// update();
+	//
+	// Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
+	// Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_Photo);
+	// Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
+	// bt1.setOnClickListener(new OnClickListener() {
+	// public void onClick(View v) {
+	// sexTextView.setText("男");
+	// dismiss();
+	// }
+	// });
+	// bt2.setOnClickListener(new OnClickListener() {
+	// public void onClick(View v) {
+	// sexTextView.setText("女");
+	// dismiss();
+	// }
+	// });
+	// bt3.setOnClickListener(new OnClickListener() {
+	// public void onClick(View v) {
+	// dismiss();
+	// }
+	// });
+	//
+	// }
+	// }
 
-			setWidth(LayoutParams.FILL_PARENT);
-			setHeight(LayoutParams.FILL_PARENT);
-			setBackgroundDrawable(new BitmapDrawable());
-			setFocusable(true);
-			setOutsideTouchable(true);
-			setContentView(view);
-			showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-			update();
-
-			Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
-			Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_Photo);
-			Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
-			bt1.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					sexTextView.setText("男");
-					dismiss();
-				}
-			});
-			bt2.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					sexTextView.setText("女");
-					dismiss();
-				}
-			});
-			bt3.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					dismiss();
-				}
-			});
-
-		}
-	}
-
-	
 }

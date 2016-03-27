@@ -32,8 +32,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            设备标识（非必须）
 	 * @param callBack
 	 */
-	public static void fetchSlideList(String logonToken, String deviceId,
-			RequestCallBack<String> callBack) {
+	public static void fetchSlideList(String logonToken, String deviceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -43,8 +42,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		if (deviceId != null) {
 			params.addBodyParameter("deviceId", deviceId);
 		}
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_SLIDELIST, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_SLIDELIST, params, callBack);
 
 	}
 
@@ -56,8 +54,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void fetchHotRecommendCourse(RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRECOMMEND, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRECOMMEND, params, callBack);
 	}
 
 	/**
@@ -68,8 +65,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void fetchFreeRecommendCourse(RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_FREERECOMMEND, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_FREERECOMMEND, params, callBack);
 	}
 
 	/**
@@ -85,8 +81,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            一页的数量
 	 * @param callBack
 	 */
-	public static void fetchFreeRankingList(String logonToken, String deviceId,
-			Integer page, Integer size, RequestCallBack<String> callBack) {
+	public static void fetchFreeRankingList(String logonToken, String deviceId, Integer page, Integer size,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 		if (logonToken != null) {
@@ -97,8 +93,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 		params.addBodyParameter("page", page.toString());
 		params.addBodyParameter("size", size.toString());
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_FREERANKINGLIST,
-				params, callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_FREERANKINGLIST, params, callBack);
 	}
 
 	/**
@@ -114,8 +109,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            一页的数量
 	 * @param callBack
 	 */
-	public static void fetchHotRankingList(String logonToken, String deviceId,
-			Integer page, Integer size, RequestCallBack<String> callBack) {
+	public static void fetchHotRankingList(String logonToken, String deviceId, Integer page, Integer size,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 		if (logonToken != null) {
@@ -126,8 +121,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 		params.addBodyParameter("page", page.toString());
 		params.addBodyParameter("size", size.toString());
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRANKINGLIST,
-				params, callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRANKINGLIST, params, callBack);
 	}
 
 	/**
@@ -139,8 +133,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param size
 	 * @param callBack
 	 */
-	public static void courseSearch(String keyWord, String logonToken,
-			Integer page, Integer size, RequestCallBack<String> callBack) {
+	public static void courseSearch(String keyWord, String logonToken, Integer page, Integer size,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 		if (logonToken != null) {
@@ -149,8 +143,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		params.addBodyParameter("keyWord", keyWord);
 		params.addBodyParameter("page", page.toString());
 		params.addBodyParameter("size", size.toString());
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SEARCH, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SEARCH, params, callBack);
 	}
 
 	/**
@@ -160,8 +153,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param courseId
 	 * @param callBack
 	 */
-	public static void courseDetail(String logonToken, String courseId,
-			RequestCallBack<String> callBack) {
+	public static void courseDetail(String logonToken, String courseId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -178,8 +170,7 @@ public class YZNetworkUtils implements INetworkConstants {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_DETAIL, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_DETAIL, params, callBack);
 	}
 
 	/**
@@ -189,8 +180,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param courseId
 	 * @param callBack
 	 */
-	public static void courseCatalog(String logonToken, String courseId,
-			RequestCallBack<String> callBack) {
+	public static void courseCatalog(String logonToken, String courseId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -206,8 +196,7 @@ public class YZNetworkUtils implements INetworkConstants {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CATALOG, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CATALOG, params, callBack);
 	}
 
 	/**
@@ -217,9 +206,20 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void fetchExercise(String logonToken, String itemResourceId,
-			RequestCallBack<String> callBack) {
+	public static void fetchExercise(String logonToken, String itemResourceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		if (logonToken != null) {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
@@ -236,8 +236,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param isTrue
 	 * @param callBack
 	 */
-	public static void exerciseRecord(String logonToken, String itemResourceId,
-			String userChoice, String isTrue, RequestCallBack<String> callBack) {
+	public static void exerciseRecord(String logonToken, String itemResourceId, String userChoice, String isTrue,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader(LOGON_TOKEN, logonToken);
 		params.addBodyParameter("itemResourceId", itemResourceId);
@@ -253,8 +253,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void fetchCourseTips(String logonToken,
-			String itemResourceId, RequestCallBack<String> callBack) {
+	public static void fetchCourseTips(String logonToken, String itemResourceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		if (logonToken != null) {
 			params.addHeader(LOGON_TOKEN, logonToken);
@@ -264,14 +263,42 @@ public class YZNetworkUtils implements INetworkConstants {
 	}
 
 	/**
+	 * 请求视频
+	 * 
+	 * @param itemResourceId
+	 * @param token
+	 * @param callBack
+	 */
+	public static void fetchVideo(String itemResourceId, String logonToken, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpMethod.POST, API_VIDEO, params, callBack);
+	}
+
+	/**
 	 * 获取评论列表
 	 * 
 	 * @param bookId
 	 * @param page
 	 * @param callBack
 	 */
-	public static void fetchCommentList(String logonToken,
-			String itemResourceId, Integer page, Integer size,
+	public static void fetchCommentList(String logonToken, String itemResourceId, Integer page, Integer size,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		if (logonToken != null) {
@@ -280,8 +307,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		params.addBodyParameter("itemResourceId", itemResourceId);
 		params.addBodyParameter("page", page.toString());
 		params.addBodyParameter("size", size.toString());
-		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_LIST, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_LIST, params, callBack);
 	}
 
 	/**
@@ -290,13 +316,11 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void publishComment(String token, String content,
-			RequestCallBack<String> callBack) {
+	public static void publishComment(String token, String content, RequestCallBack<String> callBack) {
 		RequestParams param = new RequestParams();
 		param.addBodyParameter(LOGON_TOKEN, token);
 		param.addBodyParameter("content", content);
-		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, param,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, param, callBack);
 	}
 
 	/**
@@ -305,8 +329,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param callBack
 	 */
 	public static void fetchClassifyList(RequestCallBack<String> callBack) {
-		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LIST, null,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LIST, null, callBack);
 	}
 
 	/**
@@ -314,12 +337,10 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * 
 	 * @param callBack
 	 */
-	public static void fetchListByClassify(String classifyId,
-			RequestCallBack<String> callBack) {
+	public static void fetchListByClassify(String classifyId, RequestCallBack<String> callBack) {
 		RequestParams param = new RequestParams();
 		param.addBodyParameter("classifyId", classifyId);
-		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY,
-				null, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY, null, callBack);
 	}
 
 	/**
@@ -328,12 +349,10 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void fetchMyCourseList(String token,
-			RequestCallBack<String> callBack) {
+	public static void fetchMyCourseList(String token, RequestCallBack<String> callBack) {
 		RequestParams param = new RequestParams();
 		param.addBodyParameter(LOGON_TOKEN, token);
-		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, null,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, null, callBack);
 	}
 
 	/**
@@ -344,25 +363,24 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param password
 	 * @param callBack
 	 */
-	public static void doLogin(String deviceId, String username,
-			String password, RequestCallBack<String> callBack) {
+	public static void doLogin(String deviceId, String username, String password, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
-		
+
 		paramMap.clear();
-		
+
 		if (deviceId != null) {
 			paramMap.put("deviceId", deviceId);
 		}
 		paramMap.put("username", username);
 		paramMap.put("password", MD5Util.MD5(password));
-		
+
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+
 		http.send(HttpRequest.HttpMethod.POST, API_USER_LOGIN, params, callBack);
 
 	}
@@ -375,8 +393,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param deviceId
 	 * @param callBack
 	 */
-	public static void doRegister(String username, String password,
-			String deviceId, String nickname, RequestCallBack<String> callBack) {
+	public static void doRegister(String username, String password, String deviceId, String nickname,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -390,15 +408,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		if (deviceId != null) {
 			paramMap.put("deviceId", deviceId);
 		}
-		
+
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_USER_REGISTER, params,
-				callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_USER_REGISTER, params, callBack);
 	}
 
 	/**
@@ -407,8 +424,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param username
 	 * @param callBack
 	 */
-	public static void verifyUsername(String username,
-			RequestCallBack<String> callBack) {
+	public static void verifyUsername(String username, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("username", username);
 		http.send(HttpMethod.POST, API_USER_VERIFYUSERNAME, callBack);
@@ -421,8 +437,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void modifyNickname(String nickname, String logonToken,
-			RequestCallBack<String> callBack) {
+	public static void modifyNickname(String nickname, String logonToken, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader(LOGON_TOKEN, logonToken);
 		params.addBodyParameter("nickname", nickname);

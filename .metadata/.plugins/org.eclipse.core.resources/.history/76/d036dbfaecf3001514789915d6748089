@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Micro-Client</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="left_menu_locate_fail">上海</string>
+	<string name="left_menu_index">首页</string>
+	<string name="left_menu_micro">微课</string>
+	<string name="my">我的</string>
+	<string name="left_menu_setting">设置</string>
+	<string name="courses_title">全部课程</string>
+	<string name="left_menu_top_wall_profession_default">学生</string>
+	<string name="left_name_top_wall_username">小明</string>
+	<string name="home_recommend">小编推荐</string>
+	<string name="home_guess">猜你喜欢</string>
+	<string name="course_list_item_course_name">会计</string>
+	<string name="all_course_cancel_search">取消</string>
+	<string name="all_course_search">搜索</string>
+	<string name="tempVideoTime">02:34/24:00</string>
+	<string name="empty">无数据</string>
+    <string name="clear">清空</string>
+    <string name="restore">恢复</string>
+    <string name="done">完成</string>
+    <string name="exercise_type">单选题</string>
+    <string name="exercise_question">1.下列关于零税率和免税的关系叙述正确的是：</string>
+    <string name="video_description">微观经济学（Microeconomics）(“微观”是希腊文“ μικρο ”的意译，原意是“小")又称个体经济学，小经济学，是现代经济学的一个分支，主要以单个经济单位（单个生产者、单个消费者、单个市场经济活动）作为研究对象分析的一门学科。 微观经济学是研究社会中单个经济单位的经济行为，以及相应的经济变量的单项数值如何决定的经济学说。亦称市场经济学或价格理论。</string>
+    <string name="exercise_answer_detail_btn">查看答案</string>
+    <string name="exercise_reference_answer">参考答案</string>
+    <string name="logout">退出</string>
+    <string name="share">分享</string>
+    <string name="register_title">注册</string>
+    <string name="login_title">登录</string>
+    <!-- 扫描界面 -->
+    <string name="capture_tip">请将条码置于取景框内扫描</string>
+    <string name="scan_text">请将条码置于取景框内扫描</string>
+    <string name="scanDialogTitle">条码内容</string>
+     <string name="sure">确定</string>
+
+     
+     <string name="reply">回复</string>
+</resources>

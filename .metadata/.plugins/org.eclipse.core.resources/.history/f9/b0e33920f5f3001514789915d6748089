@@ -1,0 +1,15 @@
+package yinzhi.micro_client.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import yinzhi.micro_client.R;
+
+public class TipsActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_tips);
+		
+	}
+}

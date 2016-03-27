@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:background="#FCFCFC" >
 
-    <EditText 
+    <EditText
         android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
 
     <RelativeLayout
         android:id="@+id/profile_action_menu"
@@ -44,166 +44,172 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <TableLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_action_menu"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical" >
+        android:layout_below="@id/profile_action_menu" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TableLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/white" >
+            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="邮箱" />
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-            <TextView
-                android:id="@+id/profile_mail"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:text="邮箱" />
+
+                <TextView
+                    android:id="@+id/profile_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:text="xiaona_he@mjz.com" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profile_nick_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:text="xiaona_he@mjz.com" />
-        </RelativeLayout>
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-        <RelativeLayout
-            android:id="@+id/profile_phone_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:text="昵称" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/profile_nick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:background="@null"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profile_school_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:text="手机号码" />
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-            <EditText
-                android:id="@+id/profile_phone"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="学校" />
+
+                <TextView
+                    android:id="@+id/profile_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:ellipsize="end" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profile_college_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="38dp"
-                android:background="@null"
-                android:hint="点击设置"
-                android:inputType="phone"
-                android:singleLine="true" />
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/arrow_right" />
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="院系" />
 
-        <RelativeLayout
-            android:id="@+id/profile_sex_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@color/white" >
+                <TextView
+                    android:id="@+id/profile_college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:ellipsize="end" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/profile_grade_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="25dp"
-                android:text="性别" />
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-            <TextView
-                android:id="@+id/profile_sex"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="年级" />
+
+                <TextView
+                    android:id="@+id/profile_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:ellipsize="end" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profile_classes_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="38dp"
-                android:text="点击设置" />
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/arrow_right" />
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="班级" />
 
-        <RelativeLayout
-            android:id="@+id/profile_birthday_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="25dp"
-                android:text="生日" />
-
-            <TextView
-                android:id="@+id/profile_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="38dp"
-                android:text="点击设置" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/arrow_right" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/profile_profession_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="25dp"
-                android:text="职业" />
-
-            <TextView
-                android:id="@+id/profile_profession"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="38dp"
-                android:text="点击设置" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/arrow_right" />
-        </RelativeLayout>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/profile_classes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38dp"
+                    android:ellipsize="end" />
+            </RelativeLayout>
+        </TableLayout>
+    </ScrollView>
 
 </RelativeLayout>

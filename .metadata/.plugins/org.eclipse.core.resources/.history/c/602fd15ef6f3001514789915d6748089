@@ -1,0 +1,69 @@
+package yinzhi.micro_client.activity;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.webkit.WebView;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZTipsVO;
+
+public class TipsActivity extends Activity {
+
+	@ViewInject(R.id.tips_content)
+	private WebView content;
+
+	/**
+	 * 小贴士内容
+	 */
+	private YZTipsVO tip;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_tips);
+		ViewUtils.inject(this);
+		initData();
+		initView();
+	}
+
+	private void initData() {
+		String resourceId = getIntent().getStringExtra("itemResourceId");
+		if (resourceId != null)
+			fetchExercice(resourceId);
+
+	}
+
+	private void initView() {
+
+	}
+
+	private void fetchExercice(String resourceId) {
+		YZNetworkUtils.fetchCourseTips("", resourceId, new RequestCallBack<String>() {
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+
+				String response = arg0.result;
+
+				tip = YZResponseUtils.parseObject(response, YZTipsVO.class);
+
+				initView();
+
+			}
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+	}
+}

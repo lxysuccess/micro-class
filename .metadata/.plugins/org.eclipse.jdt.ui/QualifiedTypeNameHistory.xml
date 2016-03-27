@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.jeremyfeinstein.slidingmenu.lib.R"/>
+<fullyQualifiedTypeName name="com.viewpagerindicator.TabPageIndicator"/>
+<fullyQualifiedTypeName name="com.lixuyu.mreader.adapter.TabAdapter"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.IntroductionActivity"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.RegisterActivity"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.ProfileActivity"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.BaseActivity"/>
+<fullyQualifiedTypeName name="android.widget.FrameLayout"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.video.MyApplication"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.R"/>
+</qualifiedTypeNameHistroy>

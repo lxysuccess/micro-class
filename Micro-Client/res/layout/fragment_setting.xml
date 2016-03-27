@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="15dp"
-        android:background="@color/white" >
+        android:background="@drawable/personal_item_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <ImageView
             android:id="@+id/setting_avator"
@@ -58,7 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/white" >
+        android:background="@drawable/personal_item_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -79,7 +83,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white" >
+        android:background="@drawable/personal_item_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,7 +107,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/white" >
+        android:background="@drawable/personal_item_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,7 +132,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/white" >
+        android:background="@drawable/personal_item_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:layout_width="wrap_content"
