@@ -26,19 +26,22 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.activity.ExerciseActivity;
 import yinzhi.micro_client.activity.IntroductionActivity;
+import yinzhi.micro_client.activity.TipsActivity;
 import yinzhi.micro_client.activity.video.IjkVideoActicity;
 import yinzhi.micro_client.adapter.StickyHeaderListBaseAdapter;
 import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZCatalogVO;
 import yinzhi.micro_client.network.vo.YZChapterVO;
 import yinzhi.micro_client.network.vo.YZItemResourceVO;
+import yinzhi.micro_client.network.vo.YZVideoVO;
 
 public class VideoCatalogFragment extends Fragment implements AdapterView.OnItemClickListener,
 		StickyListHeadersListView.OnHeaderClickListener, StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
 		StickyListHeadersListView.OnStickyHeaderChangedListener, View.OnTouchListener {
 
 	public static final String TAG = "VideoCatalogFragment";
-	
+
 	public static VideoCatalogFragment fragment;
 	public IntroductionActivity introductionActivity;
 	private StickyHeaderListBaseAdapter mAdapter;
@@ -91,14 +94,14 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		YZItemResourceVO tempItem = itemResources.get(position);
+		YZItemResourceVO tempItem = itemResources.get(position-1);
 		LogUtils.i("类型：" + tempItem.getType() + ",点击列表中的位置:" + position);
 
 		String selectedType = tempItem.getType();
 
 		switch (ResourceType.toRescourseType(selectedType)) {
 		case TEXT:
-			Intent intentText = new Intent(getActivity(), ExerciseActivity.class);
+			Intent intentText = new Intent(getActivity(), TipsActivity.class);
 			intentText.putExtra("itemResourceId", tempItem.getItemResourceId());
 			startActivity(intentText);
 			getActivity().overridePendingTransition(R.anim.activity_anim_up_in, 0);
@@ -117,10 +120,35 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		case VIDEO:
 
 			// 跳转至视频加载界面
-			playVideo(tempItem.getItemResourceId().toString());
+			
+			// TODO token
+			YZNetworkUtils.fetchVideo(tempItem.getItemResourceId().toString(), "", new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					String response = arg0.result;
+
+					YZVideoVO video = YZResponseUtils.parseObject(response, YZVideoVO.class);
+
+					if (video != null) {
+						// 测试数据
+						
+					}
+				}
+			});
+			IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait,
+					IjkVideoActicity.PlayType.vid, videoId, false);
 
 			break;
-
+			
+		case NONE:
+			break;
 		default:
 			break;
 		}
@@ -180,6 +208,8 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		stickyList.setAdapter(mAdapter);
 
 		stickyList.setOnTouchListener(this);
+		
+		itemResources.clear();
 
 		// 将itemResourceId存储在一个List中
 		List<YZChapterVO> chapters = catalog.getChapters();
@@ -187,6 +217,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		for (YZChapterVO chapter : chapters) {
 			resources = chapter.getResourceList();
 			for (YZItemResourceVO resource : resources) {
+				LogUtils.i(resource.toString());
 				itemResources.add(resource);
 			}
 		}
@@ -203,42 +234,19 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		public void onUpdateCatalog();
 	}
 
-	private void playVideo(String resourceId) {
+	public void playVideo(String resourceId) {
 
-		// TODO token
-		YZNetworkUtils.fetchVideo(resourceId, "", new RequestCallBack<String>() {
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
-
-				// YZVideoVO video =
-				// YZResponseUtils.parseObject(response,
-				// YZVideoVO.class);
-				//
-				// if (video != null) {
-				// 测试数据
-				IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait,
-						IjkVideoActicity.PlayType.vid, videoId, false);
-				// }
-			}
-		});
+		
 	}
 
 	public enum ResourceType {
-		TEXT, EXERCISE, VIDEO;
+		TEXT, EXERCISE, VIDEO,NONE;
 
 		public static ResourceType toRescourseType(String type) {
 			try {
 				return valueOf(type);
 			} catch (Exception e) {
-				return VIDEO;
+				return NONE;
 			}
 		}
 	}

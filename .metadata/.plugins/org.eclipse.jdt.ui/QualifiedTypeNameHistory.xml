@@ -9,8 +9,13 @@
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.activity.ProfileActivity"/>
-<fullyQualifiedTypeName name="yinzhi.micro_client.activity.BaseActivity"/>
 <fullyQualifiedTypeName name="android.widget.FrameLayout"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.activity.video.MyApplication"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.activity.BaseActivity"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.R"/>
+<fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.ViewInject"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.R.id"/>
+<fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.event.OnClick"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.network.YZNetworkUtils"/>
+<fullyQualifiedTypeName name="com.lidroid.xutils.http.callback.RequestCallBack"/>
 </qualifiedTypeNameHistroy>

@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="main">#FF7043</color>
     <color name="front_gray">#777777</color>
     <color name="default_tab_indicator_unselected_color">#ffd3dde6</color>
     <color name="default_tab_indicator_selected_color">#00C5CD</color>
-	<color name="tab_indicator_unselected_color">#ffd3dde6</color>
+    <color name="tab_indicator_unselected_color">#ffd3dde6</color>
     <color name="header_pressed">#ffc0392b</color>
     <color name="menu_section_header">#FFDDDDDD</color>
-    
-     <color name="title_color">#37BCB2</color>
-      <color name="black6c">#CCCCCC</color>
-      
-       <!-- 扫描 -->
+    <color name="title_color">#37BCB2</color>
+    <color name="black6c">#CCCCCC</color>
+
+    <!-- 扫描 -->
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
     <color name="possible_result_points">#c0ffbd21</color>
- <!-- Android standard ICS color -->
+    <!-- Android standard ICS color -->
     <color name="result_minor_text">#ffc0c0c0</color>
     <color name="result_points">#c099cc00</color>
- <!-- Android standard ICS color -->
+    <!-- Android standard ICS color -->
     <color name="result_text">#ffffffff</color>
     <color name="result_view">#b0000000</color>
     <color name="status_text">#ffffffff</color>
     <color name="transparent">#00000000</color>
     <color name="viewfinder_laser">#ffcc0000</color>
- <!-- Android standard ICS color -->
+    <!-- Android standard ICS color -->
     <color name="viewfinder_mask">#60000000</color>
-    
-    
-     <color name="grey">#666666</color>
+    <color name="grey">#666666</color>
     <color name="lightgrey">#999999</color>
-     <color name="blue">#39adf9</color>
-     <color name="bgtitlebar">#f5f5f5</color>
-     
-     
-     <!-- 条目按压事的颜色pressed -->
-     <color name="personal_item_selected">#e7e7e7</color>
+    <color name="blue">#39adf9</color>
+    <color name="bgtitlebar">#f5f5f5</color>
+    <color name="bg_gray">#ecedf0</color>
+
+    <!-- 条目按压事的颜色pressed -->
+    <color name="personal_item_selected">#e7e7e7</color>
+
 </resources>

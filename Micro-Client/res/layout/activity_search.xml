@@ -26,6 +26,7 @@
                 android:background="@drawable/all_course_search" />
 
             <EditText
+                android:id="@+id/search_input_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -41,12 +42,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
             android:layout_weight="0.12"
             android:gravity="center"
-            android:layout_marginLeft="8dp"
             android:text="@string/all_course_cancel_search"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </TableRow>
+
+    <ListView
+        android:id="@+id/search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_row"
+        android:background="@color/white"
+        android:visibility="gone" >
+    </ListView>
 
 </RelativeLayout>

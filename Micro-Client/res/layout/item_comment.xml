@@ -35,20 +35,18 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/tv_user_name"
+                android:id="@+id/comment_username"
                 style="@style/SmallTitleString"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="作者" />
+                android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/tv_user_comment"
+                android:id="@+id/comment_content"
                 style="@style/BigTitleString"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="这里是作者发的状态" />
+                android:layout_marginTop="5dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,34 +55,13 @@
                 android:gravity="center" >
 
                 <TextView
-                    android:id="@+id/tv_user_comment_date"
+                    android:id="@+id/comment_date"
                     style="@style/SmallTitleString"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true" />
-
-                <TextView
-                    android:id="@+id/tv_user_reply"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:focusable="false"
-                    android:paddingRight="10dp"
-                    android:text="@string/reply"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp" />
             </RelativeLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" >
-
-                <com.yuan.cfycomment.view.MyListView
-                    android:id="@+id/lv_user_comment_replys"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 

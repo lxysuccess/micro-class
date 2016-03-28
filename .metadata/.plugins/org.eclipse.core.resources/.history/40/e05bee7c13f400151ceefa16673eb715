@@ -1,0 +1,77 @@
+package yinzhi.micro_client.activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.Comment;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import android.os.Bundle;
+import android.widget.ListView;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.vo.YZCommentVO;
+
+public class CommentActivity extends BaseActivity {
+
+	@ViewInject(R.id.comment_list)
+	private ListView listView;
+
+	private LxyCommonAdapter<YZCommentVO> commentListAdapter;
+
+	private List<YZCommentVO> datas;
+
+	private String itemResourceId;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_comment);
+		ViewUtils.inject(this);
+
+		itemResourceId = getIntent().getExtras().getLong("itemResourceId");
+
+		initData();
+
+		commentListAdapter = new LxyCommonAdapter<YZCommentVO>(this, datas, R.layout.) {
+
+			@Override
+			public void convert(LxyViewHolder holder, YZCommentVO t) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		listView.setAdapter(commentListAdapter);
+		commentListAdapter.notifyDataSetChanged();
+		// TODO 数据获取失败处理
+	}
+
+	private void updateData(int page, int size) {
+
+		YZNetworkUtils.fetchCommentList("", itemResourceId, page, size, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+
+			}
+		});
+	}
+
+	private void initView() {
+
+	}
+
+}

@@ -1,0 +1,206 @@
+package yinzhi.micro_client.activity;
+
+import org.w3c.dom.Comment;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import yinzhi.micro_client.R;
+
+public class CommentWriteActivity extends BaseActivity {
+
+	// 评论字数限制
+	private static final int COMMENT_CONTENT_LENGTH_LIMITED = 300;
+
+	private Integer currentScore = 0;
+
+	private Long bookId;
+
+	@ViewInject(R.id.write_comment_star_one)
+	private ImageView starOne;
+	@ViewInject(R.id.write_comment_star_two)
+	private ImageView starTwo;
+	@ViewInject(R.id.write_comment_star_three)
+	private ImageView starThree;
+	@ViewInject(R.id.write_comment_star_four)
+	private ImageView starFour;
+	@ViewInject(R.id.write_comment_star_five)
+	private ImageView starFive;
+
+	@ViewInject(R.id.write_comment_content)
+	private EditText contentInput;
+
+	@ViewInject(R.id.write_comment_word_count)
+	private TextView wordCount;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_comment_write);
+
+		ViewUtils.inject(this);
+
+		bookId = Long.valueOf(getIntent().getStringExtra("itemResourceId", "1"));
+
+		// 初始化，统计内容字数
+		String content = contentInput.getText().toString();
+		wordCount.setText(content.length() + "/" + COMMENT_CONTENT_LENGTH_LIMITED);
+
+		contentInput.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				LogUtils.i("before");
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				LogUtils.i("inaction");
+				String content = contentInput.getText().toString();
+				wordCount.setText(content.length() + "/" + COMMENT_CONTENT_LENGTH_LIMITED);
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				LogUtils.i("after");
+			}
+		});
+
+	}
+
+	@OnClick(R.id.write_comment_star_one)
+	public void starOneClick(View v) {
+		updateStarStae(-1);
+		updateStarStae(1);
+	}
+
+	@OnClick(R.id.write_comment_star_two)
+	public void starTwoClick(View v) {
+		updateStarStae(-1);
+		updateStarStae(2);
+	}
+
+	@OnClick(R.id.write_comment_star_three)
+	public void starThreelick(View v) {
+		updateStarStae(-1);
+		updateStarStae(3);
+	}
+
+	@OnClick(R.id.write_comment_star_four)
+	public void starFourClick(View v) {
+		updateStarStae(-1);
+		updateStarStae(4);
+	}
+
+	@OnClick(R.id.write_comment_star_five)
+	public void starFiveClick(View v) {
+		updateStarStae(-1);
+		updateStarStae(5);
+	}
+
+	private void updateStarStae(int score) {
+		switch (score) {
+		case 1:
+			starOne.setImageResource(R.mipmap.write_comment_star_selected);
+			currentScore = 1;
+			break;
+		case 2:
+			starOne.setImageResource(R.mipmap.write_comment_star_selected);
+			starTwo.setImageResource(R.mipmap.write_comment_star_selected);
+			currentScore = 2;
+			break;
+		case 3:
+			starOne.setImageResource(R.mipmap.write_comment_star_selected);
+			starTwo.setImageResource(R.mipmap.write_comment_star_selected);
+			starThree.setImageResource(R.mipmap.write_comment_star_selected);
+			currentScore = 3;
+			break;
+		case 4:
+			starOne.setImageResource(R.mipmap.write_comment_star_selected);
+			starTwo.setImageResource(R.mipmap.write_comment_star_selected);
+			starThree.setImageResource(R.mipmap.write_comment_star_selected);
+			starFour.setImageResource(R.mipmap.write_comment_star_selected);
+			currentScore = 4;
+			break;
+		case 5:
+			starOne.setImageResource(R.mipmap.write_comment_star_selected);
+			starTwo.setImageResource(R.mipmap.write_comment_star_selected);
+			starThree.setImageResource(R.mipmap.write_comment_star_selected);
+			starFour.setImageResource(R.mipmap.write_comment_star_selected);
+			starFive.setImageResource(R.mipmap.write_comment_star_selected);
+			currentScore = 5;
+			break;
+		default:
+			starOne.setImageResource(R.mipmap.write_comment_star);
+			starTwo.setImageResource(R.mipmap.write_comment_star);
+			starThree.setImageResource(R.mipmap.write_comment_star);
+			starFour.setImageResource(R.mipmap.write_comment_star);
+			starFive.setImageResource(R.mipmap.write_comment_star);
+			break;
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.comment_publish, menu);
+		return true;
+	}
+
+	/**
+	 * 系统菜单键菜单选择事件
+	 *
+	 * @param item
+	 * @return
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+
+		switch (id) {
+		case android.R.id.home:
+			this.finish();
+			break;
+		case R.id.action_publish:
+			String currentContent = contentInput.getText().toString();
+			if (currentContent.length() == 0) {
+				break;
+			}
+			Comment comment = new Comment();
+			comment.setScore(currentScore);
+			comment.setContent(currentContent);
+			comment.setBookId(bookId);
+			LogUtils.i(comment.toString());
+			MReaderNetworkUtils.publishComment("token", comment, new RequestCallBack<String>() {
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					LogUtils.i(responseInfo.result);
+					Toast.makeText(getApplicationContext(), "书评发表成功", Toast.LENGTH_SHORT).show();
+				}
+
+				@Override
+				public void onFailure(HttpException e, String s) {
+					e.printStackTrace();
+				}
+			});
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

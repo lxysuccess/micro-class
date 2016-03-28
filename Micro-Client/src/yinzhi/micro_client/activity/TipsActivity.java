@@ -49,7 +49,12 @@ public class TipsActivity extends Activity {
 
 	private void initView() {
 
-		String html = "<html>" + "<body>" + tip.getContent() + "</body>" + "</html>";
+		String html = "";
+		try {
+			html = "<html>" + "<body>" + tip.getContent() + "</body>" + "</html>";
+		} catch (NullPointerException e) {
+			html = "<H4>数据为空</H4>";
+		}
 		content.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
 		content.getSettings().setJavaScriptEnabled(true);
 		content.getSettings().setSupportZoom(true);
@@ -67,6 +72,7 @@ public class TipsActivity extends Activity {
 
 				tip = YZResponseUtils.parseObject(response, YZTipsVO.class);
 
+				tip.getContent();
 				// TODO 数据校验，权限控制
 				initView();
 

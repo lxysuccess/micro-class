@@ -1,31 +1,23 @@
 package yinzhi.micro_client.activity;
 
-import java.util.Calendar;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import yinzhi.micro_client.R;
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.network.vo.YZUserVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -45,12 +37,12 @@ public class ProfileActivity extends BaseActivity {
 	private RelativeLayout nickLayout;
 
 	@ViewInject(R.id.profile_classes)
-	private TextView classesTextView;
+	private TextView classes;
 	@ViewInject(R.id.profile_grade_layout)
 	private RelativeLayout classesLayout;
 
 	@ViewInject(R.id.profile_grade)
-	private TextView classes;
+	private TextView grade;
 	@ViewInject(R.id.profile_grade_layout)
 	private RelativeLayout gradeLayout;
 
@@ -67,11 +59,39 @@ public class ProfileActivity extends BaseActivity {
 	@ViewInject(R.id.profile_layout)
 	private RelativeLayout parentLayout;
 
+	private YZUserVO userInfo;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		ViewUtils.inject(this);
+
+		initData();
+
+		initView();
+	}
+
+	/**
+	 * 获取在内存中的用户数据
+	 */
+	private void initData() {
+		userInfo = SpMessageUtil.getYZUserVO(this);
+	}
+
+	private void initView() {
+		try {
+			mailTextView.setText(userInfo.getUsername());
+			nickEditText.setText(userInfo.getNickname());
+
+			LogUtils.i(userInfo.getNickname()+"----------->nickname");
+			classes.setText(userInfo.getClasses());
+			grade.setText(userInfo.getGrade());
+			collegeTextView.setText(userInfo.getCollege());
+			schoolTextView.setText(userInfo.getSchool());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -92,11 +112,12 @@ public class ProfileActivity extends BaseActivity {
 	 */
 	@OnClick(R.id.profile_save)
 	public void saveClick(View v) {
-		
+
 	}
 
 	/**
-	 * 设置昵称 
+	 * 设置昵称
+	 * 
 	 * @param v
 	 */
 	@OnClick(R.id.profile_nick_layout)

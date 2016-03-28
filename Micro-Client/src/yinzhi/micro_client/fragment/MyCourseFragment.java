@@ -50,7 +50,7 @@ public class MyCourseFragment extends Fragment {
 			mCourseInfos.add(tempCourse);
 		}
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,27 +58,23 @@ public class MyCourseFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_my_course, null);
 		myCourseListView = (ListView) rootView.findViewById(R.id.my_course_listview);
 		myCourseListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = new Intent(getActivity(),
-						ExerciseActivity.class);
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				Intent intent = new Intent(getActivity(), ExerciseActivity.class);
 				intent.putExtra("choice", 1);
 				startActivity(intent);
-				getActivity().overridePendingTransition(
-						R.anim.activity_anim_left_in, 0);
+				getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
 			}
 		});
 		myCourseListView.setAdapter(new MyCourseAdapter());
 		return rootView;
 	}
-	
+
 	class MyCourseAdapter extends BaseAdapter {
 
 		public int getCount() {
@@ -96,8 +92,7 @@ public class MyCourseFragment extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = View.inflate(getActivity(),
-						R.layout.course_list_item, null);
+				convertView = View.inflate(getActivity(), R.layout.item_course_list, null);
 				holder = new ViewHolder(convertView);
 				convertView.setTag(holder);
 			} else {
@@ -107,8 +102,7 @@ public class MyCourseFragment extends Fragment {
 			LogUtils.i("getView Position" + position);
 			holder.iv_icon.setBackgroundResource(imgs[position]);
 			holder.tv_name.setText(item.getTitle().toString());
-			holder.tv_video_duration
-					.setText(item.getVideoDuration().toString());
+			holder.tv_video_duration.setText(item.getVideoDuration().toString());
 			holder.tv_visit_count.setText(String.valueOf(item.getVisitCount()));
 			return convertView;
 		}
@@ -121,11 +115,10 @@ public class MyCourseFragment extends Fragment {
 		TextView tv_video_duration;
 
 		public ViewHolder(View view) {
-			iv_icon = (ImageView) view.findViewById(R.id.iv_course_icon);
-			tv_name = (TextView) view.findViewById(R.id.tv_name);
+			iv_icon = (ImageView) view.findViewById(R.id.course_icon);
+			tv_name = (TextView) view.findViewById(R.id.course_name);
 			tv_visit_count = (TextView) view.findViewById(R.id.tv_visit_count);
-			tv_video_duration = (TextView) view
-					.findViewById(R.id.tv_video_duration);
+			tv_video_duration = (TextView) view.findViewById(R.id.tv_video_duration);
 		}
 	}
 }

@@ -64,6 +64,8 @@
         </activity>
         <activity android:name="yinzhi.micro_client.activity.AnliActivity" >
         </activity>
+        <activity android:name="yinzhi.micro_client.activity.TipsActivity" >
+        </activity>
         <activity
             android:name="yinzhi.micro_client.activity.IntroductionActivity"
             android:theme="@style/MyTheme" >

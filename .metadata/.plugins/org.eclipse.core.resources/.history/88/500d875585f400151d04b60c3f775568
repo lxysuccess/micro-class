@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableRow
+        android:id="@+id/search_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main"
+        android:padding="8dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="0.8"
+            android:background="@drawable/corner_bg"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/all_course_search" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:hint="@string/all_course_search"
+                android:singleLine="true"
+                android:textColor="@color/front_gray" >
+            </EditText>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/search_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.12"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:text="@string/all_course_cancel_search"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </TableRow>
+
+</RelativeLayout>

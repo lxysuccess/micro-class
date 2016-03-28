@@ -39,4 +39,7 @@
     <string name="sure">确定</string>
     <string name="reply">回复</string>
 
+    <!-- 评论 -->
+    <string name="write_comment_score_tip">点亮星星评分</string>
+
 </resources>

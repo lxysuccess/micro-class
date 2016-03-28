@@ -27,7 +27,7 @@ public class YZResponseUtils implements INetworkConstants {
 		try {
 			dataResponse = JSON.parseObject(response).get("data").toString();
 		} catch (Exception e) {
-			LogUtils.i("JSON 解析失败:"+response);
+			LogUtils.i("JSON 解析失败:" + response);
 			return null;
 		}
 		if (dataResponse == null || "".equals(dataResponse)) {
@@ -52,7 +52,7 @@ public class YZResponseUtils implements INetworkConstants {
 		try {
 			dataResponse = JSON.parseObject(response).get("data").toString();
 		} catch (Exception e) {
-			LogUtils.i("JSON 解析失败:"+response);
+			LogUtils.i("JSON 解析失败:" + response);
 			return null;
 		}
 		if (dataResponse == null || "".equals(dataResponse)) {
@@ -60,8 +60,7 @@ public class YZResponseUtils implements INetworkConstants {
 		}
 		String listDataResponse = "";
 		try {
-			listDataResponse = JSON.parseObject(dataResponse).get("listdata")
-					.toString();
+			listDataResponse = JSON.parseObject(dataResponse).get("listData").toString();
 		} catch (Exception e) {
 			return JSON.parseArray(dataResponse, clazz);
 		}
@@ -103,9 +102,8 @@ public class YZResponseUtils implements INetworkConstants {
 		} catch (Exception e) {
 			return null;
 		}
-		
-		List<YZChapterVO> chapters = JSON.parseArray(dataResponse,
-				YZChapterVO.class);
+
+		List<YZChapterVO> chapters = JSON.parseArray(dataResponse, YZChapterVO.class);
 		YZCatalogVO catalogVO = new YZCatalogVO();
 		catalogVO.setChapters(chapters);
 

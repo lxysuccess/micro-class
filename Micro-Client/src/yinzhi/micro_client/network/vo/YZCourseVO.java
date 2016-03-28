@@ -1,6 +1,6 @@
 package yinzhi.micro_client.network.vo;
 
-public class YZCourseVO {
+public class YZCourseVO extends YZBaseVO {
 
 	private Integer isSubscribe;
 	private Integer order;

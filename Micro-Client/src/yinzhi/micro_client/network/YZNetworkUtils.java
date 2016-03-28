@@ -137,12 +137,21 @@ public class YZNetworkUtils implements INetworkConstants {
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+		paramMap.put("keyWord", keyWord);
+		paramMap.put("page", page);
+		paramMap.put("size", size);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		if (logonToken != null) {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
-		params.addBodyParameter("keyWord", keyWord);
-		params.addBodyParameter("page", page.toString());
-		params.addBodyParameter("size", size.toString());
 		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SEARCH, params, callBack);
 	}
 
@@ -254,11 +263,25 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param callBack
 	 */
 	public static void fetchCourseTips(String logonToken, String itemResourceId, RequestCallBack<String> callBack) {
+
 		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		if (logonToken != null) {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
-		params.addBodyParameter("itemResourceId", itemResourceId);
+
 		http.send(HttpRequest.HttpMethod.POST, API_EXERCISE, params, callBack);
 	}
 
@@ -288,7 +311,7 @@ public class YZNetworkUtils implements INetworkConstants {
 			e.printStackTrace();
 		}
 
-		http.send(HttpMethod.POST, API_VIDEO, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_VIDEO, params, callBack);
 	}
 
 	/**
@@ -301,12 +324,23 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void fetchCommentList(String logonToken, String itemResourceId, Integer page, Integer size,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+		paramMap.put("page", page);
+		paramMap.put("size", size);
 		if (logonToken != null) {
 			params.addHeader(LOGON_TOKEN, logonToken);
 		}
-		params.addBodyParameter("itemResourceId", itemResourceId);
-		params.addBodyParameter("page", page.toString());
-		params.addBodyParameter("size", size.toString());
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_LIST, params, callBack);
 	}
 
@@ -317,10 +351,22 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param callBack
 	 */
 	public static void publishComment(String token, String content, RequestCallBack<String> callBack) {
-		RequestParams param = new RequestParams();
-		param.addBodyParameter(LOGON_TOKEN, token);
-		param.addBodyParameter("content", content);
-		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, param, callBack);
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("content", content);
+
+		params.addHeader(LOGON_TOKEN, token);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, params, callBack);
 	}
 
 	/**

@@ -83,7 +83,6 @@ public class SpMessageUtil {
 			userVO.setUsername(mSharedPreferences.getString("username", ""));
 			userVO.setToken(mSharedPreferences.getString("token", ""));
 			userVO.setNickname(mSharedPreferences.getString("nickname", ""));
-			
 			userVO.setAvatarPicPath(mSharedPreferences.getString("avatarPicPath", null));
 			userVO.setClasses(mSharedPreferences.getString("classes", null));
 			userVO.setNickname(mSharedPreferences.getString("grade", null));

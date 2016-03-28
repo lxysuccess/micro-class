@@ -47,4 +47,10 @@ public class YZItemResourceVO {
 		this.specialSign = specialSign;
 	}
 
+	@Override
+	public String toString() {
+		return "YZItemResourceVO [order=" + order + ", type=" + type + ", title=" + title + ", itemResourceId="
+				+ itemResourceId + ", specialSign=" + specialSign + "]";
+	}
+
 }
