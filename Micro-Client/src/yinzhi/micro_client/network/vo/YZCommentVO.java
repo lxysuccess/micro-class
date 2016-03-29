@@ -4,26 +4,17 @@ import java.util.Date;
 
 public class YZCommentVO {
 
-	private String userId;
-	private String username;
+	private String nickname;
 	private String commentId;
 	private String content;
-	private Date publishTime;
+	private Date publishDate;
 
-	public String getUserId() {
-		return userId;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getCommentId() {
@@ -42,12 +33,12 @@ public class YZCommentVO {
 		this.content = content;
 	}
 
-	public Date getPublishTime() {
-		return publishTime;
+	public Date getPublishDate() {
+		return publishDate;
 	}
 
-	public void setPublishTime(Date publishTime) {
-		this.publishTime = publishTime;
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
 	}
 
 }

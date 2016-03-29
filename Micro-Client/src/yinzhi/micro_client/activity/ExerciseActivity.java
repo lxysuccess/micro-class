@@ -7,6 +7,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
@@ -136,10 +137,12 @@ public class ExerciseActivity extends Activity {
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// 数据获取
 				String response = arg0.result;
+
+				LogUtils.i(response + "lianxitimu ==============");
 				exercise = YZResponseUtils.parseObject(response, YZExerciseVO.class);
 
 				initView();
-				
+
 			}
 
 			@Override
@@ -193,7 +196,7 @@ public class ExerciseActivity extends Activity {
 			return;
 		}
 
-		if (choice == choiceMarks.indexOf(exercise.getAnswer())) {
+		if (choice == (choiceMarks.indexOf(exercise.getAnswer()) + 1)) {
 			// 回答正确
 			resultTextView.setText(exercise.getAnswer() + "\n恭喜！您的答案正确！");
 			resultTextView.setTextColor(Color.GREEN);

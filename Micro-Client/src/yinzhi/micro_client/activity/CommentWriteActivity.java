@@ -1,5 +1,6 @@
 package yinzhi.micro_client.activity;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -8,6 +9,7 @@ import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,8 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZBaseVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
 public class CommentWriteActivity extends BaseActivity {
 
@@ -42,7 +48,15 @@ public class CommentWriteActivity extends BaseActivity {
 	// 评论字数限制
 	private static final int COMMENT_CONTENT_LENGTH_LIMITED = 300;
 
+	/**
+	 * 用户新打评分
+	 */
 	private Integer currentScore = 0;
+
+	/**
+	 * 用户已打的评分
+	 */
+	private Integer orginalScore = 0;
 
 	private String itemResourceId;
 
@@ -54,6 +68,8 @@ public class CommentWriteActivity extends BaseActivity {
 		ViewUtils.inject(this);
 
 		itemResourceId = getIntent().getExtras().getString("itemResourceId");
+
+		init();
 
 		// 初始化，统计内容字数
 		String content = contentInput.getText().toString();
@@ -80,32 +96,107 @@ public class CommentWriteActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 初始化，获取用户是否已评论
+	 */
+	private void init() {
+		YZNetworkUtils.fetchPersonalScore(SpMessageUtil.getLogonToken(getApplicationContext()), itemResourceId,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+
+						String response = arg0.result;
+
+						YZBaseVO baseResult = YZResponseUtils.parseObject(response, YZBaseVO.class);
+
+						// TODO 状态判断并处理
+						if (baseResult.getStatus() == 2) {
+
+							Toast.makeText(getApplicationContext(), "登录信息验证失败，请重新登录", Toast.LENGTH_SHORT).show();
+							SpMessageUtil.deleteSPMsg("userinfo");
+
+							Intent intent = new Intent(CommentWriteActivity.this, LoginActivity.class);
+							startActivity(intent);
+						}
+						
+						
+						String score = JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("score")
+								.toString();
+						orginalScore = Integer.valueOf(score);
+						if (orginalScore != 0) {
+							// 如果评分不等于0，用户已经评论
+							updateStarStae(orginalScore);
+
+							starOne.setClickable(false);
+							starTwo.setClickable(false);
+							starThree.setClickable(false);
+							starFour.setClickable(false);
+							starFive.setClickable(false);
+						} else {
+							updateStarStae(-1);
+						}
+					}
+				});
+
+	}
+
 	@OnClick(R.id.write_comment_star_one)
 	public void starOneClick(View v) {
+		if (orginalScore != 0) {
+			// 用户已评论
+			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			return;
+		}
 		updateStarStae(-1);
 		updateStarStae(1);
 	}
 
 	@OnClick(R.id.write_comment_star_two)
 	public void starTwoClick(View v) {
+		if (orginalScore != 0) {
+			// 用户已评论
+			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			return;
+		}
 		updateStarStae(-1);
 		updateStarStae(2);
 	}
 
 	@OnClick(R.id.write_comment_star_three)
 	public void starThreelick(View v) {
+		if (orginalScore != 0) {
+			// 用户已评论
+			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			return;
+		}
 		updateStarStae(-1);
 		updateStarStae(3);
 	}
 
 	@OnClick(R.id.write_comment_star_four)
 	public void starFourClick(View v) {
+		if (orginalScore != 0) {
+			// 用户已评论
+			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			return;
+		}
 		updateStarStae(-1);
 		updateStarStae(4);
 	}
 
 	@OnClick(R.id.write_comment_star_five)
 	public void starFiveClick(View v) {
+		if (orginalScore != 0) {
+			// 用户已评论
+			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			return;
+		}
 		updateStarStae(-1);
 		updateStarStae(5);
 	}
@@ -154,18 +245,47 @@ public class CommentWriteActivity extends BaseActivity {
 
 	@OnClick(R.id.comment_publish)
 	public void publishClick(View v) {
-		YZNetworkUtils.publishComment("", contentInput.getText().toString(), new RequestCallBack<String>() {
+
+		YZNetworkUtils.publishComment("", contentInput.getText().toString(), itemResourceId,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						// 根据反馈判断是否发布成功，提示用户
+						// TODO 发布结果处理
+						markScore();
+
+					}
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						//
+
+					}
+				});
+
+	}
+
+	/**
+	 * 发表评分
+	 */
+	public void markScore() {
+
+		if (orginalScore != 0) {
+			return;
+		}
+
+		YZNetworkUtils.markScore("", currentScore.toString(), itemResourceId, new RequestCallBack<String>() {
 
 			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				// 根据反馈判断是否发布成功，提示用户
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				//
-
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO 发表评分结果处理
 			}
 		});
 

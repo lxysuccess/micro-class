@@ -6,3 +6,10 @@
 1459129254994	Rename resource 'course_list_item.xml'
 1459133203888	Rename method 'initView'
 1459133223206	Rename method 'reFreshView'
+1459157396352	Copy file
+1459158503454	Rename resource 'activiyt_introduction.xml'
+1459229555087	Copy compilation unit
+1459229930778	Rename type 'YZClassify'
+1459233265464	Rename field 'API_COURSE_HOTRANKINGLIST'
+1459233286584	Rename field 'API_COURSE_HOTRECOMMEND'
+1459234479603	Extract method 'updateDatas'

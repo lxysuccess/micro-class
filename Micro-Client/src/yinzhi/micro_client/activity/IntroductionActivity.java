@@ -85,7 +85,7 @@ public class IntroductionActivity extends BaseActivity implements
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activiyt_introduction);
+		setContentView(R.layout.activity_introduction);
 		ViewUtils.inject(this);
 		courseId = getIntent().getExtras().getString("courseId", "-1");
 

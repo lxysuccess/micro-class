@@ -54,7 +54,7 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void fetchHotRecommendCourse(RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRECOMMEND, params, callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_CHARGERECOMMEND, params, callBack);
 	}
 
 	/**
@@ -85,19 +85,24 @@ public class YZNetworkUtils implements INetworkConstants {
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put(LOGON_TOKEN, logonToken);
+		paramMap.put("page", page.toString());
+		paramMap.put("size", size.toString());
+
 		if (logonToken != null) {
-			params.addHeader(LOGON_TOKEN, logonToken);
+			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		if (deviceId != null) {
-			params.addBodyParameter("deviceId", deviceId);
+			paramMap.put("deviceId", deviceId);
 		}
-		params.addBodyParameter("page", page.toString());
-		params.addBodyParameter("size", size.toString());
 		http.send(HttpRequest.HttpMethod.GET, API_COURSE_FREERANKINGLIST, params, callBack);
 	}
 
 	/**
-	 * 获取人气排行榜列表
+	 * 获取畅销排行榜列表
 	 * 
 	 * @param logonToken
 	 *            令牌(非必须)
@@ -109,19 +114,24 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            一页的数量
 	 * @param callBack
 	 */
-	public static void fetchHotRankingList(String logonToken, String deviceId, Integer page, Integer size,
+	public static void fetchChargeRankingList(String logonToken, String deviceId, Integer page, Integer size,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put(LOGON_TOKEN, logonToken);
+		paramMap.put("page", page.toString());
+		paramMap.put("size", size.toString());
+
 		if (logonToken != null) {
-			params.addHeader(LOGON_TOKEN, logonToken);
+			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		if (deviceId != null) {
-			params.addBodyParameter("deviceId", deviceId);
+			paramMap.put("deviceId", deviceId);
 		}
-		params.addBodyParameter("page", page.toString());
-		params.addBodyParameter("size", size.toString());
-		http.send(HttpRequest.HttpMethod.GET, API_COURSE_HOTRANKINGLIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.GET, API_COURSE_CHARGERANKINGLIST, params, callBack);
 	}
 
 	/**
@@ -224,15 +234,15 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		paramMap.put("itemResourceId", itemResourceId);
 
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		if (logonToken != null) {
-			params.addHeader(LOGON_TOKEN, logonToken);
-		}
-		params.addBodyParameter("itemResourceId", itemResourceId);
+
 		http.send(HttpRequest.HttpMethod.POST, API_EXERCISE, params, callBack);
 	}
 
@@ -272,17 +282,17 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		paramMap.put("itemResourceId", itemResourceId);
 
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
+
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		if (logonToken != null) {
-			params.addHeader(LOGON_TOKEN, logonToken);
-		}
-
-		http.send(HttpRequest.HttpMethod.POST, API_EXERCISE, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_TIPS, params, callBack);
 	}
 
 	/**
@@ -332,7 +342,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		paramMap.put("page", page);
 		paramMap.put("size", size);
 		if (logonToken != null) {
-			params.addHeader(LOGON_TOKEN, logonToken);
+			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 
 		try {
@@ -350,15 +360,17 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void publishComment(String token, String content, RequestCallBack<String> callBack) {
+	public static void publishComment(String token, String content, String itemResourceId,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 		paramMap.clear();
 
 		paramMap.put("content", content);
+		paramMap.put("itemResourceId", itemResourceId);
 
-		params.addHeader(LOGON_TOKEN, token);
+		paramMap.put(LOGON_TOKEN, token);
 
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
@@ -367,6 +379,59 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, params, callBack);
+	}
+
+	/**
+	 * 发表评分
+	 * 
+	 * @param token
+	 * @param callBack
+	 */
+	public static void markScore(String token, String score, String itemResourceId, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("score", score);
+		paramMap.put("itemResourceId", itemResourceId);
+
+		paramMap.put(LOGON_TOKEN, token);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_SCORE_MARK, params, callBack);
+	}
+
+	/**
+	 * 获取用户对该资源的评分
+	 * 
+	 * @param token
+	 * @param itemResourceId
+	 * @param callBack
+	 */
+	public static void fetchPersonalScore(String token, String itemResourceId, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+		paramMap.put(LOGON_TOKEN, token);
+
+		// params.addHeader(LOGON_TOKEN, token);
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_SCORE_PERSONAL, params, callBack);
 	}
 
 	/**
@@ -383,10 +448,24 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * 
 	 * @param callBack
 	 */
-	public static void fetchListByClassify(String classifyId, RequestCallBack<String> callBack) {
-		RequestParams param = new RequestParams();
-		param.addBodyParameter("classifyId", classifyId);
-		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY, null, callBack);
+	public static void fetchListByClassify(String classifyId, Integer page, Integer size,
+			RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("classifyId", classifyId);
+		paramMap.put("page", page.toString());
+		paramMap.put("size", size.toString());
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY, params, callBack);
 	}
 
 	/**
@@ -395,10 +474,23 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void fetchMyCourseList(String token, RequestCallBack<String> callBack) {
-		RequestParams param = new RequestParams();
-		param.addBodyParameter(LOGON_TOKEN, token);
-		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, null, callBack);
+	public static void fetchMyCourseList(String logonToken, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, params, callBack);
 	}
 
 	/**

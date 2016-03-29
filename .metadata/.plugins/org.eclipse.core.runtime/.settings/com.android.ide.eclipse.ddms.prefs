@@ -8,3 +8,4 @@ logcat.view.colsize.TID=44
 logcat.view.colsize.Tag=194
 logcat.view.colsize.Text=541
 logcat.view.colsize.Time=131
+logcat.view.display.filters=false

@@ -42,46 +42,19 @@
             android:background="@drawable/search" />
     </RelativeLayout>
 
-    <TableRow
-        android:id="@+id/search_row"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/all_course_count"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/all_course_menu_bar"
-        android:background="@color/white"
-        android:padding="8dp" >
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:layout_weight="0.85"
-            android:background="@drawable/corner_bg"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/all_course_search" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:hint="@string/all_course_search"
-                android:singleLine="true"
-                android:textColor="@color/front_gray" >
-            </EditText>
-        </LinearLayout>
-    </TableRow>
+        android:padding="5dp"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/all_course_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_row"
+        android:layout_below="@id/all_course_count"
         android:background="@color/white"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"

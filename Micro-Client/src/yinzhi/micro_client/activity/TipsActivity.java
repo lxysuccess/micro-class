@@ -4,6 +4,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -11,6 +12,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.widget.Button;
 import yinzhi.micro_client.R;
@@ -43,7 +45,7 @@ public class TipsActivity extends Activity {
 	private void initData() {
 		String resourceId = getIntent().getStringExtra("itemResourceId");
 		if (resourceId != null)
-			fetchExercice(resourceId);
+			fetchTips(resourceId);
 
 	}
 
@@ -55,20 +57,35 @@ public class TipsActivity extends Activity {
 		} catch (NullPointerException e) {
 			html = "<H4>数据为空</H4>";
 		}
+		
+		
 		content.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-		content.getSettings().setJavaScriptEnabled(true);
-		content.getSettings().setSupportZoom(true);
+		
+		//支持javascript
+		content.getSettings().setJavaScriptEnabled(true); 
+		// 设置可以支持缩放 
+		content.getSettings().setSupportZoom(true); 
+		// 设置出现缩放工具 
+		content.getSettings().setBuiltInZoomControls(true);
+		//扩大比例的缩放
+		content.getSettings().setUseWideViewPort(true);
+		//自适应屏幕
+		content.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		content.getSettings().setLoadWithOverviewMode(true);
+		
 		content.setWebChromeClient(new WebChromeClient());
 
 	}
 
-	private void fetchExercice(String resourceId) {
+	private void fetchTips(String resourceId) {
 		YZNetworkUtils.fetchCourseTips("", resourceId, new RequestCallBack<String>() {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 
 				String response = arg0.result;
+
+				LogUtils.i(response + " ==============");
 
 				tip = YZResponseUtils.parseObject(response, YZTipsVO.class);
 

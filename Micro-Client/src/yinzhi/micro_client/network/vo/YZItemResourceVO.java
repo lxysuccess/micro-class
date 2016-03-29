@@ -6,6 +6,7 @@ public class YZItemResourceVO {
 	private String title;
 	private String itemResourceId;
 	private Integer specialSign;
+	private Integer score;
 
 	public Integer getOrder() {
 		return order;
@@ -45,6 +46,14 @@ public class YZItemResourceVO {
 
 	public void setSpecialSign(Integer specialSign) {
 		this.specialSign = specialSign;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 
 	@Override

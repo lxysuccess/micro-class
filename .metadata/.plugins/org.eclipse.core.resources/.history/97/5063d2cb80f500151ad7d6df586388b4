@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/main"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/home_menu_imgbtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/menu_bar" />
+
+        <ImageButton
+            android:id="@+id/search_imgbtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/search"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/scan_imgbtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/home_scan" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/home_swipelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <yinzhi.micro_client.view.ImageCycleView
+                        android:id="@+id/id_ad_view"
+                        android:layout_width="fill_parent"
+                        android:layout_height="180dp" />
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/viewGroup"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="130dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:padding="15dp" >
+                        </LinearLayout>
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/home_play" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/home_recommend"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="3dp" >
+
+                    <ImageButton
+                        android:id="@+id/home_recommend1"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book1" />
+
+                    <ImageButton
+                        android:id="@+id/home_recommend2"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="3dp" >
+
+                    <ImageButton
+                        android:id="@+id/home_recommend3"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book3" />
+
+                    <ImageButton
+                        android:id="@+id/home_recommend4"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book4" />
+                </TableRow>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:align_parentTop="true"
+                        android:background="@color/bg_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:align_parentBottom="true"
+                        android:center_InParent="true"
+                        android:text="@string/ranking_free" />
+                </RelativeLayout>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/home_hot" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/home_guess"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="3dp" >
+
+                    <ImageButton
+                        android:id="@+id/home_guess1"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book5" />
+
+                    <ImageButton
+                        android:id="@+id/home_guess2"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book1" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="3dp" >
+
+                    <ImageButton
+                        android:id="@+id/home_guess3"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book2" />
+
+                    <ImageButton
+                        android:id="@+id/home_guess4"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/book3" />
+                </TableRow>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

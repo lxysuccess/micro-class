@@ -14,11 +14,12 @@ import com.lidroid.xutils.util.LogUtils;
  * 
  */
 public class SpMessageUtil {
-	
+
 	private static Context context;
 
 	/**
 	 * 存储用户信息至sp
+	 * 
 	 * @param YZUserVO
 	 * @param context
 	 * @return
@@ -71,6 +72,7 @@ public class SpMessageUtil {
 
 	/**
 	 * 获取在sp中用户信息
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -88,8 +90,7 @@ public class SpMessageUtil {
 			userVO.setNickname(mSharedPreferences.getString("grade", null));
 			userVO.setCollege(mSharedPreferences.getString("college", null));
 			userVO.setSchool(mSharedPreferences.getString("school", null));
-			
-			
+
 		} catch (Exception e) {
 			LogUtils.i("读取sharedPreferences异常");
 			return null;
@@ -99,6 +100,7 @@ public class SpMessageUtil {
 
 	/**
 	 * 获取存储在sp中的token
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -108,15 +110,15 @@ public class SpMessageUtil {
 			SharedPreferences mSharedPreferences = context.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
 
 			token = mSharedPreferences.getString("token", "");
-			
+
 		} catch (Exception e) {
 			LogUtils.i("读取token数据异常");
 			return null;
 		}
 		return token;
 	}
-	
-	public int deleteSPMsg(String key) {
+
+	public static int deleteSPMsg(String key) {
 		int result = 0;
 		try {
 			SharedPreferences mSharedPreferences = context.getSharedPreferences(key, Activity.MODE_PRIVATE);
@@ -125,6 +127,7 @@ public class SpMessageUtil {
 			result = 1;
 		} catch (Exception e) {
 			LogUtils.i("删除异常");
+			return result;
 		}
 		return result;
 	}

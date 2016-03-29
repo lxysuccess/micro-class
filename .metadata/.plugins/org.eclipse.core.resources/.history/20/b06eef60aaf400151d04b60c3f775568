@@ -1,0 +1,12 @@
+package yinzhi.micro_client.network.vo;
+
+import java.util.Date;
+
+public class YZCommentVO {
+
+	private String nickname;
+	private String commentId;
+	private String content;
+	private Date publishDate;
+
+}

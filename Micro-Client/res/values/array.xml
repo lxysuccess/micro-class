@@ -3,7 +3,7 @@
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item >首页</item>
-        <item >微课</item>
+        <item >全部课程</item>
         <item >我的</item>
     </string-array>
     

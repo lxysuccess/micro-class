@@ -1,0 +1,33 @@
+package yinzhi.micro_client.activity;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import yinzhi.micro_client.R;
+
+public class CourseListActivity extends BaseActivity {
+	@ViewInject(R.id.course_list_close)
+	private ImageButton close;
+	
+	@ViewInject(R.id.course_list_title)
+	private TextView title;
+	
+	@ViewInject(R.id.course_list_result)
+	private ListView listView;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_course_list);
+		
+		ViewUtils.inject(this);
+		
+	}
+
+}

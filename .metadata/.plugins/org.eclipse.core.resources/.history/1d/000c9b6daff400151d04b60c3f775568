@@ -1,0 +1,8 @@
+package yinzhi.micro_client.network.vo;
+
+public class YZClassify {
+
+	private String title;
+	private String introduction;
+	private String classifyPicPath;
+}

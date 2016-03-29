@@ -1,7 +1,6 @@
 package yinzhi.micro_client.activity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -14,15 +13,14 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,12 +40,12 @@ public class SearchActivity extends Activity {
 	@ViewInject(R.id.search_cancel)
 	private TextView cancel;
 
-	// 存储搜索结果
-	private List<YZCourseVO> resultDatas = new ArrayList<YZCourseVO>();
-
 	// 搜索结果列表
 	@ViewInject(R.id.search_result)
 	private ListView resultList;
+
+	// 存储搜索结果
+	private List<YZCourseVO> resultDatas = new ArrayList<YZCourseVO>();
 
 	private LxyCommonAdapter<YZCourseVO> adapter;
 
@@ -165,6 +163,12 @@ public class SearchActivity extends Activity {
 
 	@OnClick(R.id.search_cancel)
 	public void cancelClick(View v) {
+		searchInput.clearFocus();
+		View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
 		this.finish();
 		overridePendingTransition(0, R.anim.activity_anim_left_out);
 	}
