@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
-		<item value="99" key="DIALOG_Y_ORIGIN"/>
+		<item value="96" key="DIALOG_Y_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="508" key="DIALOG_X_ORIGIN"/>
+		<item value="840" key="DIALOG_X_ORIGIN"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,18 +13,19 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="10dp" key="selection"/>
+		<item value="http" key="selection"/>
 		<list key="findhistory">
+			<item value="http"/>
+			<item value="mImageUrl"/>
+			<item value="rHandler"/>
+			<item value="searchBtn"/>
 			<item value="8dp"/>
 			<item value="8"/>
 			<item value="allCourse"/>
 			<item value="&gt;"/>
-			<item value="YZClassify"/>
-			<item value="course"/>
-			<item value="mImageButton"/>
-			<item value="mNavMenuTitles"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="10dp"/>
 			<item value="10"/>
 			<item value="ranking"/>
@@ -32,7 +33,6 @@
 			<item value="classify"/>
 			<item value="course_teacher_name"/>
 			<item value="course_click_count"/>
-			<item value="course_icon"/>
 		</list>
 	</section>
 </section>

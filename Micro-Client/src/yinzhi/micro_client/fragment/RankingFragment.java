@@ -168,7 +168,7 @@ public class RankingFragment extends Fragment {
 	private void updateDatas(String response) {
 		datas.clear();
 
-		if (JSON.parseObject(response).get("status").equals("0")) {
+		if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
 			Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -190,6 +190,13 @@ public class RankingFragment extends Fragment {
 				holder.setText(R.id.course_name, course.getTitle());
 				holder.setText(R.id.course_click_count, course.getClickCount().toString());
 				holder.setText(R.id.course_teacher_name, course.getTeacherName());
+				if (rankingType == 1) {
+					// 如果是畅销排行，显示价格
+					holder.getView(R.id.course_price).setVisibility(View.VISIBLE);
+					holder.setText(R.id.course_price, course.getPrice());
+				} else {
+					holder.getView(R.id.course_price).setVisibility(View.GONE);
+				}
 
 			}
 		};

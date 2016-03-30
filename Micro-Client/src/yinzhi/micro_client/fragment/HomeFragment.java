@@ -3,6 +3,7 @@ package yinzhi.micro_client.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -22,8 +23,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,38 +32,66 @@ import yinzhi.micro_client.R;
 import yinzhi.micro_client.activity.IntroductionActivity;
 import yinzhi.micro_client.activity.MainActivity;
 import yinzhi.micro_client.activity.SearchActivity;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZCourseVO;
 import yinzhi.micro_client.network.vo.YZSlideVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 import yinzhi.micro_client.utils.barcode.CaptureActivity;
 import yinzhi.micro_client.view.ImageCycleView;
 
 public class HomeFragment extends Fragment implements OnPageChangeListener {
+
+	@ViewInject(R.id.id_ad_view)
+	private ImageCycleView mImageCycleView;
+	@ViewInject(R.id.home_menu_imgbtn)
+	private ImageButton mImageButton;
+	@ViewInject(R.id.home_search_imgbtn)
+	private ImageButton searchBtn;
+	@ViewInject(R.id.scan_imgbtn)
+	private ImageButton scan;
+	@ViewInject(R.id.home_free_list)
+	private GridView freeList;
+	@ViewInject(R.id.home_charge_list)
+	private GridView chargeList;
+
 	private String tag = "FeaturedFragment";
 
 	// 测试播放视频ID 保利威视
 	private static String videoId = "9b55dbfec52e18a98869af498127d00e_9";
 
-	@ViewInject(R.id.id_ad_view)
-	private ImageCycleView mImageCycleView;
-
+	/**
+	 * 存储轮播图片url
+	 */
 	private ArrayList<String> mImageUrl = new ArrayList<String>();
 
+	/**
+	 * 存储实例list
+	 */
 	private List<YZSlideVO> slides = new ArrayList<YZSlideVO>();
 
-	@ViewInject(R.id.home_menu_imgbtn)
-	private ImageButton mImageButton;
+	/**
+	 * 免费好课推荐课程
+	 */
+	private List<YZCourseVO> freeDatas = new ArrayList<YZCourseVO>();
+
+	/**
+	 * 人气好课推荐课程
+	 */
+	private List<YZCourseVO> chargeDatas = new ArrayList<YZCourseVO>();
+
+	private LxyCommonAdapter<YZCourseVO> freeAdapter;
+
+	private LxyCommonAdapter<YZCourseVO> chargeAdapter;
 
 	public static HomeFragment homeFragment;
 
 	private MainActivity activity;
 
-	@ViewInject(R.id.home_search_imgbtn)
-	private ImageButton searchBtn;
-
-	@ViewInject(R.id.scan_imgbtn)
-	private ImageButton scan;
+	private Boolean isInit = true;
 
 	/**
 	 * 下拉刷新
@@ -112,31 +141,120 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 		// 向服务器请求获取推荐书籍宣传图
 		setAdvImageUrl();
 
+		updateDatas();
+
 		mSwipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipelayout);
 		mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
 			@Override
 			public void onRefresh() {
 				LogUtils.i("正在刷新...");
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						try {
-							Thread.sleep(3000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						LogUtils.i("发送信息停止刷新");
-						rHandler.sendEmptyMessage(REFRESH_COMPLETE);
-					}
-				}).start();
+				updateDatas();
 			}
 		});
 		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark, android.R.color.holo_green_light,
 				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
 		return rootView;
+	}
+
+	private void initView() {
+		freeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(), freeDatas, R.layout.item_course_gv) {
+
+			@Override
+			public void convert(LxyViewHolder holder, YZCourseVO t) {
+				holder.setImageButtonUrl(R.id.home_gv_img, INetworkConstants.YZMC_SERVER + t.getCoursePicPath());
+				holder.setText(R.id.home_gv_title, t.getTitle());
+			}
+		};
+		freeList.setAdapter(freeAdapter);
+
+		chargeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(), chargeDatas, R.layout.item_course_gv) {
+
+			@Override
+			public void convert(LxyViewHolder holder, YZCourseVO t) {
+				holder.setImageButtonUrl(R.id.home_gv_img, INetworkConstants.YZMC_SERVER + t.getCoursePicPath());
+				holder.setText(R.id.home_gv_title, t.getTitle());
+			}
+		};
+		chargeList.setAdapter(chargeAdapter);
+		isInit = false;
+
+	}
+
+	/**
+	 * 获取数据
+	 */
+	private void updateDatas() {
+
+		String token = SpMessageUtil.getLogonToken(getActivity().getApplicationContext());
+		YZNetworkUtils.fetchFreeRecommendCourse(token, 0, 4, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String response = arg0.result;
+
+				LogUtils.i("reponse=========" + response);
+				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
+					Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
+				if (isInit) {
+					initView();
+				}
+
+				freeDatas.clear();
+				freeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				freeAdapter.notifyDataSetChanged();
+
+				if (!isInit) {
+					rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+				}
+			}
+		});
+
+		YZNetworkUtils.fetchChargeRecommendCourse(token, 0, 4, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String response = arg0.result;
+
+				LogUtils.i("reponse=========" + response);
+				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
+					Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT)
+							.show();
+					return;
+				}
+
+				if (isInit) {
+					initView();
+				}
+
+				freeDatas.clear();
+				freeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				freeAdapter.notifyDataSetChanged();
+
+				if (!isInit) {
+					rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+				}
+
+			}
+		});
+
 	}
 
 	/**

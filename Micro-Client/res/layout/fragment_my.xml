@@ -42,49 +42,13 @@
                     android:layout_gravity="center_horizontal" >
 
                     <TextView
-                        android:id="@+id/left_name_top_wall_username"
+                        android:id="@+id/my_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/left_name_top_wall_username"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
+                        android:textColor="@color/white" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/left_name_top_wall_username"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal" >
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:background="@drawable/left_menu_top_wall_my" />
-
-                        <TextView
-                            android:id="@+id/tv_visit_count"
-                            android:layout_width="45dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="@string/left_menu_top_wall_profession_default"
-                            android:textColor="@color/white" />
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/left_menu_location" />
-
-                        <TextView
-                            android:id="@+id/tv_video_duration"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="@string/left_menu_locate_fail"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -115,17 +79,5 @@
                 android:background="@drawable/my_edit" />
         </RelativeLayout>
     </FrameLayout>
-
-    <yinzhi.micro_client.view.TabPageIndicator
-        android:id="@+id/my_detail_indicator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/my_detail_viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
 </LinearLayout>

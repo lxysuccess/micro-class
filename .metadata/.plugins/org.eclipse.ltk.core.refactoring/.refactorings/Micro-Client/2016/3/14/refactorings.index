@@ -13,3 +13,6 @@
 1459233265464	Rename field 'API_COURSE_HOTRANKINGLIST'
 1459233286584	Rename field 'API_COURSE_HOTRECOMMEND'
 1459234479603	Extract method 'updateDatas'
+1459241395848	Rename method 'initDatas'
+1459341653197	Delete element
+1459341669856	Delete element
