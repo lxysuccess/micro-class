@@ -6,6 +6,10 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -27,6 +32,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -46,6 +52,9 @@ public class MyFragment extends Fragment {
 
 	@ViewInject(R.id.my_edit)
 	private ImageButton edit;
+
+	@ViewInject(R.id.my_avator)
+	private ImageView avatar;
 
 	// @ViewInject(R.id.my_avator)
 	// private ImageView avator;
@@ -94,9 +103,25 @@ public class MyFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_my, null);
+		View rootView = inflater.inflate(R.layout.fragment_study_center, null);
 		ViewUtils.inject(this, rootView);
 
+		DisplayImageOptions options = new DisplayImageOptions.Builder().resetViewBeforeLoading(false) // default
+																										// 设置图片在加载前是否重置、复位
+				.delayBeforeLoading(1000) // 下载前的延迟时间
+				.cacheInMemory(false) // default 设置下载的图片是否缓存在内存中
+				.cacheOnDisk(false) // default 设置下载的图片是否缓存在SD卡中
+				.considerExifParams(false) // default
+				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+																		// 设置图片以如何的编码方式显示
+				.bitmapConfig(Bitmap.Config.ARGB_8888) // default 设置图片的解码类型
+				.displayer(new RoundedBitmapDisplayer(90)) // default
+															// 还可以设置圆角图片new
+															// RoundedBitmapDisplayer(20)
+				.handler(new Handler()) // default
+				.build();
+		ImageLoader.getInstance().displayImage("http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
+				avatar, options);
 		return rootView;
 	}
 

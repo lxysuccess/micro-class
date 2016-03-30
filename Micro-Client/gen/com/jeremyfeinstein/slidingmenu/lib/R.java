@@ -116,7 +116,7 @@ public final class R {
 		public static final int none = 0x7f05000c;
 		public static final int right = 0x7f050009;
 		public static final int selected_view = 0x7f050000;
-		public static final int slidingmenumain = 0x7f0500f3;
+		public static final int slidingmenumain = 0x7f0500f4;
 		public static final int top = 0x7f050010;
 		public static final int triangle = 0x7f05000d;
 		public static final int underline = 0x7f05000e;

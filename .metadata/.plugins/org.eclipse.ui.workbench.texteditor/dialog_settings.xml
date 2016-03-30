@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="http" key="selection"/>
+		<item value="introImage" key="selection"/>
 		<list key="findhistory">
+			<item value="introImage"/>
+			<item value="parentLayout"/>
 			<item value="http"/>
 			<item value="mImageUrl"/>
 			<item value="rHandler"/>
 			<item value="searchBtn"/>
 			<item value="8dp"/>
 			<item value="8"/>
-			<item value="allCourse"/>
-			<item value="&gt;"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
