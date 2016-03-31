@@ -28,7 +28,8 @@
         <activity
             android:name="yinzhi.micro_client.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +77,9 @@
         </activity>
         <activity
             android:name="yinzhi.micro_client.activity.video.IjkVideoActicity"
-            android:configChanges="orientation|screenSize|keyboardHidden" >
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
         <service android:name="com.easefun.polyvsdk.demo.PolyvDemoService" />

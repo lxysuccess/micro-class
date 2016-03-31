@@ -48,7 +48,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 	private boolean fadeHeader = true;
 
 	// 测试播放视频ID 保利威视
-	private static String videoId = "9b55dbfec52e18a98869af498127d00e_9";
+	private static String videoId = "c3df59288d6ecd9eb4174822850cc858_c";
 
 	// 存储一个课程的所有子资源的List
 	private List<YZItemResourceVO> itemResources = new ArrayList<YZItemResourceVO>();
@@ -94,7 +94,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		YZItemResourceVO tempItem = itemResources.get(position-1);
+		YZItemResourceVO tempItem = itemResources.get(position - 1);
 		LogUtils.i("类型：" + tempItem.getType() + ",点击列表中的位置:" + position);
 
 		String selectedType = tempItem.getType();
@@ -120,7 +120,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		case VIDEO:
 
 			// 跳转至视频加载界面
-			
+
 			// TODO token
 			YZNetworkUtils.fetchVideo(tempItem.getItemResourceId().toString(), "", new RequestCallBack<String>() {
 
@@ -138,15 +138,15 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 
 					if (video != null) {
 						// 测试数据
-						
+
 					}
 				}
 			});
-			IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait,
-					IjkVideoActicity.PlayType.vid, videoId, false);
+			IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait, IjkVideoActicity.PlayType.vid,
+					videoId, tempItem.getItemResourceId(), false);
 
 			break;
-			
+
 		case NONE:
 			break;
 		default:
@@ -208,7 +208,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		stickyList.setAdapter(mAdapter);
 
 		stickyList.setOnTouchListener(this);
-		
+
 		itemResources.clear();
 
 		// 将itemResourceId存储在一个List中
@@ -236,11 +236,10 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 
 	public void playVideo(String resourceId) {
 
-		
 	}
 
 	public enum ResourceType {
-		TEXT, EXERCISE, VIDEO,NONE;
+		TEXT, EXERCISE, VIDEO, NONE;
 
 		public static ResourceType toRescourseType(String type) {
 			try {

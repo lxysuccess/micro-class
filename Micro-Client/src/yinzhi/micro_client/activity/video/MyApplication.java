@@ -9,16 +9,21 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import yinzhi.micro_client.R;
 
 public class MyApplication extends Application {
 
@@ -100,7 +105,7 @@ public class MyApplication extends Application {
 		// client.setConfig("你的SDK加密串");
 		// client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
 		client.setConfig(
-				"1TlLTAxh62uRCe8nW/8NVgTIhQ/Zss2DHs+bmVIkG9jz5fEo/TEez2WUsvI5/LYJAtSXDtcJLSsFrhK6l+liiyt9GosdjrWeLnTP2MXdKJr7mpbIHxILY8gcpF1GBk+zczjEvURQQ8ykMc4hFdVvaw==");
+				"99rNsXOP1FapdjfuB/EsvIvrrGyztCBbN2bMMjbov7bF+/wIp1d4SDqJzp+sBKIOS0qo/ttXEtQl7cGPgfGl3HJvesSfApxRy/34CZa/aHI8pU8E1rjyR87fkmR+eSr4O7tg++BwxogIPeZU8xRU1Q==");
 		// 下载文件的目录
 		client.setDownloadDir(saveDir);
 		// 初始化数据库服务
@@ -155,4 +160,6 @@ public class MyApplication extends Application {
 	public static int getMainThreadId() {
 		return mMainTheadId;
 	}
+
+	
 }

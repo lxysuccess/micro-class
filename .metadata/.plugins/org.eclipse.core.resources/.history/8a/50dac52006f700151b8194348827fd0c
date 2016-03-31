@@ -1,0 +1,5 @@
+package yinzhi.micro_client.network.vo;
+
+public class YZSubtitleVO {
+
+}

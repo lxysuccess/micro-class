@@ -12,16 +12,13 @@
         android:background="@drawable/left_menu_top_wall_bg"
         android:gravity="center_horizontal" >
 
-        <yinzhi.micro_client.view.CircularImageView
+        <ImageView
             android:id="@+id/left_menu_user_avator"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/touxiang"
-            app:border_color="@color/white"
-            app:border_width="2dp" />
+            android:layout_marginTop="40dp" />
 
         <TextView
             android:id="@+id/left_name_top_wall_username"

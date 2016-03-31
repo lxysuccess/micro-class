@@ -1,216 +1,138 @@
 package yinzhi.micro_client.fragment;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.tencent.bugly.proguard.ac;
+import com.viewpagerindicator.TabPageIndicator;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ImageButton;
 import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.CourseListActivity;
-import yinzhi.micro_client.activity.IntroductionActivity;
-import yinzhi.micro_client.activity.RankingActivity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZCourseVO;
-import yinzhi.micro_client.utils.SpMessageUtil;
+import yinzhi.micro_client.activity.MainActivity;
 
 public class RankingFragment extends Fragment {
 
-	@ViewInject(R.id.ranking_list_result)
-	private ListView listView;
+	/**
+	 * 课程介绍和目录
+	 */
+	@ViewInject(R.id.ranking_viewpager)
+	private ViewPager pager;
 
-	// 所有课程页课程列表
-	private List<YZCourseVO> datas = new ArrayList<YZCourseVO>();
-
-	// 列表适配器
-	private LxyCommonAdapter<YZCourseVO> adapter;
-
-	private static RankingFragment rankingFragment;
-
-	private RankingActivity activity;
+	@ViewInject(R.id.ranking_menu_imgbtn)
+	private ImageButton mImageButton;
 
 	/**
-	 * 排行榜列表类型，0：免费排行，1：畅销排行
+	 * tab页切换指示标签
 	 */
-	private static Integer rankingType = 0;
+	@ViewInject(R.id.ranking_indicator)
+	private TabPageIndicator indicator;
 
-	public synchronized static RankingFragment getInstance(int type) {
-		rankingType = type;
+	private String[] text = new String[] { "免费排行", "畅销排行" };
+	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
-		if (rankingFragment == null) {
-			rankingFragment = new RankingFragment();
+	private static RankingFragment fragmentRanking;
+
+	private MainActivity activity;
+
+	public synchronized static RankingFragment getInstance() {
+		if (fragmentRanking == null) {
+			fragmentRanking = new RankingFragment();
 		}
-		return rankingFragment;
+		return fragmentRanking;
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		this.activity = (RankingActivity) activity;
+		// TODO Auto-generated method stub
+		super.onDetach();
+		try {
+			Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+			childFragmentManager.setAccessible(true);
+			childFragmentManager.set(this, null);
+		} catch (NoSuchFieldException e) {
+			throw new RuntimeException();
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException();
+		}
+		this.activity = (MainActivity) activity;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_ranking, null);
-
 		ViewUtils.inject(this, rootView);
 
-		initData(rankingType, 0, 20);
+		initFragment();
 
 		return rootView;
 	}
 
 	/**
-	 * 获取所有的分类信息
+	 * 子页相关
 	 */
-	private void initData(int type, int page, int size) {
-		String logonToken = SpMessageUtil.getLogonToken(getActivity().getApplicationContext());
+	private void initFragment() {
 
-		switch (type) {
-		case 0:
-
-			// 获取免费课程数据
-			YZNetworkUtils.fetchFreeRankingList(logonToken, "", page, size, new RequestCallBack<String>() {
-
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					String response = arg0.result;
-
-					updateDatas(response);
-
-				}
-
-			});
-			break;
-		case 1:
-
-			// 获取畅销排行榜数据
-			YZNetworkUtils.fetchChargeRankingList(logonToken, "", page, size, new RequestCallBack<String>() {
-
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					String response = arg0.result;
-
-					updateDatas(response);
-
-				}
-			});
-			break;
-
-		default:
-
-			// 获取免费课程数据
-			YZNetworkUtils.fetchFreeRankingList(logonToken, "", page, size, new RequestCallBack<String>() {
-
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					String response = arg0.result;
-
-					updateDatas(response);
-
-				}
-
-			});
-			break;
-		}
+		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(
+				getActivity().getSupportFragmentManager());
+		pager.setAdapter(myFragmentPagerAdapter);
+		pager.setCurrentItem(0);
+		indicator.setViewPager(pager);
 
 	}
 
 	/**
-	 * 更新列表数据
+	 * 调出侧滑菜单
 	 * 
-	 * @param response
+	 * @param v
 	 */
-	private void updateDatas(String response) {
-		datas.clear();
+	@OnClick(R.id.ranking_menu_imgbtn)
+	public void menuClick(View v) {
+		activity.toggle();
+	}
 
-		if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
-			Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT).show();
-			return;
+	class MyIntroductionAdapter extends FragmentPagerAdapter {
+
+		public MyIntroductionAdapter(FragmentManager fm) {
+			super(fm);
 		}
 
-		datas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+		@Override
+		public SubRankingFragment getItem(int position) {
 
-		adapter.notifyDataSetChanged();
-	}
+			return new SubRankingFragment(position);
+		}
 
-	/**
-	 * 更新View
-	 */
-	public void initView() {
-		adapter = new LxyCommonAdapter<YZCourseVO>(getActivity(), datas, R.layout.item_course_list) {
-			@Override
-			public void convert(LxyViewHolder holder, YZCourseVO course) {
+		@Override
+		public int getCount() {
+			return 2;
+		}
 
-				holder.setImageViewUrl(R.id.course_icon, INetworkConstants.YZMC_SERVER + course.getCoursePicPath());
-				holder.setText(R.id.course_name, course.getTitle());
-				holder.setText(R.id.course_click_count, course.getClickCount().toString());
-				holder.setText(R.id.course_teacher_name, course.getTeacherName());
-				if (rankingType == 1) {
-					// 如果是畅销排行，显示价格
-					holder.getView(R.id.course_price).setVisibility(View.VISIBLE);
-					holder.setText(R.id.course_price, course.getPrice());
-				} else {
-					holder.getView(R.id.course_price).setVisibility(View.GONE);
-				}
+		@Override
+		public int getItemPosition(Object object) {
+			return super.getItemPosition(object);
+		}
 
-			}
-		};
-		listView.setAdapter(adapter);
-	}
-
-	@OnItemClick(R.id.all_course_listview)
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		LogUtils.i("position------>" + position);
-
-		Intent intent = new Intent(getActivity(), IntroductionActivity.class);
-		intent.putExtra("courseId", datas.get(position).getCourseId());
-		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return text[position];
+		}
 	}
 
 }

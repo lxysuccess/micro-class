@@ -367,6 +367,41 @@ public class YZNetworkUtils implements INetworkConstants {
 	}
 
 	/**
+	 * 视频字幕搜索
+	 * 
+	 * @param logonToken
+	 * @param keyWord
+	 * @param itemResourceId
+	 * @param page
+	 * @param size
+	 * @param callBack
+	 */
+	public static void searchVideoSubtitle(String logonToken, String keyWord, String itemResourceId, Integer page,
+			Integer size, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		paramMap.clear();
+
+		paramMap.put("itemResourceId", itemResourceId);
+		paramMap.put("keyWord", keyWord);
+		paramMap.put("page", page);
+		paramMap.put("size", size);
+
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_VIDEO_SUBTITLE, params, callBack);
+	}
+
+	/**
 	 * 获取评论列表
 	 * 
 	 * @param bookId

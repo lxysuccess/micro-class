@@ -1,0 +1,130 @@
+package yinzhi.micro_client.fragment;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.viewpagerindicator.TabPageIndicator;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.utils.ImageUtil;
+
+public class RankingFragment extends Fragment {
+
+	/**
+	 * 课程介绍和目录
+	 */
+	@ViewInject(R.id.ranking_viewpager)
+	private ViewPager pager;
+
+	/**
+	 * tab页切换指示标签
+	 */
+	@ViewInject(R.id.ranking_indicator)
+	private TabPageIndicator indicator;
+
+	private String[] text = new String[] { "免费排行", "畅销排行" };
+	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+
+	private static RankingFragment fragmentRanking;
+
+	private MainActivity activity;
+
+	private Integer pageType = 0;
+
+	public synchronized static RankingFragment getInstance() {
+		if (fragmentRanking == null) {
+			fragmentRanking = new RankingFragment();
+		}
+		return fragmentRanking;
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		this.activity = (MainActivity) activity;
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		try {
+			Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+			childFragmentManager.setAccessible(true);
+			childFragmentManager.set(this, null);
+		} catch (NoSuchFieldException e) {
+			throw new RuntimeException();
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_ranking, null);
+		ViewUtils.inject(this, rootView);
+
+		initFragment();
+
+		return rootView;
+	}
+
+	/**
+	 * 子页相关
+	 */
+	private void initFragment() {
+
+		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(
+				getActivity().getSupportFragmentManager());
+		pager.setAdapter(myFragmentPagerAdapter);
+		pager.setCurrentItem(0);
+		indicator.setViewPager(pager);
+
+	}
+
+	class MyIntroductionAdapter extends FragmentPagerAdapter {
+
+		public MyIntroductionAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+
+			return SubRankingFragment.getInstance(position);
+		}
+
+		@Override
+		public int getCount() {
+			return 2;
+		}
+
+		@Override
+		public int getItemPosition(Object object) {
+			return super.getItemPosition(object);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return text[position];
+		}
+	}
+
+}

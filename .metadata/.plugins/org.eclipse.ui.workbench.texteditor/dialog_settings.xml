@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
-		<item value="96" key="DIALOG_Y_ORIGIN"/>
+		<item value="98" key="DIALOG_Y_ORIGIN"/>
+		<item value="958" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="840" key="DIALOG_X_ORIGIN"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="introImage" key="selection"/>
+		<item value="videoTimeLong" key="selection"/>
 		<list key="findhistory">
-			<item value="introImage"/>
-			<item value="parentLayout"/>
-			<item value="http"/>
-			<item value="mImageUrl"/>
-			<item value="rHandler"/>
-			<item value="searchBtn"/>
-			<item value="8dp"/>
-			<item value="8"/>
+			<item value="videoTimeLong"/>
+			<item value="stopPosition"/>
+			<item value="seek"/>
+			<item value="videoId"/>
+			<item value="home"/>
+			<item value="fragmentMy"/>
+			<item value="activity"/>
+			<item value="Rank"/>
 		</list>
 		<list key="replacehistory">
+			<item value="ranking"/>
+			<item value="fragmentRanking"/>
 			<item value=""/>
 			<item value="10dp"/>
 			<item value="10"/>
-			<item value="ranking"/>
 			<item value="YZCourseVO"/>
 			<item value="classify"/>
 			<item value="course_teacher_name"/>
-			<item value="course_click_count"/>
 		</list>
 	</section>
 </section>

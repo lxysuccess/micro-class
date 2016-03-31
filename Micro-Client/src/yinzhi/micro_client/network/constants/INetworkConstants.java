@@ -10,7 +10,7 @@ public interface INetworkConstants {
 	public final static String CHARSET = "UTF-8";
 
 	// ==============接口相关==============
-	public final static String YZMC_SERVER = "http://192.168.2.104:8080";
+	public final static String YZMC_SERVER = "http://10.189.194.64:8080";
 	// 首页
 	public final static String API_COURSE_SLIDELIST = YZMC_SERVER + "/api/v1/course/slide/list";
 	public final static String API_COURSE_CHARGERECOMMEND = YZMC_SERVER + "/api/v1/course/chargeLastedRecommend";
@@ -29,6 +29,7 @@ public interface INetworkConstants {
 
 	// 视频播放
 	public final static String API_VIDEO = YZMC_SERVER + "/api/v1/video";
+	public final static String API_VIDEO_SUBTITLE = YZMC_SERVER + "/api/v1/course/video/subtitle/list";
 
 	// 评论
 	public final static String API_COMMENT_PUBLISH = YZMC_SERVER + "/api/v1/comment/publish";

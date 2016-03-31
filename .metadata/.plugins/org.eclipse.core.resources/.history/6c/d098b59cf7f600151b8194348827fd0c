@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>首页</item>
+        <item>全部课程</item>
+        <item>排行榜</item>
+        <item>我的</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/left_menu_home</item>
+        <item>@drawable/left_menu_micro</item>
+        <item>@drawable/left_menu_ranking</item>
+        <item>@drawable/left_menu_my</item>
+    </array>
+
+    <string-array name="countries">
+        <item>1&#8211;1税:那些不得不说的事儿</item>
+        <item>1&#8211;2 我国现行税法体制</item>
+        <item>1&#8211;3 涉税文书报表填写</item>
+        <item>1&#8211;4 扒一扒那些奇葩的税</item>
+        <item>2&#8211;1增值税中的零税率</item>
+        <item>2&#8211;2增值税申报</item>
+        <item>2&#8211;3特殊销售方式中的增值税</item>
+        <item>2&#8211;4税收筹划</item>
+        <item>3&#8211;1涉外税收</item>
+        <item>3&#8211;2企业所得税申报</item>
+        <item>3&#8211;3所得税：猫和老鼠</item>
+        <item>4&#8211;1别人家的个税</item>
+        <item>4&#8211;2怎么缴纳个税</item>
+        <item>4&#8211;3个人所得税填报</item>
+        <item>4&#8211;4个税应该高还是低</item>
+    </string-array>
+
+</resources>

@@ -6,6 +6,7 @@ import yinzhi.micro_client.fragment.HomeFragment;
 import yinzhi.micro_client.fragment.MenuFragment;
 import yinzhi.micro_client.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import yinzhi.micro_client.fragment.MyFragment;
+import yinzhi.micro_client.fragment.RankingFragment;
 import yinzhi.micro_client.fragment.SettingFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,8 +20,7 @@ import android.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class MainActivity extends SlidingFragmentActivity implements
-		SLMenuListOnItemClickListener {
+public class MainActivity extends SlidingFragmentActivity implements SLMenuListOnItemClickListener {
 
 	// 初始化一个侧边栏
 	private SlidingMenu mSlidingMenu;
@@ -49,31 +49,30 @@ public class MainActivity extends SlidingFragmentActivity implements
 		// TOUCHMODE_NONE 不能通过手势打开SlidingMenu
 		mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		// 设置SlidingMenu内容
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-				.beginTransaction();
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.left_menu, MenuFragment.getInstance());
 		fragmentTransaction.replace(R.id.content, HomeFragment.getInstance());
 		fragmentTransaction.commit();
 		// getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-//		Intent intent = getIntent();  
-//        String scheme = intent.getScheme();  
-//        LogUtils.i("scheme:"+scheme);  
-//        Uri uri = intent.getData();  
-//        if (uri != null) {  
-//            String host = uri.getHost();  
-//            String dataString = intent.getDataString();  
-//            String id = uri.getQueryParameter("d");  
-//            String path = uri.getPath();  
-//            String path1 = uri.getEncodedPath();  
-//            String queryString = uri.getQuery();  
-//            LogUtils.i("host:"+host);  
-//            LogUtils.i("dataString:"+dataString);  
-//            LogUtils.i("id:"+id);  
-//            LogUtils.i("path:"+path);  
-//            LogUtils.i("path1:"+path1);  
-//            LogUtils.i("queryString:"+queryString);  
-//        }  
+
+		// Intent intent = getIntent();
+		// String scheme = intent.getScheme();
+		// LogUtils.i("scheme:"+scheme);
+		// Uri uri = intent.getData();
+		// if (uri != null) {
+		// String host = uri.getHost();
+		// String dataString = intent.getDataString();
+		// String id = uri.getQueryParameter("d");
+		// String path = uri.getPath();
+		// String path1 = uri.getEncodedPath();
+		// String queryString = uri.getQuery();
+		// LogUtils.i("host:"+host);
+		// LogUtils.i("dataString:"+dataString);
+		// LogUtils.i("id:"+id);
+		// LogUtils.i("path:"+path);
+		// LogUtils.i("path1:"+path1);
+		// LogUtils.i("queryString:"+queryString);
+		// }
 	}
 
 	@Override
@@ -112,6 +111,9 @@ public class MainActivity extends SlidingFragmentActivity implements
 			fragment = AllCourseFragment.getInstance();
 			break;
 		case 2:
+			fragment = RankingFragment.getInstance();
+			break;
+		case 3:
 			fragment = MyFragment.getInstance();
 			break;
 		case 5:
@@ -123,8 +125,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 		if (fragment != null) {
 			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.content, fragment)
-					.commit();
+			fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
 			// update selected item and title, then close the drawer
 			setTitle(title);
 			Handler h = new Handler();

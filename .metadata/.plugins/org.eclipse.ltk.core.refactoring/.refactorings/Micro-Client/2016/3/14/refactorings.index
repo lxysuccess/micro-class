@@ -20,3 +20,8 @@
 1459343619082	Delete element
 1459344525868	Rename resource 'attrs.xml'
 1459345622764	Delete element
+1459398134908	Move compilation unit
+1459398249654	Rename type 'RankingFragment'
+1459398273345	Rename type 'RankingActivity'
+1459398570844	Rename resource 'fragment_ranking.xml'
+1459398589848	Rename resource 'activity_ranking.xml'

@@ -43,7 +43,7 @@ import yinzhi.micro_client.utils.SpMessageUtil;
 import yinzhi.micro_client.utils.barcode.CaptureActivity;
 import yinzhi.micro_client.view.ImageCycleView;
 
-public class HomeFragment extends Fragment implements OnPageChangeListener {
+public class HomeFragment extends Fragment implements OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
 	@ViewInject(R.id.id_ad_view)
 	private ImageCycleView mImageCycleView;
@@ -57,6 +57,8 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 	private GridView freeList;
 	@ViewInject(R.id.home_charge_list)
 	private GridView chargeList;
+	@ViewInject(R.id.home_swipelayout)
+	private SwipeRefreshLayout mSwipeLayout;
 
 	private String tag = "FeaturedFragment";
 
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 
 	private MainActivity activity;
 
-	private Boolean isInit = true;
+	private static Boolean isInit = true;
 
 	/**
 	 * 下拉刷新
@@ -99,7 +101,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 	 * @return
 	 */
 	private static final int REFRESH_COMPLETE = 0X110;
-	private SwipeRefreshLayout mSwipeLayout;
+
 	private Handler rHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -141,17 +143,9 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 		// 向服务器请求获取推荐书籍宣传图
 		setAdvImageUrl();
 
-		updateDatas();
+		mSwipeLayout.setOnRefreshListener(this);
+		onRefresh();
 
-		mSwipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipelayout);
-		mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-			@Override
-			public void onRefresh() {
-				LogUtils.i("正在刷新...");
-				updateDatas();
-			}
-		});
 		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark, android.R.color.holo_green_light,
 				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
@@ -401,6 +395,13 @@ public class HomeFragment extends Fragment implements OnPageChangeListener {
 	@Override
 	public void onPageSelected(int arg0) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onRefresh() {
+		LogUtils.i("正在刷新...");
+		updateDatas();
 
 	}
 
