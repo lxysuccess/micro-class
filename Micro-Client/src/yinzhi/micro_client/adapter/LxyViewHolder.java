@@ -1,7 +1,6 @@
 package yinzhi.micro_client.adapter;
 
-
-import com.lidroid.xutils.BitmapUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import yinzhi.micro_client.utils.ImageUtil;
 
 public class LxyViewHolder {
 	private SparseArray<View> mViews;
@@ -108,10 +108,7 @@ public class LxyViewHolder {
 	 */
 	public LxyViewHolder setImageButtonUrl(int viewId, String url) {
 		ImageButton view = getView(viewId);
-		// Imageloader.getInstance().loadImage(view,url);
-		BitmapUtils bitmapUtils = new BitmapUtils(mContext);
-		// 加载网络图片
-		bitmapUtils.display(view, url);
+		ImageLoader.getInstance().displayImage(url, view, ImageUtil.getDisplayOption(20));
 		return this;
 	}
 
@@ -124,9 +121,7 @@ public class LxyViewHolder {
 	 */
 	public LxyViewHolder setImageViewUrl(int viewId, String url) {
 		ImageView view = getView(viewId);
-		BitmapUtils bitmapUtils = new BitmapUtils(mContext);
-		// 加载网络图片
-		bitmapUtils.display(view, url);
+		ImageLoader.getInstance().displayImage(url, view, ImageUtil.getDisplayOption(10));
 		return this;
 	}
 

@@ -30,6 +30,7 @@ public class YZResponseUtils implements INetworkConstants {
 			LogUtils.i("JSON 解析失败:" + response);
 			return null;
 		}
+		
 		if (dataResponse == null || "".equals(dataResponse)) {
 			return null;
 		}
@@ -56,6 +57,11 @@ public class YZResponseUtils implements INetworkConstants {
 			return null;
 		}
 		if (dataResponse == null || "".equals(dataResponse)) {
+			return null;
+		}
+
+		if (JSON.parseObject(dataResponse).get("status").toString().equals("0")) {
+			// 如果状态为0 则返回null
 			return null;
 		}
 		String listDataResponse = "";
@@ -96,14 +102,8 @@ public class YZResponseUtils implements INetworkConstants {
 	}
 
 	public static YZCatalogVO parseCatalog(String response) {
-		String dataResponse = null;
-		try {
-			dataResponse = JSON.parseObject(response).get("data").toString();
-		} catch (Exception e) {
-			return null;
-		}
 
-		List<YZChapterVO> chapters = JSON.parseArray(dataResponse, YZChapterVO.class);
+		List<YZChapterVO> chapters = parseArray(response, YZChapterVO.class);
 		YZCatalogVO catalogVO = new YZCatalogVO();
 		catalogVO.setChapters(chapters);
 

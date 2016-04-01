@@ -10,7 +10,8 @@ public interface INetworkConstants {
 	public final static String CHARSET = "UTF-8";
 
 	// ==============接口相关==============
-	public final static String YZMC_SERVER = "http://10.189.194.64:8080";
+	// public final static String YZMC_SERVER = "http://10.189.202.66:8080";
+	public final static String YZMC_SERVER = "http://115.28.224.38";
 	// 首页
 	public final static String API_COURSE_SLIDELIST = YZMC_SERVER + "/api/v1/course/slide/list";
 	public final static String API_COURSE_CHARGERECOMMEND = YZMC_SERVER + "/api/v1/course/chargeLastedRecommend";
@@ -29,7 +30,7 @@ public interface INetworkConstants {
 
 	// 视频播放
 	public final static String API_VIDEO = YZMC_SERVER + "/api/v1/video";
-	public final static String API_VIDEO_SUBTITLE = YZMC_SERVER + "/api/v1/course/video/subtitle/list";
+	public final static String API_VIDEO_SUBTITLE = YZMC_SERVER + "/api/v1/video/subtitle/list";
 
 	// 评论
 	public final static String API_COMMENT_PUBLISH = YZMC_SERVER + "/api/v1/comment/publish";
@@ -50,5 +51,8 @@ public interface INetworkConstants {
 	public final static String API_USER_MODIFYNICKNAME = YZMC_SERVER + "/api/v1/user/modifyNickname";
 	public final static String API_USER_COURSELIST = YZMC_SERVER + "/api/v1/user/courseList";
 	public final static String API_USER_SCHEDULE = YZMC_SERVER + "/api/v1/user/schedule";
+
+	// 扫码
+	public final static String API_BARCODE = YZMC_SERVER + "/api/v1/barcode";
 
 }

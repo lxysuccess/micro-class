@@ -5,14 +5,14 @@
     android:layout_height="match_parent" >
 
     <RelativeLayout
-        android:id="@+id/profile_action_menu"
+        android:id="@+id/write_comment_action_menu"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="@color/main"
         android:orientation="horizontal" >
 
         <ImageButton
-            android:id="@+id/profile_close"
+            android:id="@+id/write_comment_close"
             android:layout_width="25dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
@@ -43,7 +43,7 @@
         android:id="@+id/write_comment_score_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_action_menu" >
+        android:layout_below="@id/write_comment_action_menu" >
 
         <LinearLayout
             android:id="@+id/write_comment_star_ll"

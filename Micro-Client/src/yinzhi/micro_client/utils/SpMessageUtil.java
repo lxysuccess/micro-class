@@ -109,7 +109,7 @@ public class SpMessageUtil {
 		try {
 			SharedPreferences mSharedPreferences = context.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
 
-			token = mSharedPreferences.getString("token", "");
+			token = mSharedPreferences.getString("token", null);
 
 		} catch (Exception e) {
 			LogUtils.i("读取token数据异常");

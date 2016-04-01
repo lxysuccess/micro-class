@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:background="@drawable/header_selector" >
 
-    <se.emilsjolander.stickylistheaders.sample.views.UnderlineTextView
+    <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start|left"
-        android:text="header"
         android:padding="5dp"
-        android:textColor="@color/black"
+        android:textColor="#999999"
         android:textSize="17sp" />
+
 </RelativeLayout>

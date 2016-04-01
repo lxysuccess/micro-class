@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,8 @@ public class CommentWriteActivity extends BaseActivity {
 	private EditText contentInput;
 	@ViewInject(R.id.write_comment_word_count)
 	private TextView wordCount;
-
+	@ViewInject(R.id.write_comment_close)
+	private ImageButton close;
 	@ViewInject(R.id.comment_publish)
 	private Button publishComment;
 
@@ -124,8 +126,7 @@ public class CommentWriteActivity extends BaseActivity {
 							Intent intent = new Intent(CommentWriteActivity.this, LoginActivity.class);
 							startActivity(intent);
 						}
-						
-						
+
 						String score = JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("score")
 								.toString();
 						orginalScore = Integer.valueOf(score);
@@ -246,15 +247,31 @@ public class CommentWriteActivity extends BaseActivity {
 	@OnClick(R.id.comment_publish)
 	public void publishClick(View v) {
 
-		YZNetworkUtils.publishComment("", contentInput.getText().toString(), itemResourceId,
+		String token = SpMessageUtil.getLogonToken(getApplicationContext());
+		if (token == null) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+			return;
+		}
+
+		YZNetworkUtils.publishComment(token, contentInput.getText().toString(), itemResourceId,
 				new RequestCallBack<String>() {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						// 根据反馈判断是否发布成功，提示用户
 						// TODO 发布结果处理
-						markScore();
+						String response = arg0.result;
+						YZBaseVO result = YZResponseUtils.parseObject(response, YZBaseVO.class);
 
+						if (result.getStatus() == 0) {
+							Toast.makeText(CommentWriteActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
+						} else {
+							finish();
+							overridePendingTransition(0, R.anim.activity_anim_left_out);
+						}
+						// 发表评分
+						markScore();
 					}
 
 					@Override
@@ -285,10 +302,21 @@ public class CommentWriteActivity extends BaseActivity {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				// TODO 发表评分结果处理
+				String response = arg0.result;
+				YZBaseVO result = YZResponseUtils.parseObject(response, YZBaseVO.class);
+
+				if (result.getStatus() == 0) {
+					Toast.makeText(CommentWriteActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
+	}
+
+	@OnClick(R.id.write_comment_close)
+	public void closeClick(View v) {
+		finish();
+		overridePendingTransition(0, R.anim.activity_anim_left_out);
 	}
 
 }

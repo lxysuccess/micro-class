@@ -90,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/home_slide_fl"
+                    android:layout_margin="5dp"
                     android:layout_marginLeft="10dp" >
 
                     <ImageView
@@ -114,9 +115,7 @@
                     android:background="@color/white"
                     android:focusable="true"
                     android:gravity="center"
-                    android:horizontalSpacing="10dp"
-                    android:numColumns="2"
-                    android:verticalSpacing="10dp" >
+                    android:numColumns="2" >
                 </GridView>
 
                 <LinearLayout
@@ -124,6 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/home_free_list"
+                    android:layout_margin="5dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -150,9 +150,7 @@
                     android:background="@color/white"
                     android:focusable="true"
                     android:gravity="center"
-                    android:horizontalSpacing="10dp"
-                    android:numColumns="2"
-                    android:verticalSpacing="10dp" >
+                    android:numColumns="2" >
                 </GridView>
             </RelativeLayout>
         </ScrollView>

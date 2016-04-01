@@ -2,16 +2,18 @@ package yinzhi.micro_client.activity;
 
 import java.util.ArrayList;
 
-import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.viewpagerindicator.TabPageIndicator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.IjkVideoActicity;
 import yinzhi.micro_client.fragment.VideoCatalogFragment;
 import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
 import yinzhi.micro_client.fragment.VideoDescriptionFragment;
@@ -33,9 +36,12 @@ import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.constants.INetworkConstants;
 import yinzhi.micro_client.network.vo.YZCatalogVO;
 import yinzhi.micro_client.network.vo.YZCourseVO;
+import yinzhi.micro_client.utils.ImageUtil;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
-public class IntroductionActivity extends BaseActivity implements
-		IUpdateData, IUpdateCatalogData {
+public class IntroductionActivity extends BaseActivity implements IUpdateData, IUpdateCatalogData {
+
+	private static final String TAG = IntroductionActivity.class.getSimpleName();
 
 	/**
 	 * 课程介绍和目录
@@ -79,32 +85,69 @@ public class IntroductionActivity extends BaseActivity implements
 	private String[] text = new String[] { "课程介绍", "目录" };
 	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
-	private String courseId ;
-	
+	/**
+	 * 课程ID
+	 */
+	private String courseId;
 
-	@SuppressLint("NewApi") @Override
+	/**
+	 * 资源ID
+	 */
+	public static String itemResourceId;
+
+	/**
+	 * 记录来源页的标识
+	 */
+	public static String fromActivity;
+
+	/**
+	 * 选择首先显示的tab页
+	 */
+	private Integer tabPos;
+
+	public static Intent newIntent(Context context, String itemResourceId, String courseId, Integer tabPos,
+			String fromActivity) {
+		Intent intent = new Intent(context, IntroductionActivity.class);
+		intent.putExtra("itemResourceId", itemResourceId);
+		intent.putExtra("courseId", courseId);
+		intent.putExtra("tabPos", tabPos);
+		intent.putExtra("fromActivity", fromActivity);
+		return intent;
+	}
+
+	public static void intentTo(Context context, String itemResourceId, String courseId, Integer tabPos,
+			String fromActivity) {
+		context.startActivity(newIntent(context, itemResourceId, courseId, tabPos, fromActivity));
+	}
+
+	@SuppressLint("NewApi")
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_introduction);
 		ViewUtils.inject(this);
-		courseId = getIntent().getExtras().getString("courseId", "-1");
 
-		initFragment();
+		courseId = getIntent().getExtras().getString("courseId", "-1");
+		itemResourceId = getIntent().getExtras().getString("itemResourceId", "-1");
+		tabPos = getIntent().getExtras().getInt("tabPos", 0);
+		fromActivity = getIntent().getExtras().getString("fromActivity", "-1");
+
+		initFragment(tabPos);
 	}
 
 	/**
 	 * 子页相关
 	 */
-	private void initFragment() {
+	private void initFragment(int pos) {
 		fragments.add(VideoDescriptionFragment.newInstance());
 		fragments.add(VideoCatalogFragment.newInstance());
 		((VideoDescriptionFragment) fragments.get(0)).setIUpdateData(this);
 		((VideoCatalogFragment) fragments.get(1)).setIUpdateCatalog(this);
 
-		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(
-				getSupportFragmentManager(), fragments);
+		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(getSupportFragmentManager(),
+				fragments);
 		pager.setAdapter(myFragmentPagerAdapter);
-		pager.setCurrentItem(0);
+		pager.setCurrentItem(pos);
 		indicator.setViewPager(pager);
 
 	}
@@ -149,79 +192,79 @@ public class IntroductionActivity extends BaseActivity implements
 	public void onUpdateDescription() {
 		// 显示正在加载
 		wait.setVisibility(View.VISIBLE);
+		String token = SpMessageUtil.getLogonToken(getApplicationContext());
+		
+		LogUtils.i("token===================" + token);
+		YZNetworkUtils.courseDetail(token, courseId, new RequestCallBack<String>() {
 
-		YZNetworkUtils.courseDetail(null, courseId,
-				new RequestCallBack<String>() {
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String response = arg0.result;
 
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						String response = arg0.result;
+				// TODO 日志
+				LogUtils.i(response);
 
-						// TODO 日志
-						LogUtils.i(response);
+				YZCourseVO course = YZResponseUtils.parseObject(response, YZCourseVO.class);
 
-						YZCourseVO course = YZResponseUtils.parseObject(
-								response, YZCourseVO.class);
-						
-						if (course == null) {
-							Toast.makeText(IntroductionActivity.this, "尚无详情数据！", Toast.LENGTH_LONG).show();
-							// 去掉正在加载
-							wait.setVisibility(View.GONE);
-							return;
-						}
-						
-						((VideoDescriptionFragment) fragments.get(0)).updateDataCompleted(course);
+				if (course == null) {
+					Toast.makeText(IntroductionActivity.this, "尚无详情数据！", Toast.LENGTH_LONG).show();
+					// 去掉正在加载
+					wait.setVisibility(View.GONE);
+					return;
+				}
 
-						BitmapUtils bitmapUtils = new BitmapUtils(
-								IntroductionActivity.this);
-						bitmapUtils.display(
-								introImage,
-								INetworkConstants.YZMC_SERVER
-										+ course.getTeacherPicPath());
+				((VideoDescriptionFragment) fragments.get(0)).updateDataCompleted(course);
 
-						// 去掉正在加载
-						wait.setVisibility(View.GONE);
-					}
+				// 显示课程介绍图片
+				ImageLoader.getInstance().displayImage(INetworkConstants.YZMC_SERVER + course.getCoursePicPath(),
+						introImage, ImageUtil.getDisplayOption(0));
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO 异常处理
-					}
-				});
+				// 去掉正在加载
+				wait.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO 异常处理
+			}
+		});
 	}
 
 	@Override
 	public void onUpdateCatalog() {
 		// 显示正在加载
 		wait.setVisibility(View.VISIBLE);
-		YZNetworkUtils.courseCatalog(null, courseId, new RequestCallBack<String>() {
+		String token = SpMessageUtil.getLogonToken(getApplicationContext());
+
+		YZNetworkUtils.courseCatalog(token, courseId, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				
-				
+
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				String response = arg0.result;
-				
+
+				LogUtils.i(response + "000000000000000");
+
 				YZCatalogVO catalog = YZResponseUtils.parseCatalog(response);
-				
+
 				if (catalog == null) {
 					Toast.makeText(IntroductionActivity.this, "尚无目录数据！", Toast.LENGTH_LONG).show();
 					// 去掉正在加载
 					wait.setVisibility(View.GONE);
 					return;
 				}
-				//通知目录页更新完成
-				((VideoCatalogFragment)fragments.get(1)).updateCatalogCompleted(catalog);
-				
+				// 通知目录页更新完成
+				((VideoCatalogFragment) fragments.get(1)).updateCatalogCompleted(catalog);
+
 				// 去掉正在加载
 				wait.setVisibility(View.GONE);
 			}
-			
+
 		});
 	}
-	
+
 }

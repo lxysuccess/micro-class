@@ -5,6 +5,7 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/Users/lixuyu/Downloads/ZXingDemo"/>
 			<item value="/Users/lixuyu/Desktop/Temp/polyv-android-sdk-demo-master"/>
 			<item value="/Users/lixuyu/百度云同步盘/MAC-Synchronous/Developer/Android/第三方SDK/支付宝钱包支付接口开发包2.0标准版(20160223)/DEMO/客户端demo/支付宝钱包支付接口开发包2.0标准版(Android 15.0.8)/alipay_demo"/>
 			<item value="/Users/lixuyu/Downloads/xLoading"/>
@@ -20,8 +21,8 @@
 	<section name="CleanDialogSettings">
 		<item value="484" key="DIALOG_WIDTH"/>
 		<item value="153" key="DIALOG_Y_ORIGIN"/>
-		<item value="354" key="DIALOG_HEIGHT"/>
 		<item value="289" key="DIALOG_X_ORIGIN"/>
+		<item value="354" key="DIALOG_HEIGHT"/>
 		<item value="true" key="TOGGLE_SELECTED"/>
 	</section>
 </section>

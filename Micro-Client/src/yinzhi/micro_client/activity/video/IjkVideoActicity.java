@@ -42,19 +42,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.BaseActivity;
+import yinzhi.micro_client.activity.CommentActivity;
 import yinzhi.micro_client.adapter.LxyCommonAdapter;
 import yinzhi.micro_client.adapter.LxyViewHolder;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZSubtitleVO;
 
-public class IjkVideoActicity extends Activity {
+public class IjkVideoActicity extends BaseActivity {
 
 	private ListView subtitleResult;
 
 	private Button startSearch;
 
 	private EditText subtitleInput;
+
+	private ImageView backIv;
+
+	private ImageView commentIv;
+
+	private ImageView shareIv;
+
+	/**
+	 * 底部操作栏
+	 */
+	private RelativeLayout bottomBar;
 
 	private static final String TAG = "IjkVideoActicity";
 	private IjkVideoView videoView = null;
@@ -97,6 +110,12 @@ public class IjkVideoActicity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_small2);
+
+		bottomBar = (RelativeLayout) findViewById(R.id.video_bottom_bar);
+
+		backIv = (ImageView) findViewById(R.id.video_back);
+		commentIv = (ImageView) findViewById(R.id.video_comment);
+		shareIv = (ImageView) findViewById(R.id.video_share);
 
 		subtitleResult = (ListView) findViewById(R.id.subtitle_search_result);
 		startSearch = (Button) findViewById(R.id.search_start);
@@ -336,6 +355,9 @@ public class IjkVideoActicity extends Activity {
 			}
 		}
 
+		// 播放界面底部三个按钮事件监听
+		setIvListener();
+
 		startSearch.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -356,8 +378,14 @@ public class IjkVideoActicity extends Activity {
 
 			@Override
 			public void convert(LxyViewHolder holder, YZSubtitleVO t) {
-				holder.setText(R.id.subtitle_content, t.getSubtitle());
-				holder.setText(R.id.subtitle_time, t.getTime());
+				try {
+					holder.setText(R.id.subtitle_content, t.getSubtitle());
+					holder.setText(R.id.subtitle_time, t.getTime());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					LogUtils.e("error! video view when show subtile list");
+				}
 			}
 		};
 
@@ -383,9 +411,70 @@ public class IjkVideoActicity extends Activity {
 	}
 
 	/**
+	 * 设置底部三个按钮监听
+	 */
+	private void setIvListener() {
+
+		backIv.setOnClickListener(new IvLisenter());
+		commentIv.setOnClickListener(new IvLisenter());
+		shareIv.setOnClickListener(new IvLisenter());
+	}
+
+	private class IvLisenter implements View.OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			Integer id = arg0.getId();
+
+			switch (id) {
+			case R.id.video_back:
+				if (videoView != null) {
+					videoView.stopPlayback();
+					videoView.release(true);
+				}
+
+				if (questionView != null) {
+					questionView.hide();
+				}
+
+				if (auditionView != null) {
+					auditionView.hide();
+				}
+
+				if (playerFirstStartView != null) {
+					playerFirstStartView.hide();
+				}
+
+				if (adView != null) {
+					adView.hide();
+				}
+				finish();
+				break;
+
+			case R.id.video_comment:
+
+				Intent intent = new Intent(IjkVideoActicity.this, CommentActivity.class);
+				intent.putExtra("itemResourceId", itemResourceId);
+				startActivity(intent);
+				break;
+			case R.id.video_share:
+
+				break;
+			default:
+				break;
+			}
+
+		}
+
+	}
+
+	/**
 	 * 切换到横屏
 	 */
 	public void changeToLandscape() {
+		// 隐藏除视频播放界面以外视图
+		bottomBar.setVisibility(View.GONE);
+		subtitleResult.setVisibility(View.GONE);
 
 		RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(h, w);
 		rl.setLayoutParams(p);
@@ -401,6 +490,8 @@ public class IjkVideoActicity extends Activity {
 		rl.setLayoutParams(p);
 		stopPosition = videoView.getCurrentPosition();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		bottomBar.setVisibility(View.VISIBLE);
+		subtitleResult.setVisibility(View.VISIBLE);
 	}
 
 	// 配置文件设置congfigchange 切屏调用一次该方法，hide()之后再次show才会出现在正确位置
@@ -585,6 +676,12 @@ public class IjkVideoActicity extends Activity {
 
 	private Boolean isReset = true;
 
+	/**
+	 * 获取字幕搜索数据
+	 * 
+	 * @param page
+	 * @param size
+	 */
 	private void fetchDatas(int page, int size) {
 		YZNetworkUtils.searchVideoSubtitle("", subtitleInput.getText().toString(), itemResourceId, page, size,
 				new RequestCallBack<String>() {
@@ -600,7 +697,7 @@ public class IjkVideoActicity extends Activity {
 
 						String response = arg0.result;
 
-						LogUtils.i(response + "------------------");
+						LogUtils.i(response + "------------------subtitle");
 
 						if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status")
 								.equals("0")) {

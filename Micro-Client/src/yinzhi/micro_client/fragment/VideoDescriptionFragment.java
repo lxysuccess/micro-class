@@ -2,6 +2,7 @@ package yinzhi.micro_client.fragment;
 
 import yinzhi.micro_client.network.constants.INetworkConstants;
 import yinzhi.micro_client.network.vo.YZCourseVO;
+import yinzhi.micro_client.utils.ImageUtil;
 import yinzhi.micro_client.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class VideoDescriptionFragment extends Fragment {
 	/**
@@ -44,7 +46,7 @@ public class VideoDescriptionFragment extends Fragment {
 	 * 教师头像
 	 */
 	@ViewInject(R.id.video_description_lecturer_icon)
-	private ImageView icon;
+	private ImageView teacherPic;
 
 	/**
 	 * 更新简介回调方法
@@ -66,10 +68,8 @@ public class VideoDescriptionFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_video_description,
-				null);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_video_description, null);
 		ViewUtils.inject(this, rootView);
 
 		// 请求更新课程简介信息
@@ -79,14 +79,15 @@ public class VideoDescriptionFragment extends Fragment {
 
 	public void updateDataCompleted(YZCourseVO course) {
 
-		
 		try {
 			courseTitle.setText(course.getTitle());
 			teacherName.setText(course.getTeacherName());
 			teacherDesc.setText(course.getTeacherIntroduction());
 			description.setText(course.getCourseIntroduction());
-			BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
-			bitmapUtils.display(icon, INetworkConstants.YZMC_SERVER+course.getTeacherPicPath());
+
+			ImageLoader.getInstance().displayImage(INetworkConstants.YZMC_SERVER + course.getTeacherPicPath(),
+					teacherPic, ImageUtil.getDisplayOption(5));
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

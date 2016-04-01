@@ -137,8 +137,14 @@ public class SearchActivity extends Activity {
 									Toast.LENGTH_LONG).show();
 							return;
 						}
+						List<YZCourseVO> courses = null;
 
-						List<YZCourseVO> courses = YZResponseUtils.parseArray(response, YZCourseVO.class);
+						try {
+
+							courses = YZResponseUtils.parseArray(response, YZCourseVO.class);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 
 						if (courses == null) {
 							Toast.makeText(getApplicationContext(), "未检索到相关课程", Toast.LENGTH_LONG).show();
@@ -165,10 +171,10 @@ public class SearchActivity extends Activity {
 	public void cancelClick(View v) {
 		searchInput.clearFocus();
 		View view = getWindow().peekDecorView();
-        if (view != null) {
-            InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 		this.finish();
 		overridePendingTransition(0, R.anim.activity_anim_left_out);
 	}

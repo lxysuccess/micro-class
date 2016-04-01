@@ -2,12 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    <TextView android:text="课时：32节"
-    android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:textColor="@color/front_gray"
-    android:gravity="center_vertical"
-    android:layout_gravity="left"/>
-    
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="left"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        android:text="课时：32节"
+        android:textColor="@color/front_gray" />
+
 </FrameLayout>

@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
-		<item value="98" key="DIALOG_Y_ORIGIN"/>
-		<item value="958" key="DIALOG_X_ORIGIN"/>
+		<item value="94" key="DIALOG_Y_ORIGIN"/>
+		<item value="872" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -13,26 +13,26 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="videoTimeLong" key="selection"/>
+		<item value="teacherPic" key="selection"/>
 		<list key="findhistory">
-			<item value="videoTimeLong"/>
-			<item value="stopPosition"/>
-			<item value="seek"/>
-			<item value="videoId"/>
-			<item value="home"/>
-			<item value="fragmentMy"/>
-			<item value="activity"/>
-			<item value="Rank"/>
+			<item value="teacherPic"/>
+			<item value="profile"/>
+			<item value="comment_publish"/>
+			<item value="token"/>
+			<item value="head"/>
+			<item value="YZN"/>
+			<item value="code"/>
+			<item value="scan_imgbtn"/>
 		</list>
 		<list key="replacehistory">
+			<item value="write_comment"/>
+			<item value="new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET)"/>
 			<item value="ranking"/>
 			<item value="fragmentRanking"/>
 			<item value=""/>
 			<item value="10dp"/>
 			<item value="10"/>
 			<item value="YZCourseVO"/>
-			<item value="classify"/>
-			<item value="course_teacher_name"/>
 		</list>
 	</section>
 </section>

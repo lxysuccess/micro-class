@@ -48,7 +48,7 @@ public class AllCourseFragment extends Fragment {
 	@ViewInject(R.id.all_course_count)
 	private TextView courseCount;
 
-	// 所有课程页课程列表
+	// 所有课程页课程分类列表
 	private List<YZClassifyVO> datas = new ArrayList<YZClassifyVO>();
 
 	// 列表适配器
@@ -120,9 +120,15 @@ public class AllCourseFragment extends Fragment {
 
 			@Override
 			public void convert(LxyViewHolder holder, YZClassifyVO t) {
-				holder.setImageViewUrl(R.id.classify_icon, INetworkConstants.YZMC_SERVER + t.getClassifyPicPath());
-				holder.setText(R.id.classify_name, t.getTitle());
-				holder.setText(R.id.classify_intro, t.getIntroduction());
+				try {
+					holder.setImageViewUrl(R.id.classify_icon, INetworkConstants.YZMC_SERVER + t.getClassifyPicPath());
+					holder.setText(R.id.classify_name, t.getTitle());
+					holder.setText(R.id.classify_intro, t.getIntroduction());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					LogUtils.e("show  classify list error");
+				}
 
 			}
 		};
@@ -145,9 +151,18 @@ public class AllCourseFragment extends Fragment {
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		LogUtils.i("position------>" + position);
 
-		Intent intent = new Intent(getActivity(), CourseListActivity.class);
-		intent.putExtra("classifyId", datas.get(position).getId());
-		startActivity(intent);
+		Intent intent;
+		try {
+			intent = new Intent(getActivity(), CourseListActivity.class);
+			intent.putExtra("classifyId", datas.get(position).getId());
+			intent.putExtra("classifyName", datas.get(position).getTitle());
+			startActivity(intent);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtils.e("intent to CourseListActivity error");
+		}
+
 		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 

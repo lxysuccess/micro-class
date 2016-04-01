@@ -107,4 +107,36 @@
         android:cacheColorHint="@android:color/transparent" >
     </ListView>
 
+    <RelativeLayout
+        android:id="@+id/video_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/video_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/video_back_arrow" />
+
+        <ImageView
+            android:id="@+id/video_comment"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/video_comment" />
+
+        <ImageView
+            android:id="@+id/video_share"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/video_share" />
+    </RelativeLayout>
+
 </RelativeLayout>

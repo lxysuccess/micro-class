@@ -89,8 +89,7 @@ public class RankingFragment extends Fragment {
 	 */
 	private void initFragment() {
 
-		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(
-				getActivity().getSupportFragmentManager());
+		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(getChildFragmentManager());
 		pager.setAdapter(myFragmentPagerAdapter);
 		pager.setCurrentItem(0);
 		indicator.setViewPager(pager);

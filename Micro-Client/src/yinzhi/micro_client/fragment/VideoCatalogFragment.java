@@ -206,23 +206,45 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		stickyList.setDrawingListUnderStickyHeader(true);
 		stickyList.setAreHeadersSticky(true);
 		stickyList.setAdapter(mAdapter);
-
 		stickyList.setOnTouchListener(this);
 
 		itemResources.clear();
 
-		// 将itemResourceId存储在一个List中
-		List<YZChapterVO> chapters = catalog.getChapters();
-		List<YZItemResourceVO> resources = new ArrayList<YZItemResourceVO>();
-		for (YZChapterVO chapter : chapters) {
-			resources = chapter.getResourceList();
-			for (YZItemResourceVO resource : resources) {
-				LogUtils.i(resource.toString());
-				itemResources.add(resource);
+		List<String> ids;
+		ids = new ArrayList<String>();
+		try {
+			// 将itemResourceId存储在一个List中
+			List<YZChapterVO> chapters = catalog.getChapters();
+			List<YZItemResourceVO> resources = new ArrayList<YZItemResourceVO>();
+			for (YZChapterVO chapter : chapters) {
+				resources = chapter.getResourceList();
+				for (YZItemResourceVO resource : resources) {
+					LogUtils.i(resource.toString());
+					itemResources.add(resource);
+					ids.add(resource.getItemResourceId());
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtils.e("updateCatalogCompleted combine itemResource error");
 		}
 
 		LogUtils.i("**************updateCatalogCompleted done");
+
+		try {
+			if (IntroductionActivity.fromActivity == "CaptureActivity") {
+				// IntroductionActivity的来源页是二维码扫描界面，将制定位置的资源名称标红
+				if (IntroductionActivity.itemResourceId != "-1") {
+
+					stickyList.setSelection(ids.indexOf(IntroductionActivity.itemResourceId));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtils.e("updateCatalogCompleted list set selection error");
+		}
 
 	}
 
