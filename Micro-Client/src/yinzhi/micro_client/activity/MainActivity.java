@@ -7,29 +7,36 @@ import yinzhi.micro_client.fragment.MenuFragment;
 import yinzhi.micro_client.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import yinzhi.micro_client.fragment.MyFragment;
 import yinzhi.micro_client.fragment.RankingFragment;
-import yinzhi.micro_client.fragment.SettingFragment;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.lidroid.xutils.util.LogUtils;
 
-public class MainActivity extends SlidingFragmentActivity implements SLMenuListOnItemClickListener {
+public class MainActivity extends SlidingFragmentActivity implements
+		SLMenuListOnItemClickListener {
 
 	// 初始化一个侧边栏
 	private SlidingMenu mSlidingMenu;
+
+	// 初始化四个Fragment
+	private Fragment mTab01;
+	private Fragment mTab02;
+	private Fragment mTab03;
+	private Fragment mTab04;
+	private Fragment mTab05;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.frame_left_menu);
+
 		// ActionBar actionBar = getActionBar();
 		// actionBar.setDisplayHomeAsUpEnabled(true);
 		// actionBar.setDisplayShowTitleEnabled(false);
@@ -49,7 +56,8 @@ public class MainActivity extends SlidingFragmentActivity implements SLMenuListO
 		// TOUCHMODE_NONE 不能通过手势打开SlidingMenu
 		mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		// 设置SlidingMenu内容
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+				.beginTransaction();
 		fragmentTransaction.replace(R.id.left_menu, MenuFragment.getInstance());
 		fragmentTransaction.replace(R.id.content, HomeFragment.getInstance());
 		fragmentTransaction.commit();
@@ -102,42 +110,102 @@ public class MainActivity extends SlidingFragmentActivity implements SLMenuListO
 	@Override
 	public void selectItem(int position, String title) {
 		// update the main content by replacing fragments
+
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();
+		hideFragment(transaction);
+
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = HomeFragment.getInstance();
+			// fragment = HomeFragment.getInstance();
+
+			if (mTab01 == null) {
+				mTab01 = new HomeFragment();
+				transaction.add(R.id.content, mTab01);
+			} else {
+				transaction.show(mTab01);
+			}
 			break;
 		case 1:
-			fragment = AllCourseFragment.getInstance();
+			// fragment = AllCourseFragment.getInstance();
+			if (mTab02 == null) {
+				mTab02 = new AllCourseFragment();
+				transaction.add(R.id.content, mTab02);
+			} else {
+				transaction.show(mTab02);
+			}
 			break;
 		case 2:
-			fragment = RankingFragment.getInstance();
+			// fragment = RankingFragment.getInstance();
+			if (mTab03 == null) {
+				mTab03 = new RankingFragment();
+				transaction.add(R.id.content, mTab03);
+			} else {
+				transaction.show(mTab03);
+			}
 			break;
 		case 3:
-			fragment = MyFragment.getInstance();
+			// fragment = MyFragment.getInstance();
+			if (mTab04 == null) {
+				mTab04 = new MyFragment();
+				transaction.add(R.id.content, mTab04);
+			} else {
+				transaction.show(mTab04);
+			}
 			break;
 		case 5:
-			fragment = SettingFragment.getInstance();
+			// fragment = SettingFragment.getInstance();
+			if (mTab05 == null) {
+				mTab05 = new MyFragment();
+				transaction.add(R.id.content, mTab05);
+			} else {
+				transaction.show(mTab05);
+			}
 			break;
 		default:
 			break;
 		}
 
-		if (fragment != null) {
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
-			// update selected item and title, then close the drawer
-			setTitle(title);
-			Handler h = new Handler();
-			// 延时加载抽屉避免滑动卡顿的情况
-			h.postDelayed(new Runnable() {
-				public void run() {
-					mSlidingMenu.showContent();
-				}
-			}, 50);
+		// if (fragment != null) {
+		// FragmentManager fragmentManager = getSupportFragmentManager();
+		// fragmentManager.beginTransaction().replace(R.id.content,
+		// fragment).commit();
+		// update selected item and title, then close the drawer
+		setTitle(title);
+		// Handler h = new Handler();
+		// // 延时加载抽屉避免滑动卡顿的情况
+		// h.postDelayed(new Runnable() {
+		// public void run() {
+		// mSlidingMenu.showContent();
+		// }
+		// }, 50);
+		//
+		// } else {
+		// Log.e("MainActivity", "Error in creating fragment");
+		// }
+		mSlidingMenu.showContent();
+		transaction.commit();
+	}
 
-		} else {
-			Log.e("MainActivity", "Error in creating fragment");
+	/**
+	 * 隐藏所有fragment
+	 * 
+	 * @param ts
+	 */
+	private void hideFragment(FragmentTransaction ts) {
+		if (mTab01 != null) {
+			ts.hide(mTab01);
 		}
+		if (mTab02 != null) {
+			ts.hide(mTab02);
+		}
+		if (mTab03 != null) {
+			ts.hide(mTab03);
+		}
+		if (mTab04 != null) {
+			ts.hide(mTab04);
+		}
+		LogUtils.i("hideFragment completed");
 	}
 }

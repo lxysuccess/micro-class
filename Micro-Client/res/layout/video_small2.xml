@@ -104,7 +104,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_ll"
-        android:cacheColorHint="@android:color/transparent" >
+        android:cacheColorHint="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:divider="@color/default_bg_color" >
     </ListView>
 
     <RelativeLayout
@@ -120,7 +122,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/video_back_arrow" />
+            android:background="@drawable/back" />
 
         <ImageView
             android:id="@+id/video_comment"
@@ -131,12 +133,12 @@
             android:background="@drawable/video_comment" />
 
         <ImageView
-            android:id="@+id/video_share"
+            android:id="@+id/video_subtitle_search"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
-            android:background="@drawable/video_share" />
+            android:background="@drawable/video_subtitle_search" />
     </RelativeLayout>
 
 </RelativeLayout>

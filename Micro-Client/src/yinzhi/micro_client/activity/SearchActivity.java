@@ -131,12 +131,10 @@ public class SearchActivity extends Activity {
 
 						LogUtils.i(response);
 
-						if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status")
-								.equals("0")) {
-							Toast.makeText(getApplicationContext(), JSON.parseObject(response).get("msg").toString(),
-									Toast.LENGTH_LONG).show();
+						if(!YZNetworkUtils.isAllowedContinue(SearchActivity.this, response)){
 							return;
 						}
+						
 						List<YZCourseVO> courses = null;
 
 						try {

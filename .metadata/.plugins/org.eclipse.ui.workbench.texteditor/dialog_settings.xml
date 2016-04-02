@@ -3,7 +3,7 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="265" key="DIALOG_WIDTH"/>
 		<item value="94" key="DIALOG_Y_ORIGIN"/>
-		<item value="872" key="DIALOG_X_ORIGIN"/>
+		<item value="861" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -13,8 +13,9 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="teacherPic" key="selection"/>
+		<item value="selected" key="selection"/>
 		<list key="findhistory">
+			<item value="selected"/>
 			<item value="teacherPic"/>
 			<item value="profile"/>
 			<item value="comment_publish"/>
@@ -22,7 +23,6 @@
 			<item value="head"/>
 			<item value="YZN"/>
 			<item value="code"/>
-			<item value="scan_imgbtn"/>
 		</list>
 		<list key="replacehistory">
 			<item value="write_comment"/>

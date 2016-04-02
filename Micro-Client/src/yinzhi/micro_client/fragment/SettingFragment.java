@@ -1,9 +1,10 @@
 package yinzhi.micro_client.fragment;
 
-import yinzhi.micro_client.activity.LoginActivity;
-import yinzhi.micro_client.activity.MainActivity;
-import yinzhi.micro_client.activity.ProfileActivity;
-import yinzhi.micro_client.R;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.LoginActivity;
+import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.activity.ProfileActivity;
+import yinzhi.micro_client.utils.ImageUtil;
 
 public class SettingFragment extends Fragment {
 	
@@ -27,6 +30,9 @@ public class SettingFragment extends Fragment {
 	
 	@ViewInject(R.id.setting_personal)
 	private RelativeLayout personalRl;
+	
+	@ViewInject(R.id.setting_avator)
+	private ImageView avatar;
 	
 	private static SettingFragment settingFragment;
 	
@@ -58,6 +64,10 @@ public class SettingFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_setting, null);
 		ViewUtils.inject(this, rootView);
+		
+		ImageLoader.getInstance().displayImage("http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
+				avatar, ImageUtil.getDisplayOption(90));
+		
 		close = (ImageButton) rootView.findViewById(R.id.setting_menu_imgbtn);
 		close.setOnClickListener(new OnClickListener() {
 			

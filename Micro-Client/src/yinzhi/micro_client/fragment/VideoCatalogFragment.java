@@ -237,7 +237,15 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 				// IntroductionActivity的来源页是二维码扫描界面，将制定位置的资源名称标红
 				if (IntroductionActivity.itemResourceId != "-1") {
 
-					stickyList.setSelection(ids.indexOf(IntroductionActivity.itemResourceId));
+					// TODO
+					// stickyList.setSelection(ids.indexOf(IntroductionActivity.itemResourceId));
+					// stickyList.setSelection(ids.indexOf(33));
+					// mAdapter.notifyDataSetChanged();
+					int index = stickyList.getFirstVisiblePosition();
+					View v = stickyList.getChildAt(ids.indexOf(IntroductionActivity.itemResourceId));
+					int top = (v == null) ? 0 : v.getTop();
+					stickyList.setSelectionFromTop(index, top);
+
 				}
 			}
 		} catch (Exception e) {

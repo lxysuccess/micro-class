@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	@ViewInject(R.id.home_swipelayout)
 	private SwipeRefreshLayout mSwipeLayout;
 
-	private String tag = "FeaturedFragment";
+	private String tag = "HomeFragment";
 
 	// 测试播放视频ID 保利威视
 	private static String videoId = "9b55dbfec52e18a98869af498127d00e_9";
@@ -142,7 +142,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 		Log.i(tag, "onCreateView");
 		View rootView = inflater.inflate(R.layout.fragment_home, null);
 		ViewUtils.inject(this, rootView);
-
+		
 		// 向服务器请求获取推荐书籍宣传图
 		setAdvImageUrl();
 
@@ -208,14 +208,25 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 				String response = arg0.result;
 
 				LogUtils.i("reponse=========" + response);
-				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
-					Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT)
-							.show();
+				
+				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
 					return;
 				}
+				
+//				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
+//						.equals("0")) {
+//					Toast.makeText(getActivity(),
+//							JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
+//							Toast.LENGTH_SHORT).show();
+//					return;
+//				}
 
-				freeDatas.clear();
-				freeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				try {
+					freeDatas.clear();
+					freeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				freeAdapter.notifyDataSetChanged();
 
 				if (!isInit) {
@@ -237,14 +248,24 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 				String response = arg0.result;
 
 				LogUtils.i("reponse+++++++++++++chargeRecommend" + response);
-				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
-					Toast.makeText(getActivity(), JSON.parseObject(response).get("msg").toString(), Toast.LENGTH_SHORT)
-							.show();
+				
+				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
 					return;
 				}
+//				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
+//						.equals("0")) {
+//					Toast.makeText(getActivity(),
+//							JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
+//							Toast.LENGTH_SHORT).show();
+//					return;
+//				}
 
-				chargeDatas.clear();
-				chargeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				try {
+					chargeDatas.clear();
+					chargeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				chargeAdapter.notifyDataSetChanged();
 
 				if (!isInit) {
@@ -293,11 +314,16 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	private void setAdvImageUrl() {
 		// TODO 轮播图片
 		mImageUrl = new ArrayList<String>();
-		YZNetworkUtils.fetchSlideList(null, "mockdeviceId", new RequestCallBack<String>() {
+		YZNetworkUtils.fetchSlideList(getActivity(),null, "mockdeviceId", new RequestCallBack<String>() {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				String response = arg0.result;
+				
+				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
+					return;
+				}
+				
 				LogUtils.i("slide fetch" + response);
 				try {
 					slides = YZResponseUtils.parseArray(response, YZSlideVO.class);

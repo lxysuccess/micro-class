@@ -13,7 +13,7 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/left_menu_home</item>
-        <item>@drawable/left_menu_micro</item>
+        <item>@drawable/left_menu_all</item>
         <item>@drawable/left_menu_ranking</item>
         <item>@drawable/left_menu_my</item>
     </array>

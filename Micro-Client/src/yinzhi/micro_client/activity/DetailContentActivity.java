@@ -8,7 +8,6 @@ import java.util.TimerTask;
 
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.constant.Constants;
-import yinzhi.micro_client.fragment.DiscussionFragment;
 import yinzhi.micro_client.fragment.VideoCatalogFragment;
 import yinzhi.micro_client.fragment.VideoDescriptionFragment;
 import android.content.Intent;
@@ -238,7 +237,6 @@ MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, OnBufferingUpdateLi
 	private void initFragment() {
 		fragments.add(VideoDescriptionFragment.newInstance());
 		fragments.add(VideoCatalogFragment.newInstance());
-		fragments.add(DiscussionFragment.newInstance());
 		MyFragmentPagerAdapter myFragmentPagerAdapter = new MyFragmentPagerAdapter(
 				getSupportFragmentManager(), fragments);
 		pager.setAdapter(myFragmentPagerAdapter);

@@ -36,7 +36,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private ArrayList<NavDrawerItem> mNavDrawerItems;
 	private NavDrawerListAdapter mAdapter;
 	private SLMenuListOnItemClickListener mCallback;
-	private int selected = -1;
+	public static int selected = -1;
 
 	@ViewInject(R.id.left_menu_user_avator)
 	private ImageView avatar;

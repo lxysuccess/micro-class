@@ -7,7 +7,7 @@
         android:id="@+id/search_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main"
+        android:background="@color/default_action_bar_bg_color"
         android:padding="8dp" >
 
         <LinearLayout
@@ -33,7 +33,7 @@
                 android:background="@null"
                 android:hint="@string/all_course_search"
                 android:singleLine="true"
-                android:textColor="@color/front_gray" >
+                android:textColor="@color/default_font_color_3" >
             </EditText>
         </LinearLayout>
 
@@ -46,7 +46,7 @@
             android:layout_weight="0.12"
             android:gravity="center"
             android:text="@string/all_course_cancel_search"
-            android:textColor="@color/white"
+            android:textColor="@color/main"
             android:textSize="18sp" />
     </TableRow>
 

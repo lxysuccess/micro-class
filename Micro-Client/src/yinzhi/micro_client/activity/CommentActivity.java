@@ -31,6 +31,9 @@ public class CommentActivity extends BaseActivity {
 	@ViewInject(R.id.comment_publish)
 	private ImageButton goPublish;
 
+	@ViewInject(R.id.comment_close)
+	private ImageButton close;
+
 	private LxyCommonAdapter<YZCommentVO> commentListAdapter;
 
 	private List<YZCommentVO> datas;
@@ -70,6 +73,10 @@ public class CommentActivity extends BaseActivity {
 
 						LogUtils.i("comment---------------" + response);
 
+						if(!YZNetworkUtils.isAllowedContinue(CommentActivity.this, response)){
+							return;
+						}
+						
 						datas = YZResponseUtils.parseArray(response, YZCommentVO.class);
 
 						if (datas != null) {
@@ -103,6 +110,14 @@ public class CommentActivity extends BaseActivity {
 		Intent intent = new Intent(this, CommentWriteActivity.class);
 		intent.putExtra("itemResourceId", itemResourceId);
 		startActivity(intent);
+
+	}
+
+	@OnClick(R.id.comment_close)
+	public void closeClick(View v) {
+		// 打开发表评论页面
+		finish();
+		overridePendingTransition(0, R.anim.activity_anim_left_out);
 
 	}
 

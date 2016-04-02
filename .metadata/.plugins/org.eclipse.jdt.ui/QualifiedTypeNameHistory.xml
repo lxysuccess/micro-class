@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.apache.http.impl.execchain.RequestAbortedException"/>
-<fullyQualifiedTypeName name="com.alibaba.fastjson.JSON"/>
 <fullyQualifiedTypeName name="android.widget.GridView"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.network.vo.YZCourseVO"/>
 <fullyQualifiedTypeName name="com.tencent.bugly.crashreport.common.strategy.c"/>
@@ -35,7 +33,6 @@
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
-<fullyQualifiedTypeName name="yinzhi.micro_client.R.color"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.utils.barcode.CaptureActivity"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.R"/>
@@ -51,13 +48,16 @@
 <fullyQualifiedTypeName name="yinzhi.micro_client.activity.CommentWriteActivity"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.R.anim"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.activity.IntroductionActivity"/>
-<fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.ViewInject"/>
 <fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.event.OnChildClick"/>
 <fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.event.OnClick"/>
-<fullyQualifiedTypeName name="com.nostra13.universalimageloader.core.ImageLoader"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.network.constants.INetworkConstants"/>
 <fullyQualifiedTypeName name="yinzhi.micro_client.utils.ImageUtil"/>
 <fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
-<fullyQualifiedTypeName name="yinzhi.micro_client.R.id"/>
 <fullyQualifiedTypeName name="com.lidroid.xutils.util.LogUtils"/>
+<fullyQualifiedTypeName name="com.lidroid.xutils.view.annotation.ViewInject"/>
+<fullyQualifiedTypeName name="com.nostra13.universalimageloader.core.ImageLoader"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.fragment.MenuFragment"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.R.id"/>
+<fullyQualifiedTypeName name="yinzhi.micro_client.R.color"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
 </qualifiedTypeNameHistroy>

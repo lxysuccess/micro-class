@@ -479,11 +479,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static int bottom=0x7f040008;
         public static int fullscreen=0x7f040003;
-        public static int left=0x7f040001;
-        public static int margin=0x7f040004;
+        public static int left=0x7f040000;
+        public static int margin=0x7f040002;
         public static int none=0x7f040005;
-        public static int right=0x7f040002;
-        public static int selected_view=0x7f040000;
+        public static int right=0x7f040001;
+        public static int selected_view=0x7f040004;
         public static int slidingmenumain=0x7f04000a;
         public static int top=0x7f040009;
         public static int triangle=0x7f040006;
@@ -546,7 +546,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#background}.
           @attr name android:background
         */
-        public static int CirclePageIndicator_android_background = 1;
+        public static final int CirclePageIndicator_android_background = 1;
         /**
           <p>
           @attr description
@@ -555,7 +555,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#orientation}.
           @attr name android:orientation
         */
-        public static int CirclePageIndicator_android_orientation = 0;
+        public static final int CirclePageIndicator_android_orientation = 0;
         /**
           <p>
           @attr description
@@ -571,7 +571,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:centered
         */
-        public static int CirclePageIndicator_centered = 2;
+        public static final int CirclePageIndicator_centered = 2;
         /**
           <p>
           @attr description
@@ -588,7 +588,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fillColor
         */
-        public static int CirclePageIndicator_fillColor = 4;
+        public static final int CirclePageIndicator_fillColor = 4;
         /**
           <p>
           @attr description
@@ -605,7 +605,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:pageColor
         */
-        public static int CirclePageIndicator_pageColor = 5;
+        public static final int CirclePageIndicator_pageColor = 5;
         /**
           <p>
           @attr description
@@ -623,7 +623,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:radius
         */
-        public static int CirclePageIndicator_radius = 6;
+        public static final int CirclePageIndicator_radius = 6;
         /**
           <p>
           @attr description
@@ -639,7 +639,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:snap
         */
-        public static int CirclePageIndicator_snap = 7;
+        public static final int CirclePageIndicator_snap = 7;
         /**
           <p>
           @attr description
@@ -656,7 +656,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:strokeColor
         */
-        public static int CirclePageIndicator_strokeColor = 8;
+        public static final int CirclePageIndicator_strokeColor = 8;
         /**
           <p>
           @attr description
@@ -674,7 +674,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:strokeWidth
         */
-        public static int CirclePageIndicator_strokeWidth = 3;
+        public static final int CirclePageIndicator_strokeWidth = 3;
         /** Attributes that can be used with a LinePageIndicator.
            <p>Includes the following attributes:</p>
            <table>
@@ -709,7 +709,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#background}.
           @attr name android:background
         */
-        public static int LinePageIndicator_android_background = 0;
+        public static final int LinePageIndicator_android_background = 0;
         /**
           <p>
           @attr description
@@ -725,7 +725,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:centered
         */
-        public static int LinePageIndicator_centered = 1;
+        public static final int LinePageIndicator_centered = 1;
         /**
           <p>
           @attr description
@@ -743,7 +743,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:gapWidth
         */
-        public static int LinePageIndicator_gapWidth = 6;
+        public static final int LinePageIndicator_gapWidth = 6;
         /**
           <p>
           @attr description
@@ -761,7 +761,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:lineWidth
         */
-        public static int LinePageIndicator_lineWidth = 5;
+        public static final int LinePageIndicator_lineWidth = 5;
         /**
           <p>
           @attr description
@@ -778,7 +778,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectedColor
         */
-        public static int LinePageIndicator_selectedColor = 2;
+        public static final int LinePageIndicator_selectedColor = 2;
         /**
           <p>
           @attr description
@@ -796,7 +796,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:strokeWidth
         */
-        public static int LinePageIndicator_strokeWidth = 3;
+        public static final int LinePageIndicator_strokeWidth = 3;
         /**
           <p>
           @attr description
@@ -813,7 +813,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:unselectedColor
         */
-        public static int LinePageIndicator_unselectedColor = 4;
+        public static final int LinePageIndicator_unselectedColor = 4;
         /** Attributes that can be used with a SlidingMenu.
            <p>Includes the following attributes:</p>
            <table>
@@ -871,7 +871,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:behindOffset
         */
-        public static int SlidingMenu_behindOffset = 3;
+        public static final int SlidingMenu_behindOffset = 3;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#behindScrollScale}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -885,7 +885,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:behindScrollScale
         */
-        public static int SlidingMenu_behindScrollScale = 5;
+        public static final int SlidingMenu_behindScrollScale = 5;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#behindWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -901,7 +901,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:behindWidth
         */
-        public static int SlidingMenu_behindWidth = 4;
+        public static final int SlidingMenu_behindWidth = 4;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#fadeDegree}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -915,7 +915,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fadeDegree
         */
-        public static int SlidingMenu_fadeDegree = 11;
+        public static final int SlidingMenu_fadeDegree = 11;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#fadeEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -929,7 +929,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fadeEnabled
         */
-        public static int SlidingMenu_fadeEnabled = 10;
+        public static final int SlidingMenu_fadeEnabled = 10;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#mode}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -946,7 +946,7 @@ containing a value of this type.
 </table>
           @attr name com.jeremyfeinstein.slidingmenu.lib:mode
         */
-        public static int SlidingMenu_mode = 0;
+        public static final int SlidingMenu_mode = 0;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#selectorDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -956,7 +956,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectorDrawable
         */
-        public static int SlidingMenu_selectorDrawable = 13;
+        public static final int SlidingMenu_selectorDrawable = 13;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#selectorEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -970,7 +970,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectorEnabled
         */
-        public static int SlidingMenu_selectorEnabled = 12;
+        public static final int SlidingMenu_selectorEnabled = 12;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#shadowDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -980,7 +980,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.jeremyfeinstein.slidingmenu.lib:shadowDrawable
         */
-        public static int SlidingMenu_shadowDrawable = 8;
+        public static final int SlidingMenu_shadowDrawable = 8;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#shadowWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -996,7 +996,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:shadowWidth
         */
-        public static int SlidingMenu_shadowWidth = 9;
+        public static final int SlidingMenu_shadowWidth = 9;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#touchModeAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -1013,7 +1013,7 @@ containing a value of this type.
 </table>
           @attr name com.jeremyfeinstein.slidingmenu.lib:touchModeAbove
         */
-        public static int SlidingMenu_touchModeAbove = 6;
+        public static final int SlidingMenu_touchModeAbove = 6;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#touchModeBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -1030,7 +1030,7 @@ containing a value of this type.
 </table>
           @attr name com.jeremyfeinstein.slidingmenu.lib:touchModeBehind
         */
-        public static int SlidingMenu_touchModeBehind = 7;
+        public static final int SlidingMenu_touchModeBehind = 7;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#viewAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -1040,7 +1040,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.jeremyfeinstein.slidingmenu.lib:viewAbove
         */
-        public static int SlidingMenu_viewAbove = 1;
+        public static final int SlidingMenu_viewAbove = 1;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#viewBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -1050,7 +1050,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.jeremyfeinstein.slidingmenu.lib:viewBehind
         */
-        public static int SlidingMenu_viewBehind = 2;
+        public static final int SlidingMenu_viewBehind = 2;
         /** Attributes that can be used with a StickyListHeadersListView.
            <p>Includes the following attributes:</p>
            <table>
@@ -1118,13 +1118,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:cacheColorHint
         */
-        public static int StickyListHeadersListView_android_cacheColorHint = 13;
+        public static final int StickyListHeadersListView_android_cacheColorHint = 13;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#choiceMode}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:choiceMode
         */
-        public static int StickyListHeadersListView_android_choiceMode = 16;
+        public static final int StickyListHeadersListView_android_choiceMode = 16;
         /**
           <p>
           @attr description
@@ -1133,25 +1133,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#clipToPadding}.
           @attr name android:clipToPadding
         */
-        public static int StickyListHeadersListView_android_clipToPadding = 8;
+        public static final int StickyListHeadersListView_android_clipToPadding = 8;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#divider}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:divider
         */
-        public static int StickyListHeadersListView_android_divider = 14;
+        public static final int StickyListHeadersListView_android_divider = 14;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#dividerHeight}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:dividerHeight
         */
-        public static int StickyListHeadersListView_android_dividerHeight = 15;
+        public static final int StickyListHeadersListView_android_dividerHeight = 15;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#drawSelectorOnTop}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:drawSelectorOnTop
         */
-        public static int StickyListHeadersListView_android_drawSelectorOnTop = 10;
+        public static final int StickyListHeadersListView_android_drawSelectorOnTop = 10;
         /**
           <p>
           @attr description
@@ -1160,91 +1160,91 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#fadingEdgeLength}.
           @attr name android:fadingEdgeLength
         */
-        public static int StickyListHeadersListView_android_fadingEdgeLength = 7;
+        public static final int StickyListHeadersListView_android_fadingEdgeLength = 7;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#fastScrollAlwaysVisible}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:fastScrollAlwaysVisible
         */
-        public static int StickyListHeadersListView_android_fastScrollAlwaysVisible = 19;
+        public static final int StickyListHeadersListView_android_fastScrollAlwaysVisible = 19;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#fastScrollEnabled}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:fastScrollEnabled
         */
-        public static int StickyListHeadersListView_android_fastScrollEnabled = 17;
+        public static final int StickyListHeadersListView_android_fastScrollEnabled = 17;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#listSelector}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:listSelector
         */
-        public static int StickyListHeadersListView_android_listSelector = 9;
+        public static final int StickyListHeadersListView_android_listSelector = 9;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#overScrollMode}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:overScrollMode
         */
-        public static int StickyListHeadersListView_android_overScrollMode = 18;
+        public static final int StickyListHeadersListView_android_overScrollMode = 18;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#padding}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:padding
         */
-        public static int StickyListHeadersListView_android_padding = 1;
+        public static final int StickyListHeadersListView_android_padding = 1;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#paddingBottom}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:paddingBottom
         */
-        public static int StickyListHeadersListView_android_paddingBottom = 5;
+        public static final int StickyListHeadersListView_android_paddingBottom = 5;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#paddingLeft}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:paddingLeft
         */
-        public static int StickyListHeadersListView_android_paddingLeft = 2;
+        public static final int StickyListHeadersListView_android_paddingLeft = 2;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#paddingRight}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:paddingRight
         */
-        public static int StickyListHeadersListView_android_paddingRight = 4;
+        public static final int StickyListHeadersListView_android_paddingRight = 4;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#paddingTop}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:paddingTop
         */
-        public static int StickyListHeadersListView_android_paddingTop = 3;
+        public static final int StickyListHeadersListView_android_paddingTop = 3;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#requiresFadingEdge}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:requiresFadingEdge
         */
-        public static int StickyListHeadersListView_android_requiresFadingEdge = 20;
+        public static final int StickyListHeadersListView_android_requiresFadingEdge = 20;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#scrollbarStyle}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:scrollbarStyle
         */
-        public static int StickyListHeadersListView_android_scrollbarStyle = 0;
+        public static final int StickyListHeadersListView_android_scrollbarStyle = 0;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#scrollbars}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:scrollbars
         */
-        public static int StickyListHeadersListView_android_scrollbars = 6;
+        public static final int StickyListHeadersListView_android_scrollbars = 6;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#scrollingCache}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:scrollingCache
         */
-        public static int StickyListHeadersListView_android_scrollingCache = 11;
+        public static final int StickyListHeadersListView_android_scrollingCache = 11;
         /**
           <p>This symbol is the offset where the {@link android.R.attr#transcriptMode}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
           @attr name android:transcriptMode
         */
-        public static int StickyListHeadersListView_android_transcriptMode = 12;
+        public static final int StickyListHeadersListView_android_transcriptMode = 12;
         /**
           <p>
           @attr description
@@ -1260,7 +1260,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:hasStickyHeaders
         */
-        public static int StickyListHeadersListView_hasStickyHeaders = 21;
+        public static final int StickyListHeadersListView_hasStickyHeaders = 21;
         /**
           <p>This symbol is the offset where the {@link com.jeremyfeinstein.slidingmenu.lib.R.attr#isDrawingListUnderStickyHeader}
           attribute's value can be found in the {@link #StickyListHeadersListView} array.
@@ -1274,7 +1274,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.jeremyfeinstein.slidingmenu.lib:isDrawingListUnderStickyHeader
         */
-        public static int StickyListHeadersListView_isDrawingListUnderStickyHeader = 22;
+        public static final int StickyListHeadersListView_isDrawingListUnderStickyHeader = 22;
         /** Attributes that can be used with a TitlePageIndicator.
            <p>Includes the following attributes:</p>
            <table>
@@ -1327,7 +1327,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#background}.
           @attr name android:background
         */
-        public static int TitlePageIndicator_android_background = 2;
+        public static final int TitlePageIndicator_android_background = 2;
         /**
           <p>
           @attr description
@@ -1336,7 +1336,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#textColor}.
           @attr name android:textColor
         */
-        public static int TitlePageIndicator_android_textColor = 1;
+        public static final int TitlePageIndicator_android_textColor = 1;
         /**
           <p>
           @attr description
@@ -1345,7 +1345,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#textSize}.
           @attr name android:textSize
         */
-        public static int TitlePageIndicator_android_textSize = 0;
+        public static final int TitlePageIndicator_android_textSize = 0;
         /**
           <p>
           @attr description
@@ -1363,7 +1363,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:clipPadding
         */
-        public static int TitlePageIndicator_clipPadding = 4;
+        public static final int TitlePageIndicator_clipPadding = 4;
         /**
           <p>
           @attr description
@@ -1380,7 +1380,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerColor
         */
-        public static int TitlePageIndicator_footerColor = 5;
+        public static final int TitlePageIndicator_footerColor = 5;
         /**
           <p>
           @attr description
@@ -1398,7 +1398,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerIndicatorHeight
         */
-        public static int TitlePageIndicator_footerIndicatorHeight = 8;
+        public static final int TitlePageIndicator_footerIndicatorHeight = 8;
         /**
           <p>
           @attr description
@@ -1418,7 +1418,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerIndicatorStyle
         */
-        public static int TitlePageIndicator_footerIndicatorStyle = 7;
+        public static final int TitlePageIndicator_footerIndicatorStyle = 7;
         /**
           <p>
           @attr description
@@ -1436,7 +1436,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerIndicatorUnderlinePadding
         */
-        public static int TitlePageIndicator_footerIndicatorUnderlinePadding = 9;
+        public static final int TitlePageIndicator_footerIndicatorUnderlinePadding = 9;
         /**
           <p>
           @attr description
@@ -1454,7 +1454,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerLineHeight
         */
-        public static int TitlePageIndicator_footerLineHeight = 6;
+        public static final int TitlePageIndicator_footerLineHeight = 6;
         /**
           <p>
           @attr description
@@ -1472,7 +1472,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:footerPadding
         */
-        public static int TitlePageIndicator_footerPadding = 10;
+        public static final int TitlePageIndicator_footerPadding = 10;
         /**
           <p>
           @attr description
@@ -1491,7 +1491,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:linePosition
         */
-        public static int TitlePageIndicator_linePosition = 11;
+        public static final int TitlePageIndicator_linePosition = 11;
         /**
           <p>
           @attr description
@@ -1507,7 +1507,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectedBold
         */
-        public static int TitlePageIndicator_selectedBold = 12;
+        public static final int TitlePageIndicator_selectedBold = 12;
         /**
           <p>
           @attr description
@@ -1524,7 +1524,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectedColor
         */
-        public static int TitlePageIndicator_selectedColor = 3;
+        public static final int TitlePageIndicator_selectedColor = 3;
         /**
           <p>
           @attr description
@@ -1542,7 +1542,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:titlePadding
         */
-        public static int TitlePageIndicator_titlePadding = 13;
+        public static final int TitlePageIndicator_titlePadding = 13;
         /**
           <p>
           @attr description
@@ -1560,7 +1560,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:topPadding
         */
-        public static int TitlePageIndicator_topPadding = 14;
+        public static final int TitlePageIndicator_topPadding = 14;
         /** Attributes that can be used with a UnderlinePageIndicator.
            <p>Includes the following attributes:</p>
            <table>
@@ -1591,7 +1591,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#background}.
           @attr name android:background
         */
-        public static int UnderlinePageIndicator_android_background = 0;
+        public static final int UnderlinePageIndicator_android_background = 0;
         /**
           <p>
           @attr description
@@ -1607,7 +1607,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fadeDelay
         */
-        public static int UnderlinePageIndicator_fadeDelay = 3;
+        public static final int UnderlinePageIndicator_fadeDelay = 3;
         /**
           <p>
           @attr description
@@ -1623,7 +1623,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fadeLength
         */
-        public static int UnderlinePageIndicator_fadeLength = 4;
+        public static final int UnderlinePageIndicator_fadeLength = 4;
         /**
           <p>
           @attr description
@@ -1639,7 +1639,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:fades
         */
-        public static int UnderlinePageIndicator_fades = 2;
+        public static final int UnderlinePageIndicator_fades = 2;
         /**
           <p>
           @attr description
@@ -1656,7 +1656,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:selectedColor
         */
-        public static int UnderlinePageIndicator_selectedColor = 1;
+        public static final int UnderlinePageIndicator_selectedColor = 1;
         /** Attributes that can be used with a ViewPagerIndicator.
            <p>Includes the following attributes:</p>
            <table>
@@ -1692,7 +1692,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiCirclePageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
+        public static final int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
         /**
           <p>
           @attr description
@@ -1704,7 +1704,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiIconPageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
+        public static final int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
         /**
           <p>
           @attr description
@@ -1716,7 +1716,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiLinePageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
+        public static final int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
         /**
           <p>
           @attr description
@@ -1728,7 +1728,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiTabPageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
+        public static final int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
         /**
           <p>
           @attr description
@@ -1740,7 +1740,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiTitlePageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
+        public static final int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
         /**
           <p>
           @attr description
@@ -1752,6 +1752,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.jeremyfeinstein.slidingmenu.lib:vpiUnderlinePageIndicatorStyle
         */
-        public static int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
+        public static final int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
     };
 }

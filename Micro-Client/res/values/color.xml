@@ -3,7 +3,9 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="main">#FF7043</color>
+     <color name="main">#FF7043</color>
+<!--     <color name="main">#FF03A9F4</color> -->
+
     <color name="front_gray">#777777</color>
     <color name="default_tab_indicator_unselected_color">#ffd3dde6</color>
     <color name="default_tab_indicator_selected_color">#00C5CD</color>
@@ -37,5 +39,16 @@
 
     <!-- 条目按压事的颜色pressed -->
     <color name="personal_item_selected">#e7e7e7</color>
+    <color name="default_font_color_1">#003041</color>
+    <color name="default_font_color_2">#2B3F4E</color>
+    <color name="default_font_color_3">#697188</color>
+    <!-- 顶部栏背景 -->
+    <color name="default_action_bar_bg_color">#F7F9FC</color>
+    <!-- activity背景 -->
+    <color name="default_bg_color">#F5F7FA</color>
+    <!-- 分割线 -->
+    <color name="default_line_color">#EFF1F6</color>
+    <!-- 组件边框 -->
+    <color name="default_view_border_color">#E0E0E1</color>
 
 </resources>

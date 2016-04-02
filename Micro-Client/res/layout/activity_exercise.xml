@@ -8,18 +8,18 @@
     <RelativeLayout
         android:id="@+id/exercise_menu_bar"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@color/main"
+        android:layout_height="40dp"
+        android:background="@color/default_action_bar_bg_color"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/exercise_close"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/exercise_close" />
+            android:background="@drawable/back" />
 
         <Button
             android:id="@+id/exercise_done"
@@ -29,7 +29,7 @@
             android:background="#00ffffff"
             android:text="@string/submit"
             android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 
     <RelativeLayout

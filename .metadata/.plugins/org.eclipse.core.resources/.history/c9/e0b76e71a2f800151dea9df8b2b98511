@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/video_description_course_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/default_font_color_1"
+                android:textSize="@dimen/default_course_detail_title_font_size" />
+
+            <ImageView
+                android:id="@+id/video_description_course_isend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text="讲师"
+            android:textColor="@color/default_font_color_1"
+            android:textSize="@dimen/default_action_bar_font_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp" >
+
+            <ImageView
+                android:id="@+id/video_description_lecturer_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/video_description_lecturer_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/video_description_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="@color/default_font_color_3"
+                    android:textSize="@dimen/default_action_bar_font_size" />
+
+                <TextView
+                    android:id="@+id/video_description_teacher_desc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/default_font_color_3"
+                    android:textSize="@dimen/default_content_font_size_14" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text="课程介绍"
+            android:textColor="@color/default_font_color_2"
+            android:textSize="@dimen/default_action_bar_font_size" />
+
+        <TextView
+            android:id="@+id/video_description_course_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:ellipsize="end"
+            android:lines="4"
+            android:textColor="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+    </LinearLayout>
+
+</ScrollView>

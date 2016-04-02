@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/all_course_menu_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/default_action_bar_bg_color"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/all_course_menu_imgbtn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/menu_bar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="全部分类"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/default_action_bar_font_size" />
+
+        <ImageButton
+            android:id="@+id/all_search_imgbtn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/search" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/all_course_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/all_course_menu_bar"
+        android:padding="5dp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/all_course_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/all_course_count"
+        android:background="@color/white"
+        android:cacheColorHint="@android:color/transparent"
+        android:choiceMode="singleChoice"
+        android:divider="@color/front_gray"
+        android:dividerHeight="1px" >
+    </ListView>
+
+</RelativeLayout>

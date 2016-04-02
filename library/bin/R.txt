@@ -91,11 +91,11 @@ int drawable vpi__tab_unselected_holo 0x7f020005
 int drawable vpi__tab_unselected_pressed_holo 0x7f020006
 int id bottom 0x7f040008
 int id fullscreen 0x7f040003
-int id left 0x7f040001
-int id margin 0x7f040004
+int id left 0x7f040000
+int id margin 0x7f040002
 int id none 0x7f040005
-int id right 0x7f040002
-int id selected_view 0x7f040000
+int id right 0x7f040001
+int id selected_view 0x7f040004
 int id slidingmenumain 0x7f04000a
 int id top 0x7f040009
 int id triangle 0x7f040006

@@ -6,19 +6,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.easefun.polyvsdk.QuestionVO;
-import com.easefun.polyvsdk.Video.ADMatter;
-import com.easefun.polyvsdk.ijk.IjkVideoView;
-import com.easefun.polyvsdk.ijk.IjkVideoView.ErrorReason;
-import com.easefun.polyvsdk.ijk.OnPreparedListener;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.BaseActivity;
+import yinzhi.micro_client.activity.CommentActivity;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZSubtitleVO;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -40,15 +37,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.BaseActivity;
-import yinzhi.micro_client.activity.CommentActivity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.vo.YZSubtitleVO;
+
+import com.easefun.polyvsdk.QuestionVO;
+import com.easefun.polyvsdk.Video.ADMatter;
+import com.easefun.polyvsdk.ijk.IjkVideoView;
+import com.easefun.polyvsdk.ijk.IjkVideoView.ErrorReason;
+import com.easefun.polyvsdk.ijk.OnPreparedListener;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
 
 public class IjkVideoActicity extends BaseActivity {
 
@@ -115,7 +113,7 @@ public class IjkVideoActicity extends BaseActivity {
 
 		backIv = (ImageView) findViewById(R.id.video_back);
 		commentIv = (ImageView) findViewById(R.id.video_comment);
-		shareIv = (ImageView) findViewById(R.id.video_share);
+//		shareIv = (ImageView) findViewById(R.id.video_share);
 
 		subtitleResult = (ListView) findViewById(R.id.subtitle_search_result);
 		startSearch = (Button) findViewById(R.id.search_start);
@@ -457,9 +455,9 @@ public class IjkVideoActicity extends BaseActivity {
 				intent.putExtra("itemResourceId", itemResourceId);
 				startActivity(intent);
 				break;
-			case R.id.video_share:
-
-				break;
+//			case R.id.video_share:
+//
+//				break;
 			default:
 				break;
 			}
@@ -699,10 +697,7 @@ public class IjkVideoActicity extends BaseActivity {
 
 						LogUtils.i(response + "------------------subtitle");
 
-						if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status")
-								.equals("0")) {
-							Toast.makeText(IjkVideoActicity.this, JSON.parseObject(response).get("msg").toString(),
-									Toast.LENGTH_SHORT).show();
+						if(!YZNetworkUtils.isAllowedContinue(IjkVideoActicity.this, response)){
 							return;
 						}
 

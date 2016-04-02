@@ -5,5 +5,5 @@
 
     <stroke
         android:width="1px"
-        android:color="@color/front_gray" />
+        android:color="@color/default_view_border_color" />
 </shape>

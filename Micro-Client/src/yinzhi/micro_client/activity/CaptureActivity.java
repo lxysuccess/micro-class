@@ -171,6 +171,10 @@ public class CaptureActivity extends Activity implements Callback {
 
 				LogUtils.i(response + "barcodebarcodebarcodebarcodebarcode");
 
+				if(!YZNetworkUtils.isAllowedContinue(CaptureActivity.this, response)){
+					return;
+				}
+				
 				YZBarcodeVO barcodeVO = YZResponseUtils.parseObject(response, YZBarcodeVO.class);
 
 				if (barcodeVO != null) {

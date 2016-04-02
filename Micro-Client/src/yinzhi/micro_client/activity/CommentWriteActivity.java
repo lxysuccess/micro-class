@@ -115,16 +115,8 @@ public class CommentWriteActivity extends BaseActivity {
 
 						String response = arg0.result;
 
-						YZBaseVO baseResult = YZResponseUtils.parseObject(response, YZBaseVO.class);
-
-						// TODO 状态判断并处理
-						if (baseResult.getStatus() == 2) {
-
-							Toast.makeText(getApplicationContext(), "登录信息验证失败，请重新登录", Toast.LENGTH_SHORT).show();
-							SpMessageUtil.deleteSPMsg("userinfo");
-
-							Intent intent = new Intent(CommentWriteActivity.this, LoginActivity.class);
-							startActivity(intent);
+						if(!YZNetworkUtils.isAllowedContinue(CommentWriteActivity.this, response)){
+							return;
 						}
 
 						String score = JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("score")

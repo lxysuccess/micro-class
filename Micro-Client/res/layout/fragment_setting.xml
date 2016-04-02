@@ -8,14 +8,14 @@
     <RelativeLayout
         android:id="@+id/setting_menu_bar"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@color/main"
         android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/setting_menu_imgbtn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
@@ -156,10 +156,11 @@
     <Button
         android:id="@+id/setting_logout"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="30dp"
         android:layout_margin="25dp"
-        android:background="@drawable/border_sharp"
+        android:background="@color/main"
         android:text="@string/logout"
-        android:textColor="@color/main" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_action_bar_font_size" />
 
 </LinearLayout>

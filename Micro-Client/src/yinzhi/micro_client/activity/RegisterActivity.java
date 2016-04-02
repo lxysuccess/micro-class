@@ -76,6 +76,10 @@ public class RegisterActivity extends BaseActivity {
 						String response = arg0.result;
 						LogUtils.i("" + response);
 
+						if(!YZNetworkUtils.isAllowedContinue(RegisterActivity.this, response)){
+							return;
+						}
+						
 						YZUserVO user = YZResponseUtils.parseObject(response, YZUserVO.class);
 
 						try {

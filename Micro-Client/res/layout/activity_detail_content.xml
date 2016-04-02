@@ -37,7 +37,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="1dp"
-                    android:background="@drawable/detail_content_back" />
+                    android:background="@drawable/back" />
 
                 <Button
                     android:id="@+id/detail_comment"
@@ -46,7 +46,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/detail_comment" />
+                    android:background="@drawable/video_comment" />
 
                 <Button
                     android:id="@+id/detail_share"
@@ -55,7 +55,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/detail_share" />
+                    android:background="@drawable/video_subtitle_search" />
             </RelativeLayout>
 
             <ProgressBar
@@ -87,8 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                     />
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/detail_video_time"

@@ -2,15 +2,18 @@ package yinzhi.micro_client.activity;
 
 import java.util.ArrayList;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.viewpagerindicator.TabPageIndicator;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.fragment.VideoCatalogFragment;
+import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
+import yinzhi.micro_client.fragment.VideoDescriptionFragment;
+import yinzhi.micro_client.fragment.VideoDescriptionFragment.IUpdateData;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZCatalogVO;
+import yinzhi.micro_client.network.vo.YZCourseVO;
+import yinzhi.micro_client.utils.ImageUtil;
+import yinzhi.micro_client.utils.SpMessageUtil;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -25,23 +28,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.video.IjkVideoActicity;
-import yinzhi.micro_client.fragment.VideoCatalogFragment;
-import yinzhi.micro_client.fragment.VideoCatalogFragment.IUpdateCatalogData;
-import yinzhi.micro_client.fragment.VideoDescriptionFragment;
-import yinzhi.micro_client.fragment.VideoDescriptionFragment.IUpdateData;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZCatalogVO;
-import yinzhi.micro_client.network.vo.YZCourseVO;
-import yinzhi.micro_client.utils.ImageUtil;
-import yinzhi.micro_client.utils.SpMessageUtil;
 
-public class IntroductionActivity extends BaseActivity implements IUpdateData, IUpdateCatalogData {
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.viewpagerindicator.TabPageIndicator;
 
-	private static final String TAG = IntroductionActivity.class.getSimpleName();
+public class IntroductionActivity extends BaseActivity implements IUpdateData,
+		IUpdateCatalogData {
+
+	private static final String TAG = IntroductionActivity.class
+			.getSimpleName();
+
+	@ViewInject(R.id.introduction_back)
+	private ImageView back;
 
 	/**
 	 * 课程介绍和目录
@@ -105,8 +110,8 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 	 */
 	private Integer tabPos;
 
-	public static Intent newIntent(Context context, String itemResourceId, String courseId, Integer tabPos,
-			String fromActivity) {
+	public static Intent newIntent(Context context, String itemResourceId,
+			String courseId, Integer tabPos, String fromActivity) {
 		Intent intent = new Intent(context, IntroductionActivity.class);
 		intent.putExtra("itemResourceId", itemResourceId);
 		intent.putExtra("courseId", courseId);
@@ -115,9 +120,10 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 		return intent;
 	}
 
-	public static void intentTo(Context context, String itemResourceId, String courseId, Integer tabPos,
-			String fromActivity) {
-		context.startActivity(newIntent(context, itemResourceId, courseId, tabPos, fromActivity));
+	public static void intentTo(Context context, String itemResourceId,
+			String courseId, Integer tabPos, String fromActivity) {
+		context.startActivity(newIntent(context, itemResourceId, courseId,
+				tabPos, fromActivity));
 	}
 
 	@SuppressLint("NewApi")
@@ -128,7 +134,8 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 		ViewUtils.inject(this);
 
 		courseId = getIntent().getExtras().getString("courseId", "-1");
-		itemResourceId = getIntent().getExtras().getString("itemResourceId", "-1");
+		itemResourceId = getIntent().getExtras().getString("itemResourceId",
+				"-1");
 		tabPos = getIntent().getExtras().getInt("tabPos", 0);
 		fromActivity = getIntent().getExtras().getString("fromActivity", "-1");
 
@@ -144,11 +151,11 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 		((VideoDescriptionFragment) fragments.get(0)).setIUpdateData(this);
 		((VideoCatalogFragment) fragments.get(1)).setIUpdateCatalog(this);
 
-		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(getSupportFragmentManager(),
-				fragments);
+		MyIntroductionAdapter myFragmentPagerAdapter = new MyIntroductionAdapter(
+				getSupportFragmentManager(), fragments);
 		pager.setAdapter(myFragmentPagerAdapter);
-		pager.setCurrentItem(pos);
 		indicator.setViewPager(pager);
+		indicator.setCurrentItem(pos);
 
 	}
 
@@ -193,41 +200,51 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 		// 显示正在加载
 		wait.setVisibility(View.VISIBLE);
 		String token = SpMessageUtil.getLogonToken(getApplicationContext());
-		
+
 		LogUtils.i("token===================" + token);
-		YZNetworkUtils.courseDetail(token, courseId, new RequestCallBack<String>() {
+		YZNetworkUtils.courseDetail(token, courseId,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
 
-				// TODO 日志
-				LogUtils.i(response);
+						// TODO 日志
+						LogUtils.i(response);
+						
+						if(!YZNetworkUtils.isAllowedContinue(IntroductionActivity.this, response)){
+							return;
+						}
 
-				YZCourseVO course = YZResponseUtils.parseObject(response, YZCourseVO.class);
+						YZCourseVO course = YZResponseUtils.parseObject(
+								response, YZCourseVO.class);
 
-				if (course == null) {
-					Toast.makeText(IntroductionActivity.this, "尚无详情数据！", Toast.LENGTH_LONG).show();
-					// 去掉正在加载
-					wait.setVisibility(View.GONE);
-					return;
-				}
+						if (course == null) {
+							Toast.makeText(IntroductionActivity.this,
+									"尚无详情数据！", Toast.LENGTH_LONG).show();
+							// 去掉正在加载
+							wait.setVisibility(View.GONE);
+							return;
+						}
 
-				((VideoDescriptionFragment) fragments.get(0)).updateDataCompleted(course);
+						((VideoDescriptionFragment) fragments.get(0))
+								.updateDataCompleted(course);
 
-				// 显示课程介绍图片
-				ImageLoader.getInstance().displayImage(INetworkConstants.YZMC_SERVER + course.getCoursePicPath(),
-						introImage, ImageUtil.getDisplayOption(0));
+						// 显示课程介绍图片
+						ImageLoader.getInstance().displayImage(
+								INetworkConstants.YZMC_SERVER
+										+ course.getCoursePicPath(),
+								introImage, ImageUtil.getDisplayOption(0));
 
-				// 去掉正在加载
-				wait.setVisibility(View.GONE);
-			}
+						// 去掉正在加载
+						wait.setVisibility(View.GONE);
+					}
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO 异常处理
-			}
-		});
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO 异常处理
+					}
+				});
 	}
 
 	@Override
@@ -236,35 +253,48 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData, I
 		wait.setVisibility(View.VISIBLE);
 		String token = SpMessageUtil.getLogonToken(getApplicationContext());
 
-		YZNetworkUtils.courseCatalog(token, courseId, new RequestCallBack<String>() {
+		YZNetworkUtils.courseCatalog(token, courseId,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
 
-			}
+					}
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
 
-				LogUtils.i(response + "000000000000000");
+						LogUtils.i(response + "000000000000000");
+						
+						if(!YZNetworkUtils.isAllowedContinue(IntroductionActivity.this, response)){
+							return;
+						}
 
-				YZCatalogVO catalog = YZResponseUtils.parseCatalog(response);
+						YZCatalogVO catalog = YZResponseUtils
+								.parseCatalog(response);
 
-				if (catalog == null) {
-					Toast.makeText(IntroductionActivity.this, "尚无目录数据！", Toast.LENGTH_LONG).show();
-					// 去掉正在加载
-					wait.setVisibility(View.GONE);
-					return;
-				}
-				// 通知目录页更新完成
-				((VideoCatalogFragment) fragments.get(1)).updateCatalogCompleted(catalog);
+						if (catalog == null) {
+							Toast.makeText(IntroductionActivity.this,
+									"尚无目录数据！", Toast.LENGTH_LONG).show();
+							// 去掉正在加载
+							wait.setVisibility(View.GONE);
+							return;
+						}
+						// 通知目录页更新完成
+						((VideoCatalogFragment) fragments.get(1))
+								.updateCatalogCompleted(catalog);
 
-				// 去掉正在加载
-				wait.setVisibility(View.GONE);
-			}
+						// 去掉正在加载
+						wait.setVisibility(View.GONE);
+					}
 
-		});
+				});
 	}
 
+	@OnClick(R.id.introduction_back)
+	public void backClick(View v) {
+		finish();
+		overridePendingTransition(0, R.anim.activity_anim_left_out);
+	}
 }

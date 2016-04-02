@@ -80,6 +80,10 @@ public class LoginActivity extends Activity {
 			public void onSuccess(ResponseInfo<String> arg0) {
 				String response = arg0.result;
 				LogUtils.i("" + response);
+				
+				if(!YZNetworkUtils.isAllowedContinue(LoginActivity.this, response)){
+					return;
+				}
 
 				YZUserVO user = YZResponseUtils.parseObject(response,
 						YZUserVO.class);

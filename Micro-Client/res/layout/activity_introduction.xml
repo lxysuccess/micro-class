@@ -5,6 +5,21 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/introduction_menu_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/introduction_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/back" />
+    </RelativeLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="bottom"
-            android:background="@color/main"
+            android:background="@color/default_action_bar_bg_color"
             android:text="参加该课程"
             android:textColor="@color/white"
             android:visibility="gone" >

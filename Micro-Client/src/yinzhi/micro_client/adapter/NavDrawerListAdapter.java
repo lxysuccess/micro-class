@@ -4,8 +4,10 @@ import java.util.List;
 
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.bean.NavDrawerItem;
+import yinzhi.micro_client.fragment.MenuFragment;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavDrawerListAdapter extends BaseAdapter {
-	
+
 	private Context context;
 	private List<NavDrawerItem> navDrawerItems;
-	
-	public NavDrawerListAdapter(Context context, List<NavDrawerItem> navDrawerItems){
+
+	public NavDrawerListAdapter(Context context, List<NavDrawerItem> navDrawerItems) {
 		this.context = context;
 		this.navDrawerItems = navDrawerItems;
 	}
@@ -29,7 +31,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {		
+	public Object getItem(int position) {
 		return navDrawerItems.get(position);
 	}
 
@@ -41,28 +43,33 @@ public class NavDrawerListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-            LayoutInflater mInflater = (LayoutInflater)
-                    context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.drawer_list_item, null);
-        }
-         
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-        TextView txtCount = (TextView) convertView.findViewById(R.id.counter);
-         
-        imgIcon.setImageResource(navDrawerItems.get(position).getIcon());        
-        txtTitle.setText(navDrawerItems.get(position).getTitle());
-//        
-//        // displaying count
-//        // check whether it set visible or not
-//        if(navDrawerItems.get(position).getCounterVisibility()){
-//        	txtCount.setText(navDrawerItems.get(position).getCount());
-//        }else{
-//        	// hide the counter view
-//        	txtCount.setVisibility(View.GONE);
-//        }
-        
-        return convertView;
+			LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+			convertView = mInflater.inflate(R.layout.drawer_list_item, null);
+		}
+
+		ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+		TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+		TextView txtCount = (TextView) convertView.findViewById(R.id.counter);
+
+		if (MenuFragment.selected == position) {
+			txtTitle.setTextColor(context.getResources().getColor(R.color.main));
+		}else{
+			txtTitle.setTextColor(Color.parseColor("#4C5760"));
+		}
+
+		imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
+		txtTitle.setText(navDrawerItems.get(position).getTitle());
+		//
+		// // displaying count
+		// // check whether it set visible or not
+		// if(navDrawerItems.get(position).getCounterVisibility()){
+		// txtCount.setText(navDrawerItems.get(position).getCount());
+		// }else{
+		// // hide the counter view
+		// txtCount.setVisibility(View.GONE);
+		// }
+
+		return convertView;
 	}
 
 }

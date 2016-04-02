@@ -6,8 +6,17 @@ import java.util.Map;
 
 import org.apache.http.entity.StringEntity;
 
+import yinzhi.micro_client.activity.CommentWriteActivity;
+import yinzhi.micro_client.activity.LoginActivity;
 import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZBaseVO;
 import yinzhi.micro_client.utils.MD5Util;
+import yinzhi.micro_client.utils.SpMessageUtil;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.HttpUtils;
@@ -24,6 +33,61 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static Map<String, Object> paramMap = new HashMap<String, Object>();
 
 	/**
+	 * 检查网络是否连接
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mNetworkInfo = mConnectivityManager
+					.getActiveNetworkInfo();
+			if (mNetworkInfo != null) {
+				if (mNetworkInfo.isAvailable()) {
+					return true;
+				} else {
+					Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG)
+							.show();
+				}
+
+			}
+		}
+		return false;
+	}
+
+	public static boolean isAllowedContinue(Context context, String response) {
+
+		try {
+			YZBaseVO base = YZResponseUtils.parseObject(response,
+					YZBaseVO.class);
+
+			if (base.getStatus() == 0) {
+				Toast.makeText(context, base.getMsg(), Toast.LENGTH_SHORT)
+						.show();
+				return false;
+			} else if (base.getStatus() == 2) {
+
+				Toast.makeText(context, base.getMsg(), Toast.LENGTH_SHORT)
+						.show();
+				SpMessageUtil.deleteSPMsg("userinfo");
+
+				Intent intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+				return false;
+
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
 	 * 获取轮播信息
 	 * 
 	 * @param logonToken
@@ -32,7 +96,12 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            设备标识（非必须）
 	 * @param callBack
 	 */
-	public static void fetchSlideList(String logonToken, String deviceId, RequestCallBack<String> callBack) {
+	public static void fetchSlideList(Context context, String logonToken,
+			String deviceId, RequestCallBack<String> callBack) {
+		if (!isNetworkConnected(context)) {
+			return;
+		}
+
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -45,11 +114,13 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put("deviceId", deviceId);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SLIDELIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SLIDELIST, params,
+				callBack);
 
 	}
 
@@ -58,8 +129,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * 
 	 * @param callBack
 	 */
-	public static void fetchChargeRecommendCourse(String logonToken, Integer page, Integer size,
-			RequestCallBack<String> callBack) {
+	public static void fetchChargeRecommendCourse(String logonToken,
+			Integer page, Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -72,11 +143,13 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CHARGERECOMMEND, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CHARGERECOMMEND,
+				params, callBack);
 	}
 
 	/**
@@ -84,8 +157,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * 
 	 * @param callBack
 	 */
-	public static void fetchFreeRecommendCourse(String logonToken, Integer page, Integer size,
-			RequestCallBack<String> callBack) {
+	public static void fetchFreeRecommendCourse(String logonToken,
+			Integer page, Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -99,11 +172,13 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_FREERECOMMEND, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_FREERECOMMEND,
+				params, callBack);
 	}
 
 	/**
@@ -119,8 +194,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            一页的数量
 	 * @param callBack
 	 */
-	public static void fetchFreeRankingList(String logonToken, String deviceId, Integer page, Integer size,
-			RequestCallBack<String> callBack) {
+	public static void fetchFreeRankingList(String logonToken, String deviceId,
+			Integer page, Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -137,11 +212,13 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put("deviceId", deviceId);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_FREERANKINGLIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_FREERANKINGLIST,
+				params, callBack);
 	}
 
 	/**
@@ -157,7 +234,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 *            一页的数量
 	 * @param callBack
 	 */
-	public static void fetchChargeRankingList(String logonToken, String deviceId, Integer page, Integer size,
+	public static void fetchChargeRankingList(String logonToken,
+			String deviceId, Integer page, Integer size,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -175,11 +253,13 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put("deviceId", deviceId);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CHARGERANKINGLIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CHARGERANKINGLIST,
+				params, callBack);
 	}
 
 	/**
@@ -191,8 +271,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param size
 	 * @param callBack
 	 */
-	public static void courseSearch(String keyWord, String logonToken, Integer page, Integer size,
-			RequestCallBack<String> callBack) {
+	public static void courseSearch(String keyWord, String logonToken,
+			Integer page, Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -205,12 +285,14 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SEARCH, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SEARCH, params,
+				callBack);
 	}
 
 	/**
@@ -220,7 +302,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param courseId
 	 * @param callBack
 	 */
-	public static void courseDetail(String logonToken, String courseId, RequestCallBack<String> callBack) {
+	public static void courseDetail(String logonToken, String courseId,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -232,12 +315,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_DETAIL, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_DETAIL, params,
+				callBack);
 	}
 
 	/**
@@ -247,7 +332,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param courseId
 	 * @param callBack
 	 */
-	public static void courseCatalog(String logonToken, String courseId, RequestCallBack<String> callBack) {
+	public static void courseCatalog(String logonToken, String courseId,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -258,12 +344,14 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CATALOG, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_CATALOG, params,
+				callBack);
 	}
 
 	/**
@@ -273,7 +361,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void fetchExercise(String logonToken, String itemResourceId, RequestCallBack<String> callBack) {
+	public static void fetchExercise(String logonToken, String itemResourceId,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -286,7 +375,8 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -303,8 +393,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param isTrue
 	 * @param callBack
 	 */
-	public static void exerciseRecord(String logonToken, String itemResourceId, String userChoice, String isTrue,
-			RequestCallBack<String> callBack) {
+	public static void exerciseRecord(String logonToken, String itemResourceId,
+			String userChoice, String isTrue, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader(LOGON_TOKEN, logonToken);
 		params.addBodyParameter("itemResourceId", itemResourceId);
@@ -320,7 +410,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void fetchCourseTips(String logonToken, String itemResourceId, RequestCallBack<String> callBack) {
+	public static void fetchCourseTips(String logonToken,
+			String itemResourceId, RequestCallBack<String> callBack) {
 
 		RequestParams params = new RequestParams();
 
@@ -335,12 +426,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COURSE_TIPS, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_TIPS, params,
+				callBack);
 	}
 
 	/**
@@ -350,7 +443,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void fetchVideo(String itemResourceId, String logonToken, RequestCallBack<String> callBack) {
+	public static void fetchVideo(String itemResourceId, String logonToken,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -364,7 +458,8 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -382,8 +477,9 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param size
 	 * @param callBack
 	 */
-	public static void searchVideoSubtitle(String logonToken, String keyWord, String itemResourceId, Integer page,
-			Integer size, RequestCallBack<String> callBack) {
+	public static void searchVideoSubtitle(String logonToken, String keyWord,
+			String itemResourceId, Integer page, Integer size,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -399,12 +495,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_VIDEO_SUBTITLE, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_VIDEO_SUBTITLE, params,
+				callBack);
 	}
 
 	/**
@@ -414,7 +512,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param page
 	 * @param callBack
 	 */
-	public static void fetchCommentList(String logonToken, String itemResourceId, Integer page, Integer size,
+	public static void fetchCommentList(String logonToken,
+			String itemResourceId, Integer page, Integer size,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
@@ -429,12 +528,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_LIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_LIST, params,
+				callBack);
 	}
 
 	/**
@@ -443,8 +544,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void publishComment(String token, String content, String itemResourceId,
-			RequestCallBack<String> callBack) {
+	public static void publishComment(String token, String content,
+			String itemResourceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -456,12 +557,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		paramMap.put(LOGON_TOKEN, token);
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_COMMENT_PUBLISH, params,
+				callBack);
 	}
 
 	/**
@@ -470,7 +573,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void markScore(String token, String score, String itemResourceId, RequestCallBack<String> callBack) {
+	public static void markScore(String token, String score,
+			String itemResourceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -482,7 +586,8 @@ public class YZNetworkUtils implements INetworkConstants {
 		paramMap.put(LOGON_TOKEN, token);
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -497,7 +602,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param itemResourceId
 	 * @param callBack
 	 */
-	public static void fetchPersonalScore(String token, String itemResourceId, RequestCallBack<String> callBack) {
+	public static void fetchPersonalScore(String token, String itemResourceId,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -509,12 +615,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		// params.addHeader(LOGON_TOKEN, token);
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_SCORE_PERSONAL, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_SCORE_PERSONAL, params,
+				callBack);
 	}
 
 	/**
@@ -523,7 +631,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param callBack
 	 */
 	public static void fetchClassifyList(RequestCallBack<String> callBack) {
-		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LIST, null, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LIST, null,
+				callBack);
 	}
 
 	/**
@@ -531,8 +640,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * 
 	 * @param callBack
 	 */
-	public static void fetchListByClassify(String classifyId, Integer page, Integer size,
-			RequestCallBack<String> callBack) {
+	public static void fetchListByClassify(String classifyId, Integer page,
+			Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -543,12 +652,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		paramMap.put("size", size.toString());
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_CLASSIFY_LISTBYCLASSIFY,
+				params, callBack);
 	}
 
 	/**
@@ -559,7 +670,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param identify
 	 * @param callBack
 	 */
-	public static void barcode(String logonToken, String barcode, String identify, RequestCallBack<String> callBack) {
+	public static void barcode(String logonToken, String barcode,
+			String identify, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -573,7 +685,8 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -587,7 +700,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void fetchMyCourseList(String logonToken, RequestCallBack<String> callBack) {
+	public static void fetchMyCourseList(String logonToken,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -598,12 +712,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_USER_COURSELIST, params,
+				callBack);
 	}
 
 	/**
@@ -614,7 +730,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param password
 	 * @param callBack
 	 */
-	public static void doLogin(String deviceId, String username, String password, RequestCallBack<String> callBack) {
+	public static void doLogin(String deviceId, String username,
+			String password, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -627,7 +744,8 @@ public class YZNetworkUtils implements INetworkConstants {
 		paramMap.put("password", MD5Util.MD5(password));
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -644,8 +762,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param deviceId
 	 * @param callBack
 	 */
-	public static void doRegister(String username, String password, String deviceId, String nickname,
-			RequestCallBack<String> callBack) {
+	public static void doRegister(String username, String password,
+			String deviceId, String nickname, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -661,12 +779,14 @@ public class YZNetworkUtils implements INetworkConstants {
 		}
 
 		try {
-			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap), INetworkConstants.CHARSET));
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		http.send(HttpRequest.HttpMethod.POST, API_USER_REGISTER, params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, API_USER_REGISTER, params,
+				callBack);
 	}
 
 	/**
@@ -675,7 +795,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param username
 	 * @param callBack
 	 */
-	public static void verifyUsername(String username, RequestCallBack<String> callBack) {
+	public static void verifyUsername(String username,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("username", username);
 		http.send(HttpMethod.POST, API_USER_VERIFYUSERNAME, callBack);
@@ -688,7 +809,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void modifyNickname(String nickname, String logonToken, RequestCallBack<String> callBack) {
+	public static void modifyNickname(String nickname, String logonToken,
+			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader(LOGON_TOKEN, logonToken);
 		params.addBodyParameter("nickname", nickname);

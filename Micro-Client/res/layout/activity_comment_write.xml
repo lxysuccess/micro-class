@@ -7,25 +7,26 @@
     <RelativeLayout
         android:id="@+id/write_comment_action_menu"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@color/main"
+        android:layout_height="40dp"
+        android:background="@color/default_action_bar_bg_color"
         android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/write_comment_close"
-            android:layout_width="25dp"
+            android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/detail_content_back" />
+            android:background="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="写评论"
-            android:textColor="@color/white" />
+            android:textColor="@color/default_font_color_2"
+            android:textSize="@dimen/default_action_bar_font_size" />
 
         <Button
             android:id="@+id/comment_publish"
@@ -36,7 +37,8 @@
             android:layout_marginTop="1dp"
             android:background="#00ffffff"
             android:text="发布"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 
     <RelativeLayout

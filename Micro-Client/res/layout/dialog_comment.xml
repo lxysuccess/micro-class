@@ -20,6 +20,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:background="@drawable/btn_comment_send" />
+        android:background="@drawable/comment_write" />
 
 </LinearLayout>

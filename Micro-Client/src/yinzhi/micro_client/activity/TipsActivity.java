@@ -86,6 +86,10 @@ public class TipsActivity extends Activity {
 				String response = arg0.result;
 
 				LogUtils.i(response + " ==============");
+				
+				if(!YZNetworkUtils.isAllowedContinue(TipsActivity.this, response)){
+					return;
+				}
 
 				tip = YZResponseUtils.parseObject(response, YZTipsVO.class);
 

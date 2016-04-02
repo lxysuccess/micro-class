@@ -47,7 +47,7 @@
         android:layout_below="@id/left_menu_divider1"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="1dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="38dp"
         android:background="#00000000"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
@@ -76,8 +76,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="65dp"
             android:text="@string/left_menu_setting"
-            android:textColor="@color/front_gray"
-            android:textSize="22dp" />
+            android:textColor="#4C5760"
+            android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 
 </RelativeLayout>

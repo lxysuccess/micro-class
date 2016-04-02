@@ -139,6 +139,10 @@ public class ExerciseActivity extends Activity {
 				String response = arg0.result;
 
 				LogUtils.i(response + "lianxitimu ==============");
+				
+				if(!YZNetworkUtils.isAllowedContinue(ExerciseActivity.this, response)){
+					return;
+				}
 				exercise = YZResponseUtils.parseObject(response, YZExerciseVO.class);
 
 				initView();

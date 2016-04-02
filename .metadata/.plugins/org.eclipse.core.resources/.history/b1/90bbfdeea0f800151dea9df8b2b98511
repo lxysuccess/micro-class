@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/video_description_course_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/default_font_color_1"
+                android:textSize="@dimen/default_course_detail_title_font_size" />
+
+            <ImageView
+                android:id="@+id/video_description_course_isend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text="讲师"
+            android:textColor="@android:color/background_dark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp" >
+
+            <ImageView
+                android:id="@+id/video_description_lecturer_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/video_description_lecturer_icon"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/video_description_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/video_description_teacher_desc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/video_description_teacher"
+                    android:text=""
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text="课程介绍"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:id="@+id/video_description_course_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:ellipsize="end"
+            android:lines="4"
+            android:textColor="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="#ffd3dde6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text="相关推荐"
+            android:textColor="@android:color/background_dark" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="3dp" >
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/book1" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/book2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="3dp" >
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/book3" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/book4" />
+        </TableRow>
+    </LinearLayout>
+
+</ScrollView>

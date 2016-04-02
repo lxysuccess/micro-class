@@ -2,37 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/left_menu_bg_selector"
-    android:paddingTop="10dp"
+    android:background="@drawable/personal_item_bg"
     android:paddingBottom="10dp"
-    >
+    android:paddingTop="10dp" >
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:src="@drawable/left_menu_home"
-        android:layout_centerVertical="true" />
+        android:src="@drawable/left_menu_home" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/icon"
-        android:textColor="@color/front_gray"
         android:gravity="center_vertical"
-        android:textSize="22dp"
-        android:paddingRight="40dp"/>
+        android:paddingRight="40dp"
+        android:textColor="#4C5760"
+        android:textSize="@dimen/default_action_bar_font_size" />
 
-    <TextView 
+    <TextView
         android:id="@+id/counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
-        />
+        android:layout_marginRight="8dp" />
+
 </RelativeLayout>

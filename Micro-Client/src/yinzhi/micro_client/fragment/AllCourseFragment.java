@@ -3,15 +3,16 @@ package yinzhi.micro_client.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.lidroid.xutils.view.annotation.event.OnItemClick;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.CourseListActivity;
+import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.activity.SearchActivity;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZClassifyVO;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,16 +24,15 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.CourseListActivity;
-import yinzhi.micro_client.activity.MainActivity;
-import yinzhi.micro_client.activity.SearchActivity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZClassifyVO;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 public class AllCourseFragment extends Fragment {
 
@@ -79,7 +79,8 @@ public class AllCourseFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_all_course, null);
 
 		ViewUtils.inject(this, rootView);
@@ -100,6 +101,10 @@ public class AllCourseFragment extends Fragment {
 				String response = arg0.result;
 				LogUtils.i(response);
 
+				if (!YZNetworkUtils.isAllowedContinue(getActivity(), response)) {
+					return;
+				}
+
 				datas = YZResponseUtils.parseArray(response, YZClassifyVO.class);
 				initView();
 			}
@@ -116,12 +121,16 @@ public class AllCourseFragment extends Fragment {
 	 * 更新View
 	 */
 	public void initView() {
-		adapter = new LxyCommonAdapter<YZClassifyVO>(getActivity(), datas, R.layout.item_classify_list) {
+		adapter = new LxyCommonAdapter<YZClassifyVO>(getActivity(), datas,
+				R.layout.item_classify_list) {
 
 			@Override
 			public void convert(LxyViewHolder holder, YZClassifyVO t) {
 				try {
-					holder.setImageViewUrl(R.id.classify_icon, INetworkConstants.YZMC_SERVER + t.getClassifyPicPath());
+					holder.setImageViewUrl(
+							R.id.classify_icon,
+							INetworkConstants.YZMC_SERVER
+									+ t.getClassifyPicPath());
 					holder.setText(R.id.classify_name, t.getTitle());
 					holder.setText(R.id.classify_intro, t.getIntroduction());
 				} catch (Exception e) {
@@ -139,7 +148,8 @@ public class AllCourseFragment extends Fragment {
 	public void searchClick(View v) {
 		Intent intent = new Intent(getActivity(), SearchActivity.class);
 		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 	@OnClick(R.id.all_course_menu_imgbtn)
@@ -148,7 +158,8 @@ public class AllCourseFragment extends Fragment {
 	}
 
 	@OnItemClick(R.id.all_course_listview)
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 		LogUtils.i("position------>" + position);
 
 		Intent intent;
@@ -163,7 +174,8 @@ public class AllCourseFragment extends Fragment {
 			LogUtils.e("intent to CourseListActivity error");
 		}
 
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 }

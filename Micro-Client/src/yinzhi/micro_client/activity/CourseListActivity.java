@@ -122,9 +122,7 @@ public class CourseListActivity extends BaseActivity implements SwipeRefreshLayo
 
 				LogUtils.i(response);
 
-				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").equals("0")) {
-					Toast.makeText(getApplicationContext(), JSON.parseObject(response).get("msg").toString(),
-							Toast.LENGTH_LONG).show();
+				if(!YZNetworkUtils.isAllowedContinue(CourseListActivity.this, response)){
 					return;
 				}
 
