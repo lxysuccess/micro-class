@@ -116,7 +116,7 @@ public final class R {
 		public static final int none = 0x7f060005;
 		public static final int right = 0x7f060001;
 		public static final int selected_view = 0x7f060004;
-		public static final int slidingmenumain = 0x7f060100;
+		public static final int slidingmenumain = 0x7f060106;
 		public static final int top = 0x7f060009;
 		public static final int triangle = 0x7f060006;
 		public static final int underline = 0x7f060007;
@@ -129,7 +129,7 @@ public final class R {
 		public static final int default_underline_indicator_fade_length = 0x7f090004;
 	}
 	public static final class layout {
-		public static final int slidingmenumain = 0x7f030031;
+		public static final int slidingmenumain = 0x7f030033;
 	}
 	public static final class style {
 		public static final int TextAppearance_TabPageIndicator = 0x7f0b0003;

@@ -12,6 +12,8 @@ import yinzhi.micro_client.activity.BaseActivity;
 import yinzhi.micro_client.activity.CommentActivity;
 import yinzhi.micro_client.adapter.LxyCommonAdapter;
 import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.fragment.SubtitleFragment;
+import yinzhi.micro_client.fragment.VideoCommentFragment;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZSubtitleVO;
@@ -22,6 +24,9 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -50,17 +55,15 @@ import com.lidroid.xutils.util.LogUtils;
 
 public class IjkVideoActicity extends BaseActivity {
 
-	private ListView subtitleResult;
-
-	private Button startSearch;
-
-	private EditText subtitleInput;
-
 	private ImageView backIv;
 
 	private ImageView commentIv;
 
 	private ImageView shareIv;
+
+	private Fragment mSubtitleTab;
+
+	private Fragment mCommentTab;
 
 	/**
 	 * 底部操作栏
@@ -79,16 +82,14 @@ public class IjkVideoActicity extends BaseActivity {
 	private RelativeLayout rl = null;
 	private int stopPosition = 0;
 
-	private List<YZSubtitleVO> sutitleDatas = new ArrayList<YZSubtitleVO>();
-
-	private LxyCommonAdapter<YZSubtitleVO> stAdapter;
 	/**
 	 * 视频资源的id
 	 */
 	private String itemResourceId;
 
-	public static Intent newIntent(Context context, PlayMode playMode, PlayType playType, String value,
-			String itemResourceId, boolean startNow) {
+	public static Intent newIntent(Context context, PlayMode playMode,
+			PlayType playType, String value, String itemResourceId,
+			boolean startNow) {
 		Intent intent = new Intent(context, IjkVideoActicity.class);
 		intent.putExtra("playMode", playMode.getCode());
 		intent.putExtra("playType", playType.getCode());
@@ -98,9 +99,11 @@ public class IjkVideoActicity extends BaseActivity {
 		return intent;
 	}
 
-	public static void intentTo(Context context, PlayMode playMode, PlayType playType, String value,
-			String itemResourceId, boolean startNow) {
-		context.startActivity(newIntent(context, playMode, playType, value, itemResourceId, startNow));
+	public static void intentTo(Context context, PlayMode playMode,
+			PlayType playType, String value, String itemResourceId,
+			boolean startNow) {
+		context.startActivity(newIntent(context, playMode, playType, value,
+				itemResourceId, startNow));
 	}
 
 	@SuppressLint("NewApi")
@@ -113,11 +116,7 @@ public class IjkVideoActicity extends BaseActivity {
 
 		backIv = (ImageView) findViewById(R.id.video_back);
 		commentIv = (ImageView) findViewById(R.id.video_comment);
-//		shareIv = (ImageView) findViewById(R.id.video_share);
-
-		subtitleResult = (ListView) findViewById(R.id.subtitle_search_result);
-		startSearch = (Button) findViewById(R.id.search_start);
-		subtitleInput = (EditText) findViewById(R.id.subtitle_search_input);
+		// shareIv = (ImageView) findViewById(R.id.video_share);
 
 		// 资源ID
 		itemResourceId = getIntent().getStringExtra("itemResourceId");
@@ -178,94 +177,103 @@ public class IjkVideoActicity extends BaseActivity {
 			}
 		});
 
-		videoView.setOnVideoStatusListener(new IjkVideoView.OnVideoStatusListener() {
-
-			@Override
-			public void onStatus(int status) {
-
-			}
-		});
-
-		videoView.setOnVideoPlayErrorLisener(new IjkVideoView.OnVideoPlayErrorLisener() {
-
-			@Override
-			public boolean onVideoPlayError(ErrorReason errorReason) {
-				return false;
-			}
-		});
-
-		videoView.setOnQuestionOutListener(new IjkVideoView.OnQuestionOutListener() {
-
-			@Override
-			public void onOut(final QuestionVO questionVO) {
-				runOnUiThread(new Runnable() {
+		videoView
+				.setOnVideoStatusListener(new IjkVideoView.OnVideoStatusListener() {
 
 					@Override
-					public void run() {
-						switch (questionVO.getType()) {
-						case QuestionVO.TYPE_QUESTION:
-							if (questionView == null) {
-								questionView = new PolyvQuestionView(IjkVideoActicity.this);
-								questionView.setIjkVideoView(videoView);
-							}
+					public void onStatus(int status) {
 
-							questionView.show(rl, questionVO);
-							break;
-
-						case QuestionVO.TYPE_AUDITION:
-							if (auditionView == null) {
-								auditionView = new PolyvAuditionView(IjkVideoActicity.this);
-								auditionView.setIjkVideoView(videoView);
-							}
-
-							auditionView.show(rl, questionVO);
-							break;
-						}
 					}
 				});
-			}
-		});
 
-		videoView.setOnQuestionAnswerTipsListener(new IjkVideoView.OnQuestionAnswerTipsListener() {
+		videoView
+				.setOnVideoPlayErrorLisener(new IjkVideoView.OnVideoPlayErrorLisener() {
 
-			@Override
-			public void onTips(String msg) {
-				questionView.showAnswerTips(msg);
-			}
-		});
+					@Override
+					public boolean onVideoPlayError(ErrorReason errorReason) {
+						return false;
+					}
+				});
 
-		videoView.setOnAdvertisementOutListener(new IjkVideoView.OnAdvertisementOutListener() {
+		videoView
+				.setOnQuestionOutListener(new IjkVideoView.OnQuestionOutListener() {
 
-			@Override
-			public void onOut(ADMatter adMatter) {
-				stopPosition = videoView.getCurrentPosition();
-				if (adView == null) {
-					adView = new PolyvPlayerAdvertisementView(IjkVideoActicity.this);
-					adView.setIjkVideoView(videoView);
-				}
+					@Override
+					public void onOut(final QuestionVO questionVO) {
+						runOnUiThread(new Runnable() {
 
-				adView.show(rl, adMatter);
-			}
-		});
+							@Override
+							public void run() {
+								switch (questionVO.getType()) {
+								case QuestionVO.TYPE_QUESTION:
+									if (questionView == null) {
+										questionView = new PolyvQuestionView(
+												IjkVideoActicity.this);
+										questionView.setIjkVideoView(videoView);
+									}
 
-		videoView.setOnPlayPauseListener(new IjkVideoView.OnPlayPauseListener() {
+									questionView.show(rl, questionVO);
+									break;
 
-			@Override
-			public void onPlay() {
+								case QuestionVO.TYPE_AUDITION:
+									if (auditionView == null) {
+										auditionView = new PolyvAuditionView(
+												IjkVideoActicity.this);
+										auditionView.setIjkVideoView(videoView);
+									}
 
-			}
+									auditionView.show(rl, questionVO);
+									break;
+								}
+							}
+						});
+					}
+				});
 
-			@Override
-			public void onPause() {
+		videoView
+				.setOnQuestionAnswerTipsListener(new IjkVideoView.OnQuestionAnswerTipsListener() {
 
-			}
+					@Override
+					public void onTips(String msg) {
+						questionView.showAnswerTips(msg);
+					}
+				});
 
-			@Override
-			public void onCompletion() {
-				logo.setVisibility(View.GONE);
-				mediaController.setProgressMax();
-			}
-		});
+		videoView
+				.setOnAdvertisementOutListener(new IjkVideoView.OnAdvertisementOutListener() {
+
+					@Override
+					public void onOut(ADMatter adMatter) {
+						stopPosition = videoView.getCurrentPosition();
+						if (adView == null) {
+							adView = new PolyvPlayerAdvertisementView(
+									IjkVideoActicity.this);
+							adView.setIjkVideoView(videoView);
+						}
+
+						adView.show(rl, adMatter);
+					}
+				});
+
+		videoView
+				.setOnPlayPauseListener(new IjkVideoView.OnPlayPauseListener() {
+
+					@Override
+					public void onPlay() {
+
+					}
+
+					@Override
+					public void onPause() {
+
+					}
+
+					@Override
+					public void onCompletion() {
+						logo.setVisibility(View.GONE);
+						mediaController.setProgressMax();
+					}
+				});
 
 		mediaController = new MediaController(this, true);
 		mediaController.setIjkVideoView(videoView);
@@ -273,47 +281,57 @@ public class IjkVideoActicity extends BaseActivity {
 		videoView.setMediaController(mediaController);
 
 		// 设置切屏事件
-		mediaController.setOnBoardChangeListener(new MediaController.OnBoardChangeListener() {
-
-			@Override
-			public void onPortrait() {
-				changeToLandscape();
-			}
-
-			@Override
-			public void onLandscape() {
-				changeToPortrait();
-			}
-		});
-
-		// 设置视频尺寸 ，在横屏下效果较明显
-		mediaController.setOnVideoChangeListener(new MediaController.OnVideoChangeListener() {
-
-			@Override
-			public void onVideoChange(final int layout) {
-				runOnUiThread(new Runnable() {
+		mediaController
+				.setOnBoardChangeListener(new MediaController.OnBoardChangeListener() {
 
 					@Override
-					public void run() {
-						videoView.setVideoLayout(layout);
-						switch (layout) {
-						case IjkVideoView.VIDEO_LAYOUT_ORIGIN:
-							Toast.makeText(IjkVideoActicity.this, "VIDEO_LAYOUT_ORIGIN", Toast.LENGTH_SHORT).show();
-							break;
-						case IjkVideoView.VIDEO_LAYOUT_SCALE:
-							Toast.makeText(IjkVideoActicity.this, "VIDEO_LAYOUT_SCALE", Toast.LENGTH_SHORT).show();
-							break;
-						case IjkVideoView.VIDEO_LAYOUT_STRETCH:
-							Toast.makeText(IjkVideoActicity.this, "VIDEO_LAYOUT_STRETCH", Toast.LENGTH_SHORT).show();
-							break;
-						case IjkVideoView.VIDEO_LAYOUT_ZOOM:
-							Toast.makeText(IjkVideoActicity.this, "VIDEO_LAYOUT_ZOOM", Toast.LENGTH_SHORT).show();
-							break;
-						}
+					public void onPortrait() {
+						changeToLandscape();
+					}
+
+					@Override
+					public void onLandscape() {
+						changeToPortrait();
 					}
 				});
-			}
-		});
+
+		// 设置视频尺寸 ，在横屏下效果较明显
+		mediaController
+				.setOnVideoChangeListener(new MediaController.OnVideoChangeListener() {
+
+					@Override
+					public void onVideoChange(final int layout) {
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								videoView.setVideoLayout(layout);
+								switch (layout) {
+								case IjkVideoView.VIDEO_LAYOUT_ORIGIN:
+									Toast.makeText(IjkVideoActicity.this,
+											"VIDEO_LAYOUT_ORIGIN",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case IjkVideoView.VIDEO_LAYOUT_SCALE:
+									Toast.makeText(IjkVideoActicity.this,
+											"VIDEO_LAYOUT_SCALE",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case IjkVideoView.VIDEO_LAYOUT_STRETCH:
+									Toast.makeText(IjkVideoActicity.this,
+											"VIDEO_LAYOUT_STRETCH",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case IjkVideoView.VIDEO_LAYOUT_ZOOM:
+									Toast.makeText(IjkVideoActicity.this,
+											"VIDEO_LAYOUT_ZOOM",
+											Toast.LENGTH_SHORT).show();
+									break;
+								}
+							}
+						});
+					}
+				});
 
 		switch (playMode) {
 		case landScape:
@@ -341,71 +359,24 @@ public class IjkVideoActicity extends BaseActivity {
 			if (playType == PlayType.vid) {
 				if (playerFirstStartView == null) {
 					playerFirstStartView = new PolyvPlayerFirstStartView(this);
-					playerFirstStartView.setCallback(new PolyvPlayerFirstStartView.Callback() {
+					playerFirstStartView
+							.setCallback(new PolyvPlayerFirstStartView.Callback() {
 
-						@Override
-						public void onClickStart() {
-							videoView.start();
-							playerFirstStartView.hide();
-						}
-					});
+								@Override
+								public void onClickStart() {
+									videoView.start();
+									playerFirstStartView.hide();
+								}
+							});
 				}
 			}
 		}
 
 		// 播放界面底部三个按钮事件监听
 		setIvListener();
+		
+		setSelectTab(0);
 
-		startSearch.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				if (subtitleInput.getText().length() == 0) {
-					Toast.makeText(IjkVideoActicity.this, "关键词不能为空", Toast.LENGTH_SHORT).show();
-					return;
-				}
-				isReset = true;
-				fetchDatas(0, 20);
-
-			}
-		});
-
-		// 初始化适配器
-		stAdapter = new LxyCommonAdapter<YZSubtitleVO>(IjkVideoActicity.this, sutitleDatas,
-				R.layout.item_subtitle_result) {
-
-			@Override
-			public void convert(LxyViewHolder holder, YZSubtitleVO t) {
-				try {
-					holder.setText(R.id.subtitle_content, t.getSubtitle());
-					holder.setText(R.id.subtitle_time, t.getTime());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					LogUtils.e("error! video view when show subtile list");
-				}
-			}
-		};
-
-		// 设置字幕搜索结果list 的适配器
-		subtitleResult.setAdapter(stAdapter);
-
-		subtitleResult.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				LogUtils.i("position------>" + position);
-
-				// 将时间转化为viewView可用格式
-
-				String time = sutitleDatas.get(position).getTime();
-				Long millsTime = getMillsTime(time);
-
-				// TODO 视频跳至某个时间点
-				videoView.seekTo(millsTime);
-
-			}
-		});
 	}
 
 	/**
@@ -451,13 +422,13 @@ public class IjkVideoActicity extends BaseActivity {
 
 			case R.id.video_comment:
 
-				Intent intent = new Intent(IjkVideoActicity.this, CommentActivity.class);
-				intent.putExtra("itemResourceId", itemResourceId);
-				startActivity(intent);
+				setSelectTab(0);
+
 				break;
-//			case R.id.video_share:
-//
-//				break;
+			case R.id.video_subtitle_search:
+				setSelectTab(1);
+
+				break;
 			default:
 				break;
 			}
@@ -472,7 +443,6 @@ public class IjkVideoActicity extends BaseActivity {
 	public void changeToLandscape() {
 		// 隐藏除视频播放界面以外视图
 		bottomBar.setVisibility(View.GONE);
-		subtitleResult.setVisibility(View.GONE);
 
 		RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(h, w);
 		rl.setLayoutParams(p);
@@ -484,12 +454,12 @@ public class IjkVideoActicity extends BaseActivity {
 	 * 切换到竖屏
 	 */
 	public void changeToPortrait() {
-		RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(w, adjusted_h);
+		RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(w,
+				adjusted_h);
 		rl.setLayoutParams(p);
 		stopPosition = videoView.getCurrentPosition();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		bottomBar.setVisibility(View.VISIBLE);
-		subtitleResult.setVisibility(View.VISIBLE);
 	}
 
 	// 配置文件设置congfigchange 切屏调用一次该方法，hide()之后再次show才会出现在正确位置
@@ -653,67 +623,57 @@ public class IjkVideoActicity extends BaseActivity {
 	}
 
 	/**
-	 * 将视频的时间转换为毫秒
+	 * 视频跳至某个时间位置
 	 * 
-	 * @param videoTimeLong2
-	 * @return
+	 * @param millsPos
 	 */
-	private Long getMillsTime(String stTime) {
+	public void seekTo(Long millsPos) {
+		videoView.seekTo(millsPos);
+	}
 
-		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss");
-		Date d1 = null;
-		try {
-			d1 = sf.parse(stTime);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void setSelectTab(int index) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+
+		hideFragment(ft);
+
+		switch (index) {
+		case 0:
+			// 选择查看评论页
+			if (mCommentTab == null) {
+				mCommentTab = new VideoCommentFragment(itemResourceId);
+				ft.add(R.id.id_content, mCommentTab);
+			} else {
+				ft.show(mCommentTab);
+			}
+			break;
+		case 1:
+
+			// 选择查看字幕搜索页
+
+			if (mSubtitleTab == null) {
+				mSubtitleTab = new SubtitleFragment(itemResourceId);
+				ft.add(R.id.id_content, mSubtitleTab);
+			} else {
+				ft.show(mSubtitleTab);
+			}
+			break;
+		default:
+			break;
 		}
-		return d1.getTime();
+		LogUtils.i("change to tab" + index + " completed");
+		ft.commit();
+	}
+
+	private void hideFragment(FragmentTransaction ft) {
+		if (mSubtitleTab != null) {
+			ft.hide(mSubtitleTab);
+		}
+		if (mCommentTab != null) {
+			ft.hide(mCommentTab);
+		}
+		LogUtils.i("hideFragment completed");
 
 	}
 
-	private Boolean isReset = true;
-
-	/**
-	 * 获取字幕搜索数据
-	 * 
-	 * @param page
-	 * @param size
-	 */
-	private void fetchDatas(int page, int size) {
-		YZNetworkUtils.searchVideoSubtitle("", subtitleInput.getText().toString(), itemResourceId, page, size,
-				new RequestCallBack<String>() {
-
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-
-						String response = arg0.result;
-
-						LogUtils.i(response + "------------------subtitle");
-
-						if(!YZNetworkUtils.isAllowedContinue(IjkVideoActicity.this, response)){
-							return;
-						}
-
-						List<YZSubtitleVO> results = new ArrayList<YZSubtitleVO>();
-						results = YZResponseUtils.parseArray(response, YZSubtitleVO.class);
-
-						if (isReset) {
-							// 如果用户点击了搜索按钮，则清空之前的数据重新刷新列表
-							sutitleDatas.clear();
-						}
-						sutitleDatas.addAll(results);
-
-						stAdapter.notifyDataSetChanged();
-
-					}
-				});
-
-	}
 }

@@ -7,6 +7,7 @@ import yinzhi.micro_client.fragment.MenuFragment;
 import yinzhi.micro_client.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import yinzhi.micro_client.fragment.MyFragment;
 import yinzhi.micro_client.fragment.RankingFragment;
+import yinzhi.micro_client.fragment.SettingFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -157,7 +158,7 @@ public class MainActivity extends SlidingFragmentActivity implements
 		case 5:
 			// fragment = SettingFragment.getInstance();
 			if (mTab05 == null) {
-				mTab05 = new MyFragment();
+				mTab05 = new SettingFragment();
 				transaction.add(R.id.content, mTab05);
 			} else {
 				transaction.show(mTab05);
@@ -205,6 +206,9 @@ public class MainActivity extends SlidingFragmentActivity implements
 		}
 		if (mTab04 != null) {
 			ts.hide(mTab04);
+		}
+		if (mTab05 != null) {
+			ts.hide(mTab05);
 		}
 		LogUtils.i("hideFragment completed");
 	}

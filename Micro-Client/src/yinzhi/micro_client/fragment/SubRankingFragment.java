@@ -266,7 +266,6 @@ public class SubRankingFragment extends Fragment implements
 	@Override
 	public void onRefresh() {
 		initData(rankingType, 0, 20);
-
 	}
 
 }
