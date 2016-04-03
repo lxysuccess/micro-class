@@ -92,10 +92,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_action_bar_height"
             android:layout_gravity="bottom"
-            android:background="@color/default_action_bar_bg_color"
+            android:background="@color/main"
             android:text="参加该课程"
-            android:textColor="@color/white"
-            android:visibility="gone" >
+            android:textColor="@color/white" >
         </Button>
 
         <RelativeLayout

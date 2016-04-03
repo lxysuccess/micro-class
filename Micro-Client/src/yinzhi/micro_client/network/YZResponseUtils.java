@@ -71,7 +71,7 @@ public class YZResponseUtils implements INetworkConstants {
 			return JSON.parseArray(dataResponse, clazz);
 		}
 
-		if (listDataResponse == null || "".equals(listDataResponse)) {
+		if (listDataResponse == null || "[]".equals(listDataResponse)) {
 			return null;
 		}
 		return JSON.parseArray(listDataResponse, clazz);

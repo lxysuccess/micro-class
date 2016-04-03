@@ -355,6 +355,35 @@ public class YZNetworkUtils implements INetworkConstants {
 	}
 
 	/**
+	 * 请求订阅课程
+	 * 
+	 * @param logonToken
+	 * @param courseId
+	 * @param callBack
+	 */
+	public static void courseSubscribe(String logonToken, String courseId,
+			RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+		paramMap.put("courseId", courseId);
+
+		if (logonToken != null) {
+			paramMap.put(LOGON_TOKEN, logonToken);
+		}
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		http.send(HttpRequest.HttpMethod.POST, API_COURSE_SUBSCRIBE, params,
+				callBack);
+	}
+
+	/**
 	 * 请求练习
 	 * 
 	 * @param itemResourceId
@@ -700,8 +729,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param token
 	 * @param callBack
 	 */
-	public static void fetchMyCourseList(String logonToken,
-			RequestCallBack<String> callBack) {
+	public static void fetchMyCourseList(String logonToken, Integer page,
+			Integer size, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
 
@@ -710,6 +739,9 @@ public class YZNetworkUtils implements INetworkConstants {
 		if (logonToken != null) {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
+		
+		paramMap.put("page", page);
+		paramMap.put("size", size);
 
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
@@ -772,7 +804,7 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		paramMap.put("username", username);
 		paramMap.put("nickname", nickname);
-		paramMap.put("password", password);
+		paramMap.put("password", MD5Util.MD5(password));
 
 		if (deviceId != null) {
 			paramMap.put("deviceId", deviceId);

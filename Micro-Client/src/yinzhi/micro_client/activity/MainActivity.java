@@ -8,12 +8,12 @@ import yinzhi.micro_client.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import yinzhi.micro_client.fragment.MyFragment;
 import yinzhi.micro_client.fragment.RankingFragment;
 import yinzhi.micro_client.fragment.SettingFragment;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,11 +39,12 @@ public class MainActivity extends SlidingFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.frame_left_menu);
+		
 
-		// ActionBar actionBar = getActionBar();
-		// actionBar.setDisplayHomeAsUpEnabled(true);
-		// actionBar.setDisplayShowTitleEnabled(false);
-		// actionBar.setDisplayUseLogoEnabled(false);
+		 ActionBar actionBar = getActionBar();
+		 actionBar.setDisplayHomeAsUpEnabled(true);
+		 actionBar.setDisplayShowTitleEnabled(false);
+		 actionBar.setDisplayUseLogoEnabled(false);
 
 		mSlidingMenu = getSlidingMenu();
 		mSlidingMenu.setMode(SlidingMenu.LEFT);

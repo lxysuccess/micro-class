@@ -2,8 +2,15 @@
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/home_scan"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
+     <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/home_scan"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="扫描"/>
 
 </menu>

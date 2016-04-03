@@ -98,7 +98,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
             android:ellipsize="end"
-            android:lines="4"
             android:textColor="@color/default_font_color_3"
             android:textSize="@dimen/default_content_font_size_14" />
 

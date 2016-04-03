@@ -18,6 +18,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -91,6 +93,11 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
 	/**
+	 * 记录用户是否已经订阅该课程
+	 */
+	private Integer isSubsribe = 0;
+
+	/**
 	 * 课程ID
 	 */
 	private String courseId;
@@ -109,6 +116,18 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	 * 选择首先显示的tab页
 	 */
 	private Integer tabPos;
+
+	/**
+	 * 任务计数器，完成任务标志 每个任务完成均有一个质数标志，任务a为2，任务b为3，任务c为5。。。
+	 * jobCount为完成的任务的指数标志的乘积，如完成a和b，jobCount=6,完成a和c，jobCount=10
+	 */
+	private Integer jobCount = 1;
+
+	private static final Integer DETAIL_DONE = 2;
+
+	private static final Integer CATALOG_DONE = 3;
+
+	private Handler mHandler;
 
 	public static Intent newIntent(Context context, String itemResourceId,
 			String courseId, Integer tabPos, String fromActivity) {
@@ -139,6 +158,19 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 		tabPos = getIntent().getExtras().getInt("tabPos", 0);
 		fromActivity = getIntent().getExtras().getString("fromActivity", "-1");
 
+		mHandler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				jobCount = jobCount * msg.what;
+				switch (jobCount) {
+				// DETAIL_DONE * CATALOG_DONE,完成目录获取和详情获取
+				case 6:
+					wait.setVisibility(View.GONE);
+					break;
+				}
+
+			}
+		};
 		initFragment(tabPos);
 	}
 
@@ -198,7 +230,6 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	@Override
 	public void onUpdateDescription() {
 		// 显示正在加载
-		wait.setVisibility(View.VISIBLE);
 		String token = SpMessageUtil.getLogonToken(getApplicationContext());
 
 		LogUtils.i("token===================" + token);
@@ -211,8 +242,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 
 						// TODO 日志
 						LogUtils.i(response);
-						
-						if(!YZNetworkUtils.isAllowedContinue(IntroductionActivity.this, response)){
+
+						if (!YZNetworkUtils.isAllowedContinue(
+								IntroductionActivity.this, response)) {
 							return;
 						}
 
@@ -223,8 +255,20 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 							Toast.makeText(IntroductionActivity.this,
 									"尚无详情数据！", Toast.LENGTH_LONG).show();
 							// 去掉正在加载
-							wait.setVisibility(View.GONE);
+							Message mMessage = new Message();
+							mMessage.what = DETAIL_DONE;
+							mHandler.sendMessage(mMessage);
 							return;
+						}
+
+						try {
+							// 用户已订阅，去除订阅按钮
+							if (course.getIsSubscribe() == 1) {
+								subscribe.setVisibility(View.GONE);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							LogUtils.i("error when get issubscribe");
 						}
 
 						((VideoDescriptionFragment) fragments.get(0))
@@ -237,7 +281,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 								introImage, ImageUtil.getDisplayOption(0));
 
 						// 去掉正在加载
-						wait.setVisibility(View.GONE);
+						Message mMessage = new Message();
+						mMessage.what = DETAIL_DONE;
+						mHandler.sendMessage(mMessage);
 					}
 
 					@Override
@@ -250,7 +296,6 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	@Override
 	public void onUpdateCatalog() {
 		// 显示正在加载
-		wait.setVisibility(View.VISIBLE);
 		String token = SpMessageUtil.getLogonToken(getApplicationContext());
 
 		YZNetworkUtils.courseCatalog(token, courseId,
@@ -266,8 +311,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 						String response = arg0.result;
 
 						LogUtils.i(response + "000000000000000");
-						
-						if(!YZNetworkUtils.isAllowedContinue(IntroductionActivity.this, response)){
+
+						if (!YZNetworkUtils.isAllowedContinue(
+								IntroductionActivity.this, response)) {
 							return;
 						}
 
@@ -278,7 +324,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 							Toast.makeText(IntroductionActivity.this,
 									"尚无目录数据！", Toast.LENGTH_LONG).show();
 							// 去掉正在加载
-							wait.setVisibility(View.GONE);
+							Message mMessage = new Message();
+							mMessage.what = CATALOG_DONE;
+							mHandler.sendMessage(mMessage);
 							return;
 						}
 						// 通知目录页更新完成
@@ -286,7 +334,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 								.updateCatalogCompleted(catalog);
 
 						// 去掉正在加载
-						wait.setVisibility(View.GONE);
+						Message mMessage = new Message();
+						mMessage.what = CATALOG_DONE;
+						mHandler.sendMessage(mMessage);
 					}
 
 				});
@@ -296,5 +346,40 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	public void backClick(View v) {
 		finish();
 		overridePendingTransition(0, R.anim.activity_anim_left_out);
+	}
+
+	@OnClick(R.id.introduction_subscribe)
+	public void subscribeClick(View v) {
+		YZNetworkUtils.courseSubscribe(
+				SpMessageUtil.getLogonToken(getApplicationContext()), courseId,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
+						
+						LogUtils.i("订阅-->"+response);
+
+						if (!YZNetworkUtils.isAllowedContinue(
+								IntroductionActivity.this, response)) {
+							return;
+						}
+
+						Toast.makeText(IntroductionActivity.this, "订阅成功",
+								Toast.LENGTH_SHORT).show();
+						
+						subscribe.setVisibility(View.GONE);
+						isSubsribe = 1;
+						
+
+					}
+				});
+
 	}
 }
