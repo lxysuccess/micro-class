@@ -65,7 +65,7 @@
     <RelativeLayout
         android:id="@+id/video_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/default_action_bar_height"
         android:layout_alignParentBottom="true"
         android:background="@color/white" >
 

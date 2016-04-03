@@ -46,7 +46,7 @@
         <TextView
             android:id="@+id/ok"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/default_action_bar_height"
             android:gravity="center"
             android:text="@string/sure"
             android:textColor="@color/black"

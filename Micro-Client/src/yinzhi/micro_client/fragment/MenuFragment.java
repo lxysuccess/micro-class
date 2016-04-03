@@ -28,7 +28,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	@ViewInject(R.id.left_menu_list)
 	private ListView mDrawerList;
-	@ViewInject(R.id.left_menu_logout_layout)
+	@ViewInject(R.id.left_menu_setting_layout)
 	private RelativeLayout leftMenuLogout;
 
 	private String[] mNavMenuTitles;
@@ -55,7 +55,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		try {
 			mCallback = (SLMenuListOnItemClickListener) activity;
 		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString() + " must implement OnResolveTelsCompletedListener");
+			throw new ClassCastException(activity.toString()
+					+ " must implement OnResolveTelsCompletedListener");
 		}
 		super.onAttach(activity);
 	}
@@ -66,13 +67,17 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
 		View rootView = inflater.inflate(R.layout.fragment_menu, null);
 		ViewUtils.inject(this, rootView);
 
-		ImageLoader.getInstance().displayImage("http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
-				avatar, ImageUtil.getDisplayOption(90));
+		ImageLoader
+				.getInstance()
+				.displayImage(
+						"http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
+						avatar, ImageUtil.getDisplayOption(90));
 
 		findView(rootView);
 		return rootView;
@@ -80,24 +85,30 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	private void findView(View rootView) {
 
-		mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+		mNavMenuTitles = getResources()
+				.getStringArray(R.array.nav_drawer_items);
 		// nav drawer icons from resources
-		mNavMenuIconsTypeArray = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+		mNavMenuIconsTypeArray = getResources().obtainTypedArray(
+				R.array.nav_drawer_icons);
 
 		mNavDrawerItems = new ArrayList<NavDrawerItem>();
 
 		// Home 首页
-		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[0], mNavMenuIconsTypeArray.getResourceId(0, -1)));
-		
+		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[0],
+				mNavMenuIconsTypeArray.getResourceId(0, -1)));
+
 		// Micro 全部分类
-		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[1], mNavMenuIconsTypeArray.getResourceId(1, -1)));
-		
+		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[1],
+				mNavMenuIconsTypeArray.getResourceId(1, -1)));
+
 		// ranking 排行榜
-		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[2], mNavMenuIconsTypeArray.getResourceId(2, -1)));
-		
+		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[2],
+				mNavMenuIconsTypeArray.getResourceId(2, -1)));
+
 		// my 学习中心
-		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[3], mNavMenuIconsTypeArray.getResourceId(3, -1)));
-		
+		mNavDrawerItems.add(new NavDrawerItem(mNavMenuTitles[3],
+				mNavMenuIconsTypeArray.getResourceId(3, -1)));
+
 		// Recycle the typed array
 		mNavMenuIconsTypeArray.recycle();
 
@@ -130,7 +141,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 
 		// update selected item and title, then close the drawer
 		mDrawerList.setItemChecked(position, true);
@@ -145,7 +157,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	/**
 	 * 
 	 * @author
-	 *
+	 * 
 	 */
 	public interface SLMenuListOnItemClickListener {
 

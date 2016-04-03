@@ -88,7 +88,8 @@ public class SubtitleFragment extends Fragment {
 
 		subtitleInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		// 响应回车键
-		subtitleInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		subtitleInput
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
@@ -97,13 +98,17 @@ public class SubtitleFragment extends Fragment {
 							// TODO 搜索
 							fetchDatas(0, 50);
 							// TODO 搜索
-							Toast.makeText(getActivity(), "正在搜索", Toast.LENGTH_SHORT).show();
-							
-							View view = getActivity().getWindow().peekDecorView();
+							Toast.makeText(getActivity(), "正在搜索",
+									Toast.LENGTH_SHORT).show();
+
+							View view = getActivity().getWindow()
+									.peekDecorView();
 							if (view != null) {
 								InputMethodManager inputmanger = (InputMethodManager) getActivity()
-										.getSystemService(Context.INPUT_METHOD_SERVICE);
-								inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+										.getSystemService(
+												Context.INPUT_METHOD_SERVICE);
+								inputmanger.hideSoftInputFromWindow(
+										view.getWindowToken(), 0);
 							}
 							return true;
 						}
@@ -146,6 +151,9 @@ public class SubtitleFragment extends Fragment {
 
 				String time = sutitleDatas.get(position).getTime();
 				Long millsTime = getMillsTime(time);
+
+				Toast.makeText(getActivity(), "" + millsTime,
+						Toast.LENGTH_SHORT).show();
 
 				// TODO 视频跳至某个时间点
 				activity.seekTo(millsTime);
@@ -208,15 +216,20 @@ public class SubtitleFragment extends Fragment {
 	 */
 	private Long getMillsTime(String stTime) {
 
+		String startTime = "00:00:00";
+
 		SimpleDateFormat sf = new SimpleDateFormat("HH:mm:ss");
+
 		Date d1 = null;
+		Date d2 = null;
 		try {
-			d1 = sf.parse(stTime);
+			d1 = sf.parse(startTime);
+			d2 = sf.parse(stTime);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return d1.getTime();
+		return (d2.getTime() - d1.getTime());
 
 	}
 

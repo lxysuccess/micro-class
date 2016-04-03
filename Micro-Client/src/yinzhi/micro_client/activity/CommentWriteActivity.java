@@ -75,19 +75,23 @@ public class CommentWriteActivity extends BaseActivity {
 
 		// 初始化，统计内容字数
 		String content = contentInput.getText().toString();
-		wordCount.setText(content.length() + "/" + COMMENT_CONTENT_LENGTH_LIMITED);
+		wordCount.setText(content.length() + "/"
+				+ COMMENT_CONTENT_LENGTH_LIMITED);
 
 		contentInput.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 				LogUtils.i("before");
 			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 				LogUtils.i("inaction");
 				String content = contentInput.getText().toString();
-				wordCount.setText(content.length() + "/" + COMMENT_CONTENT_LENGTH_LIMITED);
+				wordCount.setText(content.length() + "/"
+						+ COMMENT_CONTENT_LENGTH_LIMITED);
 			}
 
 			@Override
@@ -102,8 +106,9 @@ public class CommentWriteActivity extends BaseActivity {
 	 * 初始化，获取用户是否已评论
 	 */
 	private void init() {
-		YZNetworkUtils.fetchPersonalScore(SpMessageUtil.getLogonToken(getApplicationContext()), itemResourceId,
-				new RequestCallBack<String>() {
+		YZNetworkUtils.fetchPersonalScore(
+				SpMessageUtil.getLogonToken(getApplicationContext()),
+				itemResourceId, new RequestCallBack<String>() {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
@@ -115,11 +120,15 @@ public class CommentWriteActivity extends BaseActivity {
 
 						String response = arg0.result;
 
-						if(!YZNetworkUtils.isAllowedContinue(CommentWriteActivity.this, response)){
+						if (!YZNetworkUtils.isAllowedContinue(
+								CommentWriteActivity.this, response)) {
 							return;
 						}
 
-						String score = JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("score")
+						String score = JSON
+								.parseObject(
+										JSON.parseObject(response).get("data")
+												.toString()).get("score")
 								.toString();
 						orginalScore = Integer.valueOf(score);
 						if (orginalScore != 0) {
@@ -143,7 +152,8 @@ public class CommentWriteActivity extends BaseActivity {
 	public void starOneClick(View v) {
 		if (orginalScore != 0) {
 			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "您已发表过评分",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		updateStarStae(-1);
@@ -154,7 +164,8 @@ public class CommentWriteActivity extends BaseActivity {
 	public void starTwoClick(View v) {
 		if (orginalScore != 0) {
 			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "您已发表过评分",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		updateStarStae(-1);
@@ -165,7 +176,8 @@ public class CommentWriteActivity extends BaseActivity {
 	public void starThreelick(View v) {
 		if (orginalScore != 0) {
 			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "您已发表过评分",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		updateStarStae(-1);
@@ -176,7 +188,8 @@ public class CommentWriteActivity extends BaseActivity {
 	public void starFourClick(View v) {
 		if (orginalScore != 0) {
 			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "您已发表过评分",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		updateStarStae(-1);
@@ -187,7 +200,8 @@ public class CommentWriteActivity extends BaseActivity {
 	public void starFiveClick(View v) {
 		if (orginalScore != 0) {
 			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "您已发表过评分",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		updateStarStae(-1);
@@ -246,24 +260,26 @@ public class CommentWriteActivity extends BaseActivity {
 			return;
 		}
 
-		YZNetworkUtils.publishComment(token, contentInput.getText().toString(), itemResourceId,
-				new RequestCallBack<String>() {
+		YZNetworkUtils.publishComment(token, contentInput.getText().toString(),
+				itemResourceId, new RequestCallBack<String>() {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
+						// 发表评分
+						markScore();
+
 						// 根据反馈判断是否发布成功，提示用户
 						// TODO 发布结果处理
 						String response = arg0.result;
-						YZBaseVO result = YZResponseUtils.parseObject(response, YZBaseVO.class);
-
-						if (result.getStatus() == 0) {
-							Toast.makeText(CommentWriteActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
-						} else {
+						if (!YZNetworkUtils.isAllowedContinue(
+								CommentWriteActivity.this, response)) {
+							return;
+						}else{
 							finish();
-							overridePendingTransition(0, R.anim.activity_anim_left_out);
+							overridePendingTransition(0,
+									R.anim.activity_anim_left_out);
 						}
-						// 发表评分
-						markScore();
+
 					}
 
 					@Override
@@ -284,24 +300,27 @@ public class CommentWriteActivity extends BaseActivity {
 			return;
 		}
 
-		YZNetworkUtils.markScore("", currentScore.toString(), itemResourceId, new RequestCallBack<String>() {
+		YZNetworkUtils.markScore("", currentScore.toString(), itemResourceId,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
-				YZBaseVO result = YZResponseUtils.parseObject(response, YZBaseVO.class);
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
+						YZBaseVO result = YZResponseUtils.parseObject(response,
+								YZBaseVO.class);
 
-				if (result.getStatus() == 0) {
-					Toast.makeText(CommentWriteActivity.this, result.getMsg(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+						if (result.getStatus() == 0) {
+							Toast.makeText(CommentWriteActivity.this,
+									result.getMsg(), Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
 
 	}
 

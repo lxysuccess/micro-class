@@ -35,12 +35,22 @@ import yinzhi.micro_client.network.vo.YZCatalogVO;
 import yinzhi.micro_client.network.vo.YZChapterVO;
 import yinzhi.micro_client.network.vo.YZItemResourceVO;
 import yinzhi.micro_client.network.vo.YZVideoVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
-public class VideoCatalogFragment extends Fragment implements AdapterView.OnItemClickListener,
-		StickyListHeadersListView.OnHeaderClickListener, StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
-		StickyListHeadersListView.OnStickyHeaderChangedListener, View.OnTouchListener {
+public class VideoCatalogFragment extends Fragment implements
+		AdapterView.OnItemClickListener,
+		StickyListHeadersListView.OnHeaderClickListener,
+		StickyListHeadersListView.OnStickyHeaderOffsetChangedListener,
+		StickyListHeadersListView.OnStickyHeaderChangedListener,
+		View.OnTouchListener {
 
 	public static final String TAG = "VideoCatalogFragment";
+
+	@ViewInject(R.id.video_catalog_list)
+	private StickyListHeadersListView stickyList;
+
+	@ViewInject(R.id.video_catalog_empty)
+	private TextView emptyView;
 
 	public static VideoCatalogFragment fragment;
 	public IntroductionActivity introductionActivity;
@@ -53,16 +63,13 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 	// 存储一个课程的所有子资源的List
 	private List<YZItemResourceVO> itemResources = new ArrayList<YZItemResourceVO>();
 
+	// 记录点击位置
+	public static Integer curr_pos = -1;
+
 	/**
 	 * 更新目录回调接口
 	 */
 	IUpdateCatalogData iUpdateCatalogData;
-
-	@ViewInject(R.id.video_catalog_list)
-	private StickyListHeadersListView stickyList;
-
-	@ViewInject(R.id.video_catalog_empty)
-	private TextView emptyView;
 
 	public synchronized static VideoCatalogFragment newInstance() {
 		if (fragment == null) {
@@ -83,7 +90,8 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_video_catalog, null);
 		ViewUtils.inject(this, rootView);
 
@@ -93,8 +101,14 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		YZItemResourceVO tempItem = itemResources.get(position - 1);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		curr_pos = position;
+
+		if (position < 0 || position >= itemResources.size()) {
+			return;
+		}
+		YZItemResourceVO tempItem = itemResources.get(position);
 		LogUtils.i("类型：" + tempItem.getType() + ",点击列表中的位置:" + position);
 
 		String selectedType = tempItem.getType();
@@ -104,16 +118,20 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 			Intent intentText = new Intent(getActivity(), TipsActivity.class);
 			intentText.putExtra("itemResourceId", tempItem.getItemResourceId());
 			startActivity(intentText);
-			getActivity().overridePendingTransition(R.anim.activity_anim_up_in, 0);
+			getActivity().overridePendingTransition(R.anim.activity_anim_up_in,
+					0);
 			break;
 		case EXERCISE:
 
 			// 打开练习页面
-			Intent intentExercise = new Intent(getActivity(), ExerciseActivity.class);
-			intentExercise.putExtra("itemResourceId", tempItem.getItemResourceId());
+			Intent intentExercise = new Intent(getActivity(),
+					ExerciseActivity.class);
+			intentExercise.putExtra("itemResourceId",
+					tempItem.getItemResourceId());
 			intentExercise.putExtra("fromActivity", this.TAG);
 			startActivity(intentExercise);
-			getActivity().overridePendingTransition(R.anim.activity_anim_up_in, 0);
+			getActivity().overridePendingTransition(R.anim.activity_anim_up_in,
+					0);
 
 			break;
 
@@ -122,31 +140,41 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 			// 跳转至视频加载界面
 
 			// TODO token
-			YZNetworkUtils.fetchVideo(tempItem.getItemResourceId().toString(), "", new RequestCallBack<String>() {
+			YZNetworkUtils.fetchVideo(tempItem.getItemResourceId().toString(),
+					SpMessageUtil.getLogonToken(getActivity()
+							.getApplicationContext()),
+					new RequestCallBack<String>() {
 
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
+						@Override
+						public void onFailure(HttpException arg0, String arg1) {
+							// TODO Auto-generated method stub
 
-				}
+						}
 
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					String response = arg0.result;
-					if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
-						return;
-					}
+						@Override
+						public void onSuccess(ResponseInfo<String> arg0) {
+							String response = arg0.result;
 
-					YZVideoVO video = YZResponseUtils.parseObject(response, YZVideoVO.class);
+							LogUtils.i("fetchVideo ++++++" + response);
+							if (!YZNetworkUtils.isAllowedContinue(
+									getActivity(), response)) {
+								return;
+							}
 
-					if (video != null) {
-						// 测试数据
+							YZVideoVO video = YZResponseUtils.parseObject(
+									response, YZVideoVO.class);
 
-					}
-				}
-			});
-			IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait, IjkVideoActicity.PlayType.vid,
-					videoId, tempItem.getItemResourceId(), false);
+							if (video != null) {
+								// 测试数据
+
+							}
+						}
+					});
+
+			// TODO 测试视频使用 itemResource 9
+			IjkVideoActicity.intentTo(getActivity(),
+					IjkVideoActicity.PlayMode.portrait,
+					IjkVideoActicity.PlayType.vid, videoId, "9", false);
 
 			break;
 
@@ -159,24 +187,28 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	@Override
-	public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId,
-			boolean currentlySticky) {
+	public void onHeaderClick(StickyListHeadersListView l, View header,
+			int itemPosition, long headerId, boolean currentlySticky) {
 
 		// itemPositoin depends on the position of subitem。
-		LogUtils.i("position " + itemPosition + "Header " + headerId + " currentlySticky ? " + currentlySticky);
+		LogUtils.i("position " + itemPosition + "Header " + headerId
+				+ " currentlySticky ? " + currentlySticky);
 	}
 
 	@Override
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void onStickyHeaderOffsetChanged(StickyListHeadersListView l, View header, int offset) {
-		if (fadeHeader && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	public void onStickyHeaderOffsetChanged(StickyListHeadersListView l,
+			View header, int offset) {
+		if (fadeHeader
+				&& Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			header.setAlpha(1 - (offset / (float) header.getMeasuredHeight()));
 		}
 		LogUtils.i("onStickyHeaderOffsetChanged + offset" + offset);
 	}
 
 	@Override
-	public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+	public void onStickyHeaderChanged(StickyListHeadersListView l, View header,
+			int itemPosition, long headerId) {
 		// Toast.makeText(this, "Sticky Header Changed to " + headerId,
 		// Toast.LENGTH_SHORT).show();
 		LogUtils.i("Sticky Header Changed to " + headerId);
@@ -200,11 +232,7 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 		mAdapter = new StickyHeaderListBaseAdapter(getActivity(), catalog);
 
 		stickyList.setOnItemClickListener(this);
-		stickyList.setOnHeaderClickListener(this);
-		stickyList.setOnStickyHeaderChangedListener(this);
 		stickyList.setOnStickyHeaderOffsetChangedListener(this);
-		stickyList.addHeaderView(getActivity().getLayoutInflater().inflate(R.layout.list_header, null));
-		stickyList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.list_footer, null));
 		stickyList.setEmptyView(emptyView);
 		stickyList.setDrawingListUnderStickyHeader(true);
 		stickyList.setAreHeadersSticky(true);
@@ -245,7 +273,8 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 					// stickyList.setSelection(ids.indexOf(33));
 					// mAdapter.notifyDataSetChanged();
 					int index = stickyList.getFirstVisiblePosition();
-					View v = stickyList.getChildAt(ids.indexOf(IntroductionActivity.itemResourceId));
+					View v = stickyList.getChildAt(ids
+							.indexOf(IntroductionActivity.itemResourceId));
 					int top = (v == null) ? 0 : v.getTop();
 					stickyList.setSelectionFromTop(index, top);
 

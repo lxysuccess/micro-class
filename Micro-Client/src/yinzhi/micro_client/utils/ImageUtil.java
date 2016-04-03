@@ -31,7 +31,7 @@ public class ImageUtil {
 				.showImageOnLoading(R.drawable.image_loading) // 设置图片下载期间显示的图片
 				.showImageForEmptyUri(R.drawable.ic_empty_page) // 设置图片Uri为空或是错误的时候显示的图片
 				.showImageOnFail(R.drawable.ic_error_page) // 设置图片加载或解码过程中发生错误显示的图片
-				.delayBeforeLoading(1000) // 下载前的延迟时间
+				.delayBeforeLoading(0) // 下载前的延迟时间
 				.cacheInMemory(true) // default 设置下载的图片是否缓存在内存中
 				.cacheOnDisk(true) // default 设置下载的图片是否缓存在SD卡中
 				.considerExifParams(false) // default

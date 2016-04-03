@@ -6,6 +6,7 @@ import java.util.List;
 import com.lidroid.xutils.util.LogUtils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import android.widget.TextView;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.activity.IntroductionActivity;
+import yinzhi.micro_client.fragment.VideoCatalogFragment;
 import yinzhi.micro_client.network.vo.YZCatalogVO;
 import yinzhi.micro_client.network.vo.YZChapterVO;
 import yinzhi.micro_client.network.vo.YZItemResourceVO;
 
-public class StickyHeaderListBaseAdapter extends BaseAdapter implements StickyListHeadersAdapter, SectionIndexer {
+public class StickyHeaderListBaseAdapter extends BaseAdapter implements
+		StickyListHeadersAdapter, SectionIndexer {
 
 	private final Context mContext;
 	private List<String> mCombinedCatalog = new ArrayList<String>();
@@ -118,8 +121,10 @@ public class StickyHeaderListBaseAdapter extends BaseAdapter implements StickyLi
 		LogUtils.i("**************getView" + position);
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.item_catalog_resource, parent, false);
-			holder.text = (TextView) convertView.findViewById(R.id.catalog_restitle);
+			convertView = mInflater.inflate(R.layout.item_catalog_resource,
+					parent, false);
+			holder.text = (TextView) convertView
+					.findViewById(R.id.catalog_restitle);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -132,11 +137,23 @@ public class StickyHeaderListBaseAdapter extends BaseAdapter implements StickyLi
 			if (IntroductionActivity.itemResourceId != "-1") {
 				if (position == mCombinedCatalog.indexOf(itemResourceId)) {
 
-					LogUtils.i("itemResourceId==" + itemResourceId + ";列表位置--》" + position
+					LogUtils.i("itemResourceId=="
+							+ itemResourceId
+							+ ";列表位置--》"
+							+ position
 							+ ";标红的资源mCombinedCatalog.indexOf(itemResourceId)是--》"
 							+ mCombinedCatalog.indexOf(itemResourceId));
-					holder.text.setTextColor(mContext.getResources().getColor(R.color.main));
+					holder.text.setTextColor(mContext.getResources().getColor(
+							R.color.main));
 				}
+			}
+		}
+		if (VideoCatalogFragment.curr_pos != -1) {
+			if (position == VideoCatalogFragment.curr_pos) {
+				holder.text.setTextColor(mContext.getResources().getColor(
+						R.color.main));
+			} else {
+				holder.text.setTextColor(Color.parseColor("#4C5760"));
 			}
 		}
 
@@ -158,13 +175,16 @@ public class StickyHeaderListBaseAdapter extends BaseAdapter implements StickyLi
 			holder = (HeaderViewHolder) convertView.getTag();
 		}
 		// 章节视图 的 位置
-		Integer headPos = Integer.valueOf(mCombinedCatalog.get(position).substring(0, 1)) - 1;
+		Integer headPos = Integer.valueOf(mCombinedCatalog.get(position)
+				.substring(0, 1)) - 1;
 
 		String chapterTitle = "";
 		if (headPos < catalogVO.getChapters().size()) {
-			chapterTitle = catalogVO.getChapters().get(headPos).getChapterTitle();
+			chapterTitle = catalogVO.getChapters().get(headPos)
+					.getChapterTitle();
 		} else {
-			chapterTitle = catalogVO.getChapters().get(catalogVO.getChapters().size() - 1).getChapterTitle();
+			chapterTitle = catalogVO.getChapters()
+					.get(catalogVO.getChapters().size() - 1).getChapterTitle();
 		}
 		holder.text.setText(chapterTitle);
 

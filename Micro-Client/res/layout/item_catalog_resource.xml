@@ -17,11 +17,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="38dp"
         android:layout_weight="0.9"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:textColor="@color/front_gray" />
+        android:textColor="@color/default_font_color_3" />
 
     <TextView
         android:layout_width="0dp"
@@ -32,7 +32,8 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="13:30"
-        android:textColor="@color/front_gray" />
+        android:textColor="@color/front_gray"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/catalog_sign"

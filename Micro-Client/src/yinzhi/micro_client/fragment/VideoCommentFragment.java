@@ -1,5 +1,6 @@
 package yinzhi.micro_client.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import yinzhi.micro_client.R;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -66,12 +68,11 @@ public class VideoCommentFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_video_comment_list,
 				null);
 		ViewUtils.inject(this, rootView);
-		updateData(0, 10);
+		updateData(0, 20);
 		return rootView;
 	}
 
 	private void updateData(int page, int size) {
-
 		YZNetworkUtils.fetchCommentList(SpMessageUtil
 				.getLogonToken(getActivity().getApplicationContext()),
 				itemResourceId, page, size, new RequestCallBack<String>() {
@@ -106,7 +107,6 @@ public class VideoCommentFragment extends Fragment {
 	}
 
 	private void initView() {
-
 		commentListAdapter = new LxyCommonAdapter<YZCommentVO>(getActivity(),
 				datas, R.layout.item_comment) {
 
@@ -129,6 +129,7 @@ public class VideoCommentFragment extends Fragment {
 		Intent intent = new Intent(getActivity(), CommentActivity.class);
 		intent.putExtra("itemResourceId", itemResourceId);
 		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 }

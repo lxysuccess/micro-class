@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/setting_menu_bar"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/default_action_bar_height"
         android:background="@color/main"
         android:orientation="horizontal" >
 
@@ -48,12 +48,14 @@
             android:text="@string/left_name_top_wall_username" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:background="@drawable/arrow_right" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,12 +74,14 @@
             android:text="推送设置" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:background="@drawable/arrow_right" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -95,12 +99,14 @@
             android:text="给我评分" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:background="@drawable/arrow_right" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -120,12 +126,14 @@
             android:text="意见反馈" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:background="@drawable/arrow_right" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -145,12 +153,14 @@
             android:text="关于银秩" />
 
         <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:background="@drawable/arrow_right" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <Button

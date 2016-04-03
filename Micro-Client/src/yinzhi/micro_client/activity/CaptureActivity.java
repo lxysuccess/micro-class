@@ -181,6 +181,7 @@ public class CaptureActivity extends Activity implements Callback {
 					IntroductionActivity.intentTo(CaptureActivity.this, barcodeVO.getItemResourceId(),
 							barcodeVO.getCourseId(), 1, "CaptureActivity");
 				}
+				finish();
 
 			}
 
@@ -191,7 +192,7 @@ public class CaptureActivity extends Activity implements Callback {
 			}
 		});
 
-		finish();
+		
 
 		// AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		// if (barcode == null)

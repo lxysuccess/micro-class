@@ -9,9 +9,11 @@ import yinzhi.micro_client.fragment.MyFragment;
 import yinzhi.micro_client.fragment.RankingFragment;
 import yinzhi.micro_client.fragment.SettingFragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -174,18 +176,14 @@ public class MainActivity extends SlidingFragmentActivity implements
 		// fragment).commit();
 		// update selected item and title, then close the drawer
 		setTitle(title);
-		// Handler h = new Handler();
-		// // 延时加载抽屉避免滑动卡顿的情况
-		// h.postDelayed(new Runnable() {
-		// public void run() {
-		// mSlidingMenu.showContent();
-		// }
-		// }, 50);
-		//
-		// } else {
-		// Log.e("MainActivity", "Error in creating fragment");
-		// }
-		mSlidingMenu.showContent();
+		Handler h = new Handler();
+		// 延时加载抽屉避免滑动卡顿的情况
+		h.postDelayed(new Runnable() {
+			public void run() {
+				mSlidingMenu.showContent();
+			}
+		}, 50);
+
 		transaction.commit();
 	}
 

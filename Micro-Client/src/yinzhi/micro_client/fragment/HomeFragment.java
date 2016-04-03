@@ -47,14 +47,13 @@ import yinzhi.micro_client.utils.ImageUtil;
 import yinzhi.micro_client.utils.SpMessageUtil;
 import yinzhi.micro_client.view.ImageCycleView;
 
-public class HomeFragment extends Fragment implements OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements OnPageChangeListener,
+		SwipeRefreshLayout.OnRefreshListener {
 
 	@ViewInject(R.id.id_ad_view)
 	private ImageCycleView mImageCycleView;
 	@ViewInject(R.id.home_menu_imgbtn)
 	private ImageButton mImageButton;
-	@ViewInject(R.id.home_search_imgbtn)
-	private ImageButton searchBtn;
 	@ViewInject(R.id.scan_imgbtn)
 	private ImageButton scan;
 	@ViewInject(R.id.home_free_list)
@@ -139,11 +138,12 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		Log.i(tag, "onCreateView");
 		View rootView = inflater.inflate(R.layout.fragment_home, null);
 		ViewUtils.inject(this, rootView);
-		
+
 		// 向服务器请求获取推荐书籍宣传图
 		setAdvImageUrl();
 
@@ -152,19 +152,25 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 		mSwipeLayout.setOnRefreshListener(this);
 		onRefresh();
 
-		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark, android.R.color.holo_green_light,
-				android.R.color.holo_orange_light, android.R.color.holo_red_light);
+		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
 
 		return rootView;
 	}
 
 	private void initView() {
-		freeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(), freeDatas, R.layout.item_course_gv) {
+		freeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(),
+				freeDatas, R.layout.item_course_gv) {
 
 			@Override
 			public void convert(LxyViewHolder holder, YZCourseVO t) {
 				try {
-					holder.setImageViewUrl(R.id.home_gv_img, INetworkConstants.YZMC_SERVER + t.getCoursePicPath());
+					holder.setImageViewUrl(
+							R.id.home_gv_img,
+							INetworkConstants.YZMC_SERVER
+									+ t.getCoursePicPath());
 					holder.setText(R.id.home_gv_title, t.getTitle());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -173,12 +179,16 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 		};
 		freeList.setAdapter(freeAdapter);
 
-		chargeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(), chargeDatas, R.layout.item_course_gv) {
+		chargeAdapter = new LxyCommonAdapter<YZCourseVO>(getActivity(),
+				chargeDatas, R.layout.item_course_gv) {
 
 			@Override
 			public void convert(LxyViewHolder holder, YZCourseVO t) {
 				try {
-					holder.setImageViewUrl(R.id.home_gv_img, INetworkConstants.YZMC_SERVER + t.getCoursePicPath());
+					holder.setImageViewUrl(
+							R.id.home_gv_img,
+							INetworkConstants.YZMC_SERVER
+									+ t.getCoursePicPath());
 					holder.setText(R.id.home_gv_title, t.getTitle());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -195,86 +205,96 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	 */
 	private void updateDatas() {
 
-		String token = SpMessageUtil.getLogonToken(getActivity().getApplicationContext());
-		YZNetworkUtils.fetchFreeRecommendCourse(token, 0, 4, new RequestCallBack<String>() {
+		String token = SpMessageUtil.getLogonToken(getActivity()
+				.getApplicationContext());
+		YZNetworkUtils.fetchFreeRecommendCourse(token, 0, 4,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
 
-			}
+					}
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
 
-				LogUtils.i("reponse=========" + response);
-				
-				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
-					return;
-				}
-				
-//				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
-//						.equals("0")) {
-//					Toast.makeText(getActivity(),
-//							JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
-//							Toast.LENGTH_SHORT).show();
-//					return;
-//				}
+						LogUtils.i("reponse=========" + response);
 
-				try {
-					freeDatas.clear();
-					freeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				freeAdapter.notifyDataSetChanged();
+						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
+								response)) {
+							return;
+						}
 
-				if (!isInit) {
-					rHandler.sendEmptyMessage(REFRESH_COMPLETE);
-				}
-			}
-		});
+						// if
+						// (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
+						// .equals("0")) {
+						// Toast.makeText(getActivity(),
+						// JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
+						// Toast.LENGTH_SHORT).show();
+						// return;
+						// }
 
-		YZNetworkUtils.fetchChargeRecommendCourse(token, 0, 4, new RequestCallBack<String>() {
+						try {
+							freeDatas.clear();
+							freeDatas.addAll(YZResponseUtils.parseArray(
+									response, YZCourseVO.class));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						freeAdapter.notifyDataSetChanged();
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
+						if (!isInit) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+						}
+					}
+				});
 
-			}
+		YZNetworkUtils.fetchChargeRecommendCourse(token, 0, 4,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
 
-				LogUtils.i("reponse+++++++++++++chargeRecommend" + response);
-				
-				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
-					return;
-				}
-//				if (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
-//						.equals("0")) {
-//					Toast.makeText(getActivity(),
-//							JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
-//							Toast.LENGTH_SHORT).show();
-//					return;
-//				}
+					}
 
-				try {
-					chargeDatas.clear();
-					chargeDatas.addAll(YZResponseUtils.parseArray(response, YZCourseVO.class));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				chargeAdapter.notifyDataSetChanged();
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
 
-				if (!isInit) {
-					rHandler.sendEmptyMessage(REFRESH_COMPLETE);
-				}
+						LogUtils.i("reponse+++++++++++++chargeRecommend"
+								+ response);
 
-			}
-		});
+						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
+								response)) {
+							return;
+						}
+						// if
+						// (JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("status").toString()
+						// .equals("0")) {
+						// Toast.makeText(getActivity(),
+						// JSON.parseObject(JSON.parseObject(response).get("data").toString()).get("msg").toString(),
+						// Toast.LENGTH_SHORT).show();
+						// return;
+						// }
+
+						try {
+							chargeDatas.clear();
+							chargeDatas.addAll(YZResponseUtils.parseArray(
+									response, YZCourseVO.class));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						chargeAdapter.notifyDataSetChanged();
+
+						if (!isInit) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+						}
+
+					}
+				});
 
 	}
 
@@ -285,11 +305,13 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	 */
 	@OnClick(R.id.scan_imgbtn)
 	public void scanClick(View v) {
-//		startActivity(new Intent(getActivity(), CaptureActivity.class));
-//		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
-		
-		IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait, IjkVideoActicity.PlayType.vid,
-				videoId, "9", false);
+		startActivity(new Intent(getActivity(), CaptureActivity.class));
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
+
+		// IjkVideoActicity.intentTo(getActivity(),
+		// IjkVideoActicity.PlayMode.portrait, IjkVideoActicity.PlayType.vid,
+		// videoId, "9", false);
 	}
 
 	/**
@@ -302,15 +324,6 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 		activity.toggle();
 	}
 
-	/**
-	 * 搜索按钮
-	 */
-	@OnClick(R.id.home_search_imgbtn)
-	public void searchClick() {
-		Intent intent = new Intent(getActivity(), SearchActivity.class);
-		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
-	}
 
 	/**
 	 * 获取轮播图片数据
@@ -318,47 +331,54 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	private void setAdvImageUrl() {
 		// TODO 轮播图片
 		mImageUrl = new ArrayList<String>();
-		YZNetworkUtils.fetchSlideList(getActivity(),null, "mockdeviceId", new RequestCallBack<String>() {
+		YZNetworkUtils.fetchSlideList(getActivity(), null, "mockdeviceId",
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
-				
-				if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
-					return;
-				}
-				
-				LogUtils.i("slide fetch" + response);
-				try {
-					slides = YZResponseUtils.parseArray(response, YZSlideVO.class);
-					mImageUrl.clear();
-					for (int i = 0; i < slides.size(); i++) {
-						mImageUrl.add(INetworkConstants.YZMC_SERVER + slides.get(i).getSlidePicPath());
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
+
+						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
+								response)) {
+							return;
+						}
+
+						LogUtils.i("slide fetch" + response);
+						try {
+							slides = YZResponseUtils.parseArray(response,
+									YZSlideVO.class);
+							mImageUrl.clear();
+							for (int i = 0; i < slides.size(); i++) {
+								mImageUrl.add(INetworkConstants.YZMC_SERVER
+										+ slides.get(i).getSlidePicPath());
+							}
+
+							mImageCycleView.setImageResources(mImageUrl,
+									mImageCycleViewListener);
+						} catch (Exception e) {
+							Toast.makeText(getActivity(), "数据解析失败",
+									Toast.LENGTH_SHORT).show();
+							e.printStackTrace();
+						}
+
 					}
 
-					mImageCycleView.setImageResources(mImageUrl, mImageCycleViewListener);
-				} catch (Exception e) {
-					Toast.makeText(getActivity(), "数据解析失败", Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				}
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO 错误处理
 
-			}
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO 错误处理
-
-			}
-		});
+					}
+				});
 
 	}
 
 	private ImageCycleView.ImageCycleViewListener mImageCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
+
 		@Override
 		public void displayImage(String imageURL, ImageView imageView) {
-			LogUtils.i("displayImage---------------------------------");
-
-			ImageLoader.getInstance().displayImage(imageURL, imageView, ImageUtil.getDisplayOption(0));
+			// TODO 不断请求
+			ImageLoader.getInstance().displayImage(imageURL, imageView,
+					ImageUtil.getDisplayOption(0));
 
 		}
 
@@ -370,7 +390,9 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 			intent.setClass(getActivity(), IntroductionActivity.class);
 			startActivity(intent);
 			// TODO 动画有问题？
-			getActivity().overridePendingTransition(R.anim.activity_anim_left_in, R.anim.activity_anim_left_out);
+			getActivity()
+					.overridePendingTransition(R.anim.activity_anim_left_in,
+							R.anim.activity_anim_left_out);
 		}
 	};
 
@@ -443,23 +465,27 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	}
 
 	@OnItemClick(R.id.home_free_list)
-	public void onFreeItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	public void onFreeItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 		LogUtils.i("home free position------>" + position);
 
 		Intent intent = new Intent(getActivity(), IntroductionActivity.class);
 		intent.putExtra("courseId", freeDatas.get(position).getCourseId());
 		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 	@OnItemClick(R.id.home_charge_list)
-	public void onChargeItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	public void onChargeItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 		LogUtils.i("home charge position------>" + position);
 
 		Intent intent = new Intent(getActivity(), IntroductionActivity.class);
 		intent.putExtra("courseId", chargeDatas.get(position).getCourseId());
 		startActivity(intent);
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 }

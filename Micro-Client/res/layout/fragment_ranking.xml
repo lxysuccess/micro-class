@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/default_action_bar_height"
         android:background="@color/main"
         android:orientation="horizontal" >
 
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/fragment_ranking_title"
+            android:textSize="@dimen/default_action_bar_font_size"
             android:textColor="@color/white" />
     </RelativeLayout>
 

@@ -8,8 +8,8 @@
     <RelativeLayout
         android:id="@+id/introduction_menu_bar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white" >
+        android:layout_height="@dimen/default_action_bar_height"
+        android:background="@color/default_action_bar_bg_color" >
 
         <ImageView
             android:id="@+id/introduction_back"
@@ -19,6 +19,11 @@
             android:layout_marginLeft="20dp"
             android:background="@drawable/back" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/default_line_color" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -49,7 +54,7 @@
                     <Button
                         android:id="@+id/introduction_start"
                         android:layout_width="150dp"
-                        android:layout_height="40dp"
+                        android:layout_height="@dimen/default_action_bar_height"
                         android:layout_centerInParent="true"
                         android:background="@drawable/border_sharp"
                         android:text="进入学习"
@@ -85,7 +90,7 @@
         <Button
             android:id="@+id/introduction_subscribe"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/default_action_bar_height"
             android:layout_gravity="bottom"
             android:background="@color/default_action_bar_bg_color"
             android:text="参加该课程"
@@ -103,7 +108,7 @@
             <ProgressBar
                 android:id="@+id/introduction_pb"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/default_action_bar_height"
                 android:layout_centerInParent="true" />
 
             <TextView

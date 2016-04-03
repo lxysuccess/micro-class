@@ -29,6 +29,7 @@ import yinzhi.micro_client.adapter.LxyViewHolder;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZExerciseVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
 public class ExerciseActivity extends Activity {
 
@@ -110,7 +111,8 @@ public class ExerciseActivity extends Activity {
 		choiceItems.add(new ChoiceItem("C", exercise.getChoiceC()));
 		choiceItems.add(new ChoiceItem("D", exercise.getChoiceD()));
 
-		adapter = new LxyCommonAdapter<ChoiceItem>(this, choiceItems, R.layout.exercise_answer_list_item) {
+		adapter = new LxyCommonAdapter<ChoiceItem>(this, choiceItems,
+				R.layout.exercise_answer_list_item) {
 
 			@Override
 			public void convert(LxyViewHolder holder, ChoiceItem t) {
@@ -131,36 +133,41 @@ public class ExerciseActivity extends Activity {
 	 */
 	private void fetchExercice(String resourceId) {
 
-		YZNetworkUtils.fetchExercise("", resourceId, new RequestCallBack<String>() {
+		YZNetworkUtils.fetchExercise(
+				SpMessageUtil.getLogonToken(getApplicationContext()),
+				resourceId, new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				// 数据获取
-				String response = arg0.result;
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						// 数据获取
+						String response = arg0.result;
 
-				LogUtils.i(response + "lianxitimu ==============");
-				
-				if(!YZNetworkUtils.isAllowedContinue(ExerciseActivity.this, response)){
-					return;
-				}
-				exercise = YZResponseUtils.parseObject(response, YZExerciseVO.class);
+						LogUtils.i(response + "lianxitimu ==============");
 
-				initView();
+						if (!YZNetworkUtils.isAllowedContinue(
+								ExerciseActivity.this, response)) {
+							return;
+						}
+						exercise = YZResponseUtils.parseObject(response,
+								YZExerciseVO.class);
 
-			}
+						initView();
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
+					}
 
-			}
-		});
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+
+					}
+				});
 	}
 
 	@OnClick(R.id.exercise_done)
 	public void doneClick(View v) {
 		// 检查是否完成了习题，若完成开放下一个视频的播放权限
 		if (choice == -1) {
-			Toast.makeText(ExerciseActivity.this, "请完成习题", Toast.LENGTH_LONG).show();
+			Toast.makeText(ExerciseActivity.this, "请完成习题", Toast.LENGTH_LONG)
+					.show();
 			return;
 		}
 
@@ -196,7 +203,8 @@ public class ExerciseActivity extends Activity {
 	@OnClick(R.id.exercise_answer_detail_btn)
 	public void analysisClick(View v) {
 		if (choice == -1) {
-			Toast.makeText(ExerciseActivity.this, "请完成习题后查看答案！", Toast.LENGTH_LONG).show();
+			Toast.makeText(ExerciseActivity.this, "请完成习题后查看答案！",
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 
@@ -222,7 +230,8 @@ public class ExerciseActivity extends Activity {
 	 * @param v
 	 */
 	@OnItemClick(R.id.exercise_single_answer_list)
-	public void listClick(AdapterView<?> parent, View view, int position, long id) {
+	public void listClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		// 记录用户选择的选项
 		choice = position + 1;
 	}
@@ -231,7 +240,7 @@ public class ExerciseActivity extends Activity {
 	 * 选择题的答案选项bean
 	 * 
 	 * @author lixuyu
-	 *
+	 * 
 	 */
 	private class ChoiceItem {
 

@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/iv_user_photo"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/default_action_bar_height"
                 android:layout_margin="10dp"
                 android:src="@drawable/iv_photo" />
         </LinearLayout>

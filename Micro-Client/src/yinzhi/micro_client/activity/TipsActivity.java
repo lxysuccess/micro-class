@@ -19,6 +19,7 @@ import yinzhi.micro_client.R;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZTipsVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 
 public class TipsActivity extends Activity {
 
@@ -53,58 +54,62 @@ public class TipsActivity extends Activity {
 
 		String html = "";
 		try {
-			html = "<html>" + "<body>" + tip.getContent() + "</body>" + "</html>";
+			html = "<html>" + "<body>" + tip.getContent() + "</body>"
+					+ "</html>";
 		} catch (NullPointerException e) {
 			html = "<H4>数据为空</H4>";
 		}
-		
-		
+
 		content.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
-		
-		//支持javascript
-		content.getSettings().setJavaScriptEnabled(true); 
-		// 设置可以支持缩放 
-		content.getSettings().setSupportZoom(true); 
-		// 设置出现缩放工具 
+
+		// 支持javascript
+		content.getSettings().setJavaScriptEnabled(true);
+		// 设置可以支持缩放
+		content.getSettings().setSupportZoom(true);
+		// 设置出现缩放工具
 		content.getSettings().setBuiltInZoomControls(true);
-		//扩大比例的缩放
+		// 扩大比例的缩放
 		content.getSettings().setUseWideViewPort(true);
-		//自适应屏幕
+		// 自适应屏幕
 		content.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		content.getSettings().setLoadWithOverviewMode(true);
-		
+
 		content.setWebChromeClient(new WebChromeClient());
 
 	}
 
 	private void fetchTips(String resourceId) {
-		YZNetworkUtils.fetchCourseTips("", resourceId, new RequestCallBack<String>() {
+		YZNetworkUtils.fetchCourseTips(
+				SpMessageUtil.getLogonToken(getApplicationContext()),
+				resourceId, new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
 
-				String response = arg0.result;
+						String response = arg0.result;
 
-				LogUtils.i(response + " ==============");
-				
-				if(!YZNetworkUtils.isAllowedContinue(TipsActivity.this, response)){
-					return;
-				}
+						LogUtils.i(response + " ==============");
 
-				tip = YZResponseUtils.parseObject(response, YZTipsVO.class);
+						if (!YZNetworkUtils.isAllowedContinue(
+								TipsActivity.this, response)) {
+							return;
+						}
 
-				tip.getContent();
-				// TODO 数据校验，权限控制
-				initView();
+						tip = YZResponseUtils.parseObject(response,
+								YZTipsVO.class);
 
-			}
+						tip.getContent();
+						// TODO 数据校验，权限控制
+						initView();
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
+					}
 
-			}
-		});
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 	}
 
 	/**

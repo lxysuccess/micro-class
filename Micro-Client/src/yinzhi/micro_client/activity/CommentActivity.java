@@ -71,7 +71,7 @@ public class CommentActivity extends BaseActivity {
 
 						String response = arg0.result;
 
-						LogUtils.i("comment---------------" + response);
+						LogUtils.i("comment------activity---------" + response);
 
 						if(!YZNetworkUtils.isAllowedContinue(CommentActivity.this, response)){
 							return;

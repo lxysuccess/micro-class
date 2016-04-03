@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/all_course_menu_bar"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/default_action_bar_height"
         android:background="@color/main"
         android:orientation="horizontal" >
 
@@ -34,8 +34,8 @@
 
         <ImageButton
             android:id="@+id/all_search_imgbtn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
