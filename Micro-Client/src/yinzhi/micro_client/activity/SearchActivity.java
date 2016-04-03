@@ -66,6 +66,7 @@ public class SearchActivity extends Activity {
 		// 监听用户在搜索框中的输入情况
 		searchInput.addTextChangedListener(textWatcher);
 
+		searchInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		// 响应回车键
 		searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
@@ -74,6 +75,14 @@ public class SearchActivity extends Activity {
 						|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 					// TODO 搜索
 					Toast.makeText(getApplicationContext(), "正在搜索", Toast.LENGTH_SHORT).show();
+					
+					View view = SearchActivity.this.getWindow().peekDecorView();
+					
+					if (view != null) {
+						InputMethodManager inputmanger = (InputMethodManager) SearchActivity.this
+								.getSystemService(Context.INPUT_METHOD_SERVICE);
+						inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+					}
 					return true;
 				}
 				return false;

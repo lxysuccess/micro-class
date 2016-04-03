@@ -133,6 +133,9 @@ public class VideoCatalogFragment extends Fragment implements AdapterView.OnItem
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
 					String response = arg0.result;
+					if(!YZNetworkUtils.isAllowedContinue(getActivity(), response)){
+						return;
+					}
 
 					YZVideoVO video = YZResponseUtils.parseObject(response, YZVideoVO.class);
 

@@ -37,7 +37,7 @@
             android:layout_marginTop="1dp"
             android:background="#00ffffff"
             android:text="发布"
-            android:textColor="@color/white"
+            android:textColor="@color/default_font_color_2"
             android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 

@@ -126,6 +126,7 @@ public final class CameraManager {
         throw new IOException();
       }
       camera.setPreviewDisplay(holder);
+      camera.setDisplayOrientation(90);
 
       if (!initialized) {
         initialized = true;

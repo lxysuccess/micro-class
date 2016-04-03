@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/polyv_logo"
+            android:background="@null"
             android:visibility="gone" />
 
         <!-- 当广告是视频广告时，倒计时view，文本使用String.format("自定义文本 %d自定义文本") 来匹配 -->
@@ -59,7 +59,7 @@
         android:id="@+id/id_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl">
+        android:layout_below="@id/rl" >
     </FrameLayout>
 
     <RelativeLayout
@@ -82,6 +82,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:background="@drawable/video_comment" />
 
@@ -90,7 +91,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:background="@drawable/video_subtitle_search" />
     </RelativeLayout>
 

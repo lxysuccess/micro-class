@@ -42,6 +42,7 @@
             android:layout_weight="0.12"
             android:background="@null"
             android:gravity="center"
+            android:imeOptions="actionSearch"
             android:text="@string/all_course_search"
             android:textColor="@color/front_gray"
             android:textSize="18sp" />

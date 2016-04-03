@@ -14,16 +14,21 @@ import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZSubtitleVO;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.ViewUtils;
@@ -80,6 +85,31 @@ public class SubtitleFragment extends Fragment {
 				null);
 		ViewUtils.inject(this, rootView);
 		initView();
+
+		subtitleInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		// 响应回车键
+		subtitleInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						if (actionId == EditorInfo.IME_ACTION_SEARCH
+								|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							// TODO 搜索
+							fetchDatas(0, 50);
+							// TODO 搜索
+							Toast.makeText(getActivity(), "正在搜索", Toast.LENGTH_SHORT).show();
+							
+							View view = getActivity().getWindow().peekDecorView();
+							if (view != null) {
+								InputMethodManager inputmanger = (InputMethodManager) getActivity()
+										.getSystemService(Context.INPUT_METHOD_SERVICE);
+								inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+							}
+							return true;
+						}
+						return false;
+					}
+				});
 
 		return rootView;
 	}
@@ -191,13 +221,19 @@ public class SubtitleFragment extends Fragment {
 	}
 
 	@OnClick(R.id.search_start)
-	public void searchClick() {
+	public void searchClick(View v) {
 		if (subtitleInput.getText().length() == 0) {
 			Toast.makeText(getActivity(), "关键词不能为空", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		isReset = true;
-		fetchDatas(0, 20);
+		fetchDatas(0, 50);
+		View view = getActivity().getWindow().peekDecorView();
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) getActivity()
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 
 }

@@ -10,12 +10,23 @@
         android:layout_height="wrap_content" >
     </ListView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="1px"
+        android:background="@color/default_line_color" />
+
     <Button
         android:id="@+id/video_comment_view_list"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:background="@drawable/personal_item_bg"
         android:text="去评论区"
         android:textColor="@color/default_font_color_3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/default_line_color" />
 
 </LinearLayout>

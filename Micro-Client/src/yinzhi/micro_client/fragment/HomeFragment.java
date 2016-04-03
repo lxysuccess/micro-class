@@ -35,6 +35,7 @@ import yinzhi.micro_client.activity.CaptureActivity;
 import yinzhi.micro_client.activity.IntroductionActivity;
 import yinzhi.micro_client.activity.MainActivity;
 import yinzhi.micro_client.activity.SearchActivity;
+import yinzhi.micro_client.activity.video.IjkVideoActicity;
 import yinzhi.micro_client.adapter.LxyCommonAdapter;
 import yinzhi.micro_client.adapter.LxyViewHolder;
 import yinzhi.micro_client.network.YZNetworkUtils;
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	private String tag = "HomeFragment";
 
 	// 测试播放视频ID 保利威视
-	private static String videoId = "9b55dbfec52e18a98869af498127d00e_9";
+	private static String videoId = "c3df59288d6ecd9eb4174822850cc858_c";
 
 	/**
 	 * 存储轮播图片url
@@ -284,8 +285,11 @@ public class HomeFragment extends Fragment implements OnPageChangeListener, Swip
 	 */
 	@OnClick(R.id.scan_imgbtn)
 	public void scanClick(View v) {
-		startActivity(new Intent(getActivity(), CaptureActivity.class));
-		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+//		startActivity(new Intent(getActivity(), CaptureActivity.class));
+//		getActivity().overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		
+		IjkVideoActicity.intentTo(getActivity(), IjkVideoActicity.PlayMode.portrait, IjkVideoActicity.PlayType.vid,
+				videoId, "9", false);
 	}
 
 	/**

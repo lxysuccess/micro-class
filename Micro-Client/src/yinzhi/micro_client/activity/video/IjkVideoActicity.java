@@ -1,22 +1,10 @@
 package yinzhi.micro_client.activity.video;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.activity.BaseActivity;
-import yinzhi.micro_client.activity.CommentActivity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
 import yinzhi.micro_client.fragment.SubtitleFragment;
 import yinzhi.micro_client.fragment.VideoCommentFragment;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.vo.YZSubtitleVO;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -32,12 +20,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,9 +31,6 @@ import com.easefun.polyvsdk.Video.ADMatter;
 import com.easefun.polyvsdk.ijk.IjkVideoView;
 import com.easefun.polyvsdk.ijk.IjkVideoView.ErrorReason;
 import com.easefun.polyvsdk.ijk.OnPreparedListener;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.util.LogUtils;
 
 public class IjkVideoActicity extends BaseActivity {
@@ -111,12 +91,13 @@ public class IjkVideoActicity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_small2);
+		
 
 		bottomBar = (RelativeLayout) findViewById(R.id.video_bottom_bar);
 
 		backIv = (ImageView) findViewById(R.id.video_back);
 		commentIv = (ImageView) findViewById(R.id.video_comment);
-		// shareIv = (ImageView) findViewById(R.id.video_share);
+		shareIv = (ImageView) findViewById(R.id.video_subtitle_search);
 
 		// 资源ID
 		itemResourceId = getIntent().getStringExtra("itemResourceId");
