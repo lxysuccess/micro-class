@@ -11,9 +11,11 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +36,7 @@ import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.constants.INetworkConstants;
 import yinzhi.micro_client.network.vo.YZCourseVO;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends BaseActivity {
 	@ViewInject(R.id.search_input_et)
 	private EditText searchInput;
 
@@ -68,35 +71,46 @@ public class SearchActivity extends Activity {
 
 		searchInput.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		// 响应回车键
-		searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEARCH
-						|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-					// TODO 搜索
-					Toast.makeText(getApplicationContext(), "正在搜索", Toast.LENGTH_SHORT).show();
-					
-					View view = SearchActivity.this.getWindow().peekDecorView();
-					
-					if (view != null) {
-						InputMethodManager inputmanger = (InputMethodManager) SearchActivity.this
-								.getSystemService(Context.INPUT_METHOD_SERVICE);
-						inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-					}
-					return true;
-				}
-				return false;
-			}
-		});
+		searchInput
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						if (actionId == EditorInfo.IME_ACTION_SEARCH
+								|| (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+							// TODO 搜索
+							Toast.makeText(getApplicationContext(), "正在搜索",
+									Toast.LENGTH_SHORT).show();
 
-		adapter = new LxyCommonAdapter<YZCourseVO>(this, resultDatas, R.layout.item_course_list) {
+							View view = SearchActivity.this.getWindow()
+									.peekDecorView();
+
+							if (view != null) {
+								InputMethodManager inputmanger = (InputMethodManager) SearchActivity.this
+										.getSystemService(Context.INPUT_METHOD_SERVICE);
+								inputmanger.hideSoftInputFromWindow(
+										view.getWindowToken(), 0);
+							}
+							return true;
+						}
+						return false;
+					}
+				});
+
+		adapter = new LxyCommonAdapter<YZCourseVO>(this, resultDatas,
+				R.layout.item_course_list) {
 			@Override
 			public void convert(LxyViewHolder holder, YZCourseVO course) {
 
-				holder.setImageViewUrl(R.id.course_icon, INetworkConstants.YZMC_SERVER + course.getCoursePicPath());
+				holder.setImageViewUrl(
+						R.id.course_icon,
+						INetworkConstants.YZMC_SERVER
+								+ course.getCoursePicPath());
 				holder.setText(R.id.course_name, course.getTitle());
-				holder.setText(R.id.course_click_count, course.getClickCount().toString());
-				holder.setText(R.id.course_teacher_name, course.getTeacherName());
+				holder.setText(R.id.course_click_count, course.getClickCount()
+						.toString());
+				holder.setText(R.id.course_teacher_name,
+						course.getTeacherName());
 
 			}
 		};
@@ -106,13 +120,15 @@ public class SearchActivity extends Activity {
 
 	private TextWatcher textWatcher = new TextWatcher() {
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 			LogUtils.i("beforeTextChanged");
 
 		}
 
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 			LogUtils.i("onTextChanged");
 
 		}
@@ -120,53 +136,57 @@ public class SearchActivity extends Activity {
 		@Override
 		public void afterTextChanged(Editable s) {
 			LogUtils.i("afterTextChanged");
-			if (searchInput.getText().toString().equals(null) || searchInput.getText().toString().equals("")) {
+			if (searchInput.getText().toString().equals(null)
+					|| searchInput.getText().toString().equals("")) {
 				resultList.setVisibility(View.GONE);
 			} else {
 
 				// 根据关键词请求搜索数据
 
-				YZNetworkUtils.courseSearch(searchInput.getText().toString(), "", 0, 10, new RequestCallBack<String>() {
+				YZNetworkUtils.courseSearch(searchInput.getText().toString(),
+						"", 0, 10, new RequestCallBack<String>() {
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO Auto-generated method stub
+							@Override
+							public void onFailure(HttpException arg0,
+									String arg1) {
+								// TODO Auto-generated method stub
 
-					}
+							}
 
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						String response = arg0.result;
+							@Override
+							public void onSuccess(ResponseInfo<String> arg0) {
+								String response = arg0.result;
 
-						LogUtils.i(response);
+								LogUtils.i(response);
 
-						if(!YZNetworkUtils.isAllowedContinue(SearchActivity.this, response)){
-							return;
-						}
-						
-						List<YZCourseVO> courses = null;
+								if (!YZNetworkUtils.isAllowedContinue(
+										SearchActivity.this, response)) {
+									return;
+								}
 
-						try {
+								List<YZCourseVO> courses = null;
 
-							courses = YZResponseUtils.parseArray(response, YZCourseVO.class);
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
+								try {
 
-						if (courses == null) {
-							Toast.makeText(getApplicationContext(), "未检索到相关课程", Toast.LENGTH_LONG).show();
-							return;
-						}
+									courses = YZResponseUtils.parseArray(
+											response, YZCourseVO.class);
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
 
-						// 清除上次搜索结果
-						resultDatas.clear();
-						resultDatas.addAll(courses);
+								if (courses == null) {
+									return;
+								}
 
-						// 通知列表数据变化
-						adapter.notifyDataSetChanged();
+								// 清除上次搜索结果
+								resultDatas.clear();
+								resultDatas.addAll(courses);
 
-					}
-				});
+								// 通知列表数据变化
+								adapter.notifyDataSetChanged();
+
+							}
+						});
 
 				resultList.setVisibility(View.VISIBLE);
 			}
@@ -184,6 +204,23 @@ public class SearchActivity extends Activity {
 		}
 		this.finish();
 		overridePendingTransition(0, R.anim.activity_anim_left_out);
+	}
+
+	@OnItemClick(R.id.search_result)
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		LogUtils.i("position------>" + position);
+
+		try {
+			Intent intent = new Intent(this, IntroductionActivity.class);
+			intent.putExtra("courseId", resultDatas.get(position).getCourseId());
+			startActivity(intent);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtils.e("intent to introductionactivity error,  searchActivity");
+		}
+		overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 }

@@ -3,7 +3,7 @@
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="@color/default_bg_color" >
 
     <EditText
         android:layout_width="0dp"
@@ -18,12 +18,13 @@
 
         <ImageButton
             android:id="@+id/profile_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/back" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,12 +40,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="1dp"
             android:background="#00ffffff"
             android:text="保存"
             android:textColor="@color/default_font_color_2"
             android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="13dp" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -70,7 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
-                    android:text="邮箱" />
+                    android:text="邮箱"
+                    android:textColor="@color/default_font_color_2" />
 
                 <TextView
                     android:id="@+id/profile_mail"
@@ -79,14 +87,21 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:text="xiaona_he@mjz.com" />
+                    android:text="@string/not_logged_in"
+                    android:textColor="@color/default_font_color_2"
+                    android:textSize="@dimen/default_content_font_size_16" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp" />
 
             <RelativeLayout
                 android:id="@+id/profile_nick_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/personal_item_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
@@ -97,7 +112,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
-                    android:text="昵称" />
+                    android:text="昵称"
+                    android:textColor="@color/default_font_color_2" />
 
                 <EditText
                     android:id="@+id/profile_nick"
@@ -106,14 +122,22 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/profile_nick_tv"
-                    android:singleLine="true" />
+                    android:background="@null"
+                    android:drawableRight="@drawable/comment_write"
+                    android:ellipsize="start"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/default_font_color_2"
+                    android:textSize="@dimen/default_content_font_size_16" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/profile_school_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/personal_item_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
@@ -123,7 +147,8 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
                     android:layout_marginLeft="25dp"
-                    android:text="学校" />
+                    android:text="学校"
+                    android:textColor="@color/default_font_color_2" />
 
                 <TextView
                     android:id="@+id/profile_school"
@@ -132,14 +157,20 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="38dp"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/default_font_color_2" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp" />
 
             <RelativeLayout
                 android:id="@+id/profile_college_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/personal_item_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
@@ -149,7 +180,8 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
                     android:layout_marginLeft="25dp"
-                    android:text="院系" />
+                    android:text="院系"
+                    android:textColor="@color/default_font_color_2" />
 
                 <TextView
                     android:id="@+id/profile_college"
@@ -158,14 +190,20 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="38dp"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/default_font_color_2" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp" />
 
             <RelativeLayout
                 android:id="@+id/profile_grade_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/personal_item_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
@@ -175,7 +213,8 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
                     android:layout_marginLeft="25dp"
-                    android:text="年级" />
+                    android:text="年级"
+                    android:textColor="@color/default_font_color_2" />
 
                 <TextView
                     android:id="@+id/profile_grade"
@@ -184,14 +223,20 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="38dp"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/default_font_color_2" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp" />
 
             <RelativeLayout
                 android:id="@+id/profile_classes_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/personal_item_bg"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
@@ -201,7 +246,8 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="15dp"
                     android:layout_marginLeft="25dp"
-                    android:text="班级" />
+                    android:text="班级"
+                    android:textColor="@color/default_font_color_2" />
 
                 <TextView
                     android:id="@+id/profile_classes"
@@ -210,7 +256,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="38dp"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:textColor="@color/default_font_color_2" />
             </RelativeLayout>
         </TableLayout>
     </ScrollView>

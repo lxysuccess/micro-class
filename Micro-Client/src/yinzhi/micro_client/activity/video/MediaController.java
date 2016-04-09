@@ -583,6 +583,9 @@ public class MediaController extends IjkBaseMediaController {
 		}
 	};
 
+	/**
+	 * 改变 播放/暂停 按钮状态
+	 */
 	private void updatePausePlay() {
 		if (mRoot == null || mPauseButton == null)
 			return;
@@ -593,6 +596,9 @@ public class MediaController extends IjkBaseMediaController {
 		}
 	}
 
+	/**
+	 * 用户点击 播放/暂停
+	 */
 	private void doPauseResume() {
 		if (mPlayer.isPlaying())
 			mPlayer.pause();

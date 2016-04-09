@@ -96,7 +96,8 @@
             android:id="@+id/video_description_course_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="7dp"
+            
+            android:layout_marginBottom="@dimen/default_action_bar_height"
             android:ellipsize="end"
             android:textColor="@color/default_font_color_3"
             android:textSize="@dimen/default_content_font_size_14" />

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/login_action_menu"
@@ -13,12 +14,13 @@
 
         <ImageButton
             android:id="@+id/login_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/back" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,16 +38,15 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:text="注册"
-            android:textColor="@color/white"
-            android:textSize="@dimen/default_action_bar_font_size" />
+            android:textColor="@color/default_font_color_2"
+            android:textSize="@dimen/default_content_font_size_14" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/login_input_group"
         android:layout_width="250dp"
         android:layout_height="95dp"
-        android:layout_below="@id/login_action_menu"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="35dp"
         android:gravity="center"
         android:orientation="vertical" >
@@ -74,7 +75,7 @@
                 android:hint="邮箱"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/default_font_color_3"
-                android:textSize="@dimen/default_action_bar_font_size" />
+                android:textSize="@dimen/default_content_font_size_14" />
         </LinearLayout>
 
         <View
@@ -107,7 +108,7 @@
                 android:hint="密码"
                 android:inputType="textPassword"
                 android:textColorHint="@color/default_font_color_3"
-                android:textSize="@dimen/default_action_bar_font_size" />
+                android:textSize="@dimen/default_content_font_size_14" />
         </LinearLayout>
     </LinearLayout>
 
@@ -115,12 +116,11 @@
         android:id="@+id/login_do"
         android:layout_width="200dp"
         android:layout_height="@dimen/default_action_bar_height"
-        android:layout_below="@id/login_input_group"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@color/main"
         android:text="登录"
         android:textColor="@color/white"
         android:textSize="@dimen/default_action_bar_font_size" />
 
-</RelativeLayout>
+</LinearLayout>

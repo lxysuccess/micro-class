@@ -46,7 +46,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center"
-                android:background="@drawable/all_course_list_user" />
+                android:background="@drawable/all_course_list_clock" />
 
             <TextView
                 android:id="@+id/course_click_count"
@@ -61,7 +61,7 @@
                 android:layout_height="16dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/all_course_list_clock" />
+                android:background="@drawable/all_course_list_user" />
 
             <TextView
                 android:id="@+id/course_teacher_name"

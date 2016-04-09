@@ -4,15 +4,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.IntroductionActivity;
+import yinzhi.micro_client.activity.LoginActivity;
+import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.activity.ProfileActivity;
+import yinzhi.micro_client.activity.video.MyApplication;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZCourseVO;
+import yinzhi.micro_client.network.vo.YZUserVO;
+import yinzhi.micro_client.utils.ImageUtil;
+import yinzhi.micro_client.utils.SpMessageUtil;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,26 +39,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.CourseListActivity;
-import yinzhi.micro_client.activity.MainActivity;
-import yinzhi.micro_client.activity.ProfileActivity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZCourseVO;
-import yinzhi.micro_client.utils.ImageUtil;
-import yinzhi.micro_client.utils.SpMessageUtil;
-import yinzhi.micro_client.utils.adapter.MyFragmentPagerAdapter;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MyFragment extends Fragment implements
 		SwipeRefreshLayout.OnRefreshListener {
@@ -74,6 +79,9 @@ public class MyFragment extends Fragment implements
 
 	@ViewInject(R.id.my_layout)
 	private LinearLayout parentLayout;
+
+	@ViewInject(R.id.my_nickname)
+	private TextView nickname;
 
 	private String avatarFilePath;
 
@@ -150,7 +158,7 @@ public class MyFragment extends Fragment implements
 		ImageLoader
 				.getInstance()
 				.displayImage(
-						"http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
+						"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
 						avatar, ImageUtil.getDisplayOption(90));
 
 		initView();
@@ -166,10 +174,40 @@ public class MyFragment extends Fragment implements
 		return rootView;
 	}
 
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		ImageLoader
+		.getInstance()
+		.displayImage(
+				"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
+				avatar, ImageUtil.getDisplayOption(90));
+		try {
+			YZUserVO userInfo = MyApplication.getUserInfo();
+
+//			LogUtils.i(userInfo.toString());
+//			ImageLoader.getInstance()
+//					.displayImage(
+//							INetworkConstants.YZMC_SERVER
+//									+ userInfo.getAvatarPicPath(), avatar,
+//							ImageUtil.getDisplayOption(90));
+
+			nickname.setText(userInfo.getNickname());
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e("用户信息读取异常");
+			Toast.makeText(getActivity(), "未登录", Toast.LENGTH_LONG).show();
+
+			nickname.setText("未登录");
+
+		}
+	}
+
 	private void initData() {
 		YZNetworkUtils.fetchMyCourseList(SpMessageUtil
-				.getLogonToken(getActivity().getApplicationContext()), 0, 10000,
-				new RequestCallBack<String>() {
+				.getLogonToken(getActivity().getApplicationContext()), 0,
+				10000, new RequestCallBack<String>() {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
@@ -179,6 +217,7 @@ public class MyFragment extends Fragment implements
 
 						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
 								response)) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 							return;
 						}
 
@@ -270,11 +309,17 @@ public class MyFragment extends Fragment implements
 	@OnClick(R.id.my_edit)
 	public void editClick(View v) {
 
-		// 跳转到用户个人信息详情页
-		Intent intent = new Intent(getActivity(), ProfileActivity.class);
-		startActivity(intent);
-		getActivity()
-				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
+		if (MyApplication.getUserInfo() != null) {
+
+			Intent intent = new Intent(getActivity(), ProfileActivity.class);
+			startActivity(intent);
+			getActivity().overridePendingTransition(
+					R.anim.activity_anim_left_in, 0);
+		} else {
+			// 跳往登录页面
+			LoginActivity.intentTo(getActivity(), getActivity().getClass()
+					.getName());
+		}
 	}
 
 	public class PopupWindows extends PopupWindow {
@@ -357,6 +402,25 @@ public class MyFragment extends Fragment implements
 	@OnClick(R.id.my_menu)
 	public void closeClick(View v) {
 		activity.toggle();
+	}
+
+	@OnItemClick(R.id.my_course_list_result)
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		LogUtils.i("position------>" + position);
+
+		try {
+			Intent intent = new Intent(getActivity(),
+					IntroductionActivity.class);
+			intent.putExtra("courseId", datas.get(position).getCourseId());
+			startActivity(intent);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtils.e("intent to introductionactivity error,  myfragment");
+		}
+		getActivity()
+				.overridePendingTransition(R.anim.activity_anim_left_in, 0);
 	}
 
 	@Override

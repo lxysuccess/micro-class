@@ -4,6 +4,7 @@ import yinzhi.micro_client.network.vo.YZUserVO;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.lidroid.xutils.util.LogUtils;
 
@@ -15,50 +16,53 @@ import com.lidroid.xutils.util.LogUtils;
  */
 public class SpMessageUtil {
 
-	private static Context context;
-
 	/**
 	 * 存储用户信息至sp
 	 * 
-	 * @param YZUserVO
+	 * @param userVO
 	 * @param context
 	 * @return
 	 */
-	public static int storeYZUserVO(YZUserVO YZUserVO, Context context) {
+	public static int storeYZUserVO(YZUserVO userVO, Context context) {
+		LogUtils.i(userVO.toString());
+
 		//
 		int result = 0;
 		try {
-			SharedPreferences mSharedPreferences = context.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+			SharedPreferences mSharedPreferences = context
+					.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = mSharedPreferences.edit();
 
-			editor.putString("username", YZUserVO.getUsername());
-			editor.putString("token", YZUserVO.getToken());
-			editor.putString("nickname", YZUserVO.getNickname());
+			editor.putString("username", userVO.getUsername());
+			editor.putString("token", userVO.getToken());
+			
+			editor.putString("nickname", userVO.getNickname());
+			Log.i("setUser",userVO.getNickname());
 
-			if (YZUserVO.getAvatarPicPath() == null) {
+			if (userVO.getAvatarPicPath() == null) {
 				editor.putString("avatarPicPath", "");
 			} else {
-				editor.putString("avatarPicPath", YZUserVO.getAvatarPicPath());
+				editor.putString("avatarPicPath", userVO.getAvatarPicPath());
 			}
-			if (YZUserVO.getAvatarPicPath() == null) {
+			if (userVO.getAvatarPicPath() == null) {
 				editor.putString("classes", "");
 			} else {
-				editor.putString("classes", YZUserVO.getClasses());
+				editor.putString("classes", userVO.getClasses());
 			}
-			if (YZUserVO.getAvatarPicPath() == null) {
+			if (userVO.getAvatarPicPath() == null) {
 				editor.putString("grade", "");
 			} else {
-				editor.putString("grade", YZUserVO.getGrade());
+				editor.putString("grade", userVO.getGrade());
 			}
-			if (YZUserVO.getAvatarPicPath() == null) {
+			if (userVO.getAvatarPicPath() == null) {
 				editor.putString("college", "");
 			} else {
-				editor.putString("college", YZUserVO.getCollege());
+				editor.putString("college", userVO.getCollege());
 			}
-			if (YZUserVO.getAvatarPicPath() == null) {
+			if (userVO.getAvatarPicPath() == null) {
 				editor.putString("school", "");
 			} else {
-				editor.putString("school", YZUserVO.getSchool());
+				editor.putString("school", userVO.getSchool());
 			}
 
 			editor.commit();
@@ -80,14 +84,21 @@ public class SpMessageUtil {
 		//
 		YZUserVO userVO = new YZUserVO();
 		try {
-			SharedPreferences mSharedPreferences = context.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+			SharedPreferences mSharedPreferences = context
+					.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
 
 			userVO.setUsername(mSharedPreferences.getString("username", ""));
 			userVO.setToken(mSharedPreferences.getString("token", ""));
 			userVO.setNickname(mSharedPreferences.getString("nickname", ""));
-			userVO.setAvatarPicPath(mSharedPreferences.getString("avatarPicPath", null));
+			
+			//TODO
+			Log.i("getUser",userVO.getNickname());
+			
+			
+			userVO.setAvatarPicPath(mSharedPreferences.getString(
+					"avatarPicPath", null));
 			userVO.setClasses(mSharedPreferences.getString("classes", null));
-			userVO.setNickname(mSharedPreferences.getString("grade", null));
+			userVO.setGrade(mSharedPreferences.getString("grade", null));
 			userVO.setCollege(mSharedPreferences.getString("college", null));
 			userVO.setSchool(mSharedPreferences.getString("school", null));
 
@@ -95,6 +106,7 @@ public class SpMessageUtil {
 			LogUtils.i("读取sharedPreferences异常");
 			return null;
 		}
+		LogUtils.i(userVO.toString());
 		return userVO;
 	}
 
@@ -105,9 +117,10 @@ public class SpMessageUtil {
 	 * @return
 	 */
 	public static String getLogonToken(Context context) {
-		String token = "";
+		String token = null;
 		try {
-			SharedPreferences mSharedPreferences = context.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+			SharedPreferences mSharedPreferences = context
+					.getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
 
 			token = mSharedPreferences.getString("token", null);
 
@@ -118,10 +131,11 @@ public class SpMessageUtil {
 		return token;
 	}
 
-	public static int deleteSPMsg(String key) {
+	public static int deleteSPMsg(String key, Context context) {
 		int result = 0;
 		try {
-			SharedPreferences mSharedPreferences = context.getSharedPreferences(key, Activity.MODE_PRIVATE);
+			SharedPreferences mSharedPreferences = context
+					.getSharedPreferences(key, Activity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = mSharedPreferences.edit();
 			editor.clear().commit();
 			result = 1;

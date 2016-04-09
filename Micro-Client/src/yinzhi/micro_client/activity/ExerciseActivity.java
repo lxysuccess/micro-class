@@ -3,6 +3,26 @@ package yinzhi.micro_client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZExerciseVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -11,25 +31,6 @@ import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.vo.YZExerciseVO;
-import yinzhi.micro_client.utils.SpMessageUtil;
 
 public class ExerciseActivity extends Activity {
 
@@ -47,13 +48,16 @@ public class ExerciseActivity extends Activity {
 	private Button done;
 
 	@ViewInject(R.id.exercise_close)
-	private Button close;
+	private ImageButton close;
 
 	@ViewInject(R.id.exercise_answer_detail_btn)
 	private Button exerciseAnswerDetailBtn;
 
 	@ViewInject(R.id.exercise_answer_keys)
 	private LinearLayout keysLayout;
+
+	@ViewInject(R.id.exercise_wait)
+	private RelativeLayout wait;
 
 	// 练习题对象
 	private YZExerciseVO exercise;
@@ -133,7 +137,7 @@ public class ExerciseActivity extends Activity {
 	 */
 	private void fetchExercice(String resourceId) {
 
-		YZNetworkUtils.fetchExercise(
+		YZNetworkUtils.fetchExercise(ExerciseActivity.this,
 				SpMessageUtil.getLogonToken(getApplicationContext()),
 				resourceId, new RequestCallBack<String>() {
 
@@ -146,12 +150,14 @@ public class ExerciseActivity extends Activity {
 
 						if (!YZNetworkUtils.isAllowedContinue(
 								ExerciseActivity.this, response)) {
+							wait.setVisibility(View.GONE);
 							return;
 						}
 						exercise = YZResponseUtils.parseObject(response,
 								YZExerciseVO.class);
 
 						initView();
+						wait.setVisibility(View.GONE);
 
 					}
 

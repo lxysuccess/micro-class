@@ -9,20 +9,22 @@
         android:id="@+id/introduction_menu_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_action_bar_height"
-        android:background="@color/default_action_bar_bg_color" >
+        android:background="@color/white" >
 
         <ImageView
             android:id="@+id/introduction_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/back" />
+            android:layout_marginTop="1dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="@color/default_line_color" />
 
     <FrameLayout
@@ -93,7 +95,7 @@
             android:layout_height="@dimen/default_action_bar_height"
             android:layout_gravity="bottom"
             android:background="@color/main"
-            android:text="参加该课程"
+            android:text="订阅该课程"
             android:textColor="@color/white" >
         </Button>
 
@@ -102,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:clickable="false" >
+            android:clickable="true" >
 
             <ProgressBar
                 android:id="@+id/introduction_pb"

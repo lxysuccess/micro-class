@@ -13,12 +13,13 @@
 
         <ImageButton
             android:id="@+id/register_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/back" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +62,9 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="邮箱"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/default_font_color_3"
+                android:textSize="@dimen/default_content_font_size_14" />
         </LinearLayout>
 
         <View
@@ -92,7 +95,9 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="密码(大于6位)"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColorHint="@color/default_font_color_3"
+                android:textSize="@dimen/default_content_font_size_14" />
         </LinearLayout>
     </LinearLayout>
 

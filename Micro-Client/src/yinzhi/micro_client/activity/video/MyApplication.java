@@ -2,6 +2,15 @@ package yinzhi.micro_client.activity.video;
 
 import java.io.File;
 
+import yinzhi.micro_client.network.vo.YZUserVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
+import android.app.Application;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+
 import com.easefun.polyvsdk.PolyvSDKClient;
 import com.easefun.polyvsdk.SDKUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -9,21 +18,9 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-
-import android.app.Application;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import yinzhi.micro_client.R;
 
 public class MyApplication extends Application {
 
@@ -37,6 +34,8 @@ public class MyApplication extends Application {
 	private static Thread mMainThead = null;
 	// 获取到主线程的id
 	private static int mMainTheadId;
+
+	private static YZUserVO userInfo = null;
 
 	public MyApplication() {
 
@@ -62,27 +61,39 @@ public class MyApplication extends Application {
 		// android.os.Process.myTid()获取到调用线程的id
 		this.mMainTheadId = android.os.Process.myTid();// 主線程id
 
-		File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "polyvSDK/Cache");
+		//获取sp中的用户信息
+		userInfo = SpMessageUtil.getYZUserVO(mContext);
+
+		File cacheDir = StorageUtils.getOwnCacheDirectory(
+				getApplicationContext(), "polyvSDK/Cache");
 		// This configuration tuning is custom. You can tune every option, you
 		// may tune some of them,
 		// or you can create default configuration by
 		// ImageLoaderConfiguration.createDefault(this);
 		// method.
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-				.memoryCacheExtraOptions(480, 800).threadPoolSize(2).threadPriority(Thread.NORM_PRIORITY - 2)
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				getApplicationContext())
+				.memoryCacheExtraOptions(480, 800)
+				.threadPoolSize(2)
+				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
 				// .memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 *
 				// 1024))
 				// You can pass your own memory cache implementation/
-				.memoryCache(new WeakMemoryCache()).memoryCacheSize(2 * 1024 * 1024).diskCacheSize(50 * 1024 * 1024)
+				.memoryCache(new WeakMemoryCache())
+				.memoryCacheSize(2 * 1024 * 1024)
+				.diskCacheSize(50 * 1024 * 1024)
 				// .discCacheFileNameGenerator(new Md5FileNameGenerator())//
-				.tasksProcessingOrder(QueueProcessingType.LIFO).diskCacheFileCount(100)
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.diskCacheFileCount(100)
 				.diskCache(new UnlimitedDiscCache(cacheDir))
 				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-				.imageDownloader(new BaseImageDownloader(getApplicationContext(), 5 * 1000, 30 * 1000)).writeDebugLogs() // Remove
-																															// for
-																															// release
-																															// app
+				.imageDownloader(
+						new BaseImageDownloader(getApplicationContext(),
+								5 * 1000, 30 * 1000)).writeDebugLogs() // Remove
+																		// for
+																		// release
+																		// app
 				.build();
 
 		// Initialize ImageLoader with configuration
@@ -92,8 +103,10 @@ public class MyApplication extends Application {
 
 	public void initPolyvCilent() {
 		File saveDir = null;
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			saveDir = new File(Environment.getExternalStorageDirectory().getPath() + "/polyvdownload");
+		if (Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
+			saveDir = new File(Environment.getExternalStorageDirectory()
+					.getPath() + "/polyvdownload");
 			if (saveDir.exists() == false)
 				saveDir.mkdir();
 		}
@@ -104,8 +117,7 @@ public class MyApplication extends Application {
 		// 设置SDK加密串
 		// client.setConfig("你的SDK加密串");
 		// client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
-		client.setConfig(
-				"99rNsXOP1FapdjfuB/EsvIvrrGyztCBbN2bMMjbov7bF+/wIp1d4SDqJzp+sBKIOS0qo/ttXEtQl7cGPgfGl3HJvesSfApxRy/34CZa/aHI8pU8E1rjyR87fkmR+eSr4O7tg++BwxogIPeZU8xRU1Q==");
+		client.setConfig("mxQYuEGNwyYwdd6LbK5IcPf1DfoeukQubN9L6HRKMlLM6Y+kGhCX8rrMsD5bXLiJ8DrgJmFSrlb9HuBT1JXn2PJldgTmVrWIxKg/1FEq8Hcrrrq8HNddgbYp9Ld2JGRkE9Xz1RWG1FfAe6uorAqk0g==");
 		// 下载文件的目录
 		client.setDownloadDir(saveDir);
 		// 初始化数据库服务
@@ -122,7 +134,8 @@ public class MyApplication extends Application {
 
 		@Override
 		protected String doInBackground(String... params) {
-			String config = SDKUtil.getUrl2String("http://demo.polyv.net/demo/appkey.php", false);
+			String config = SDKUtil.getUrl2String(
+					"http://demo.polyv.net/demo/appkey.php", false);
 			if (TextUtils.isEmpty(config)) {
 				try {
 					throw new Exception("没有取到数据");
@@ -160,6 +173,13 @@ public class MyApplication extends Application {
 	public static int getMainThreadId() {
 		return mMainTheadId;
 	}
-
 	
+	public static void setUserInfo(YZUserVO user){
+		userInfo = user;
+	}
+	
+	public static YZUserVO getUserInfo(){
+		return userInfo;
+	}
+
 }

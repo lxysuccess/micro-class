@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/default_bg_color"
+    android:clickable="true"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -14,12 +15,13 @@
 
         <ImageButton
             android:id="@+id/setting_menu_imgbtn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/menu_bar" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_bar" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -27,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
         android:background="@drawable/personal_item_bg"
         android:paddingBottom="10dp"
         android:paddingTop="10dp" >
@@ -36,20 +37,20 @@
             android:id="@+id/setting_avator"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/ic_launcher" />
+            android:layout_marginLeft="25dp" />
 
         <TextView
+            android:id="@+id/setting_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:layout_toRightOf="@id/setting_avator"
-            android:text="@string/left_name_top_wall_username" />
+            android:text="@string/not_logged_in" />
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
@@ -83,6 +84,11 @@
             android:scaleType="centerInside"
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="13dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -136,6 +142,11 @@
             android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="13dp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,11 +177,12 @@
     <Button
         android:id="@+id/setting_logout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_margin="25dp"
         android:background="@color/main"
         android:text="@string/logout"
         android:textColor="@color/white"
-        android:textSize="@dimen/default_action_bar_font_size" />
+        android:textSize="@dimen/default_action_bar_font_size"
+        android:visibility="gone" />
 
 </LinearLayout>

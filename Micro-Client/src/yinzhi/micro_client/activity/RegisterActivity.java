@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.MyApplication;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZUserVO;
@@ -98,6 +99,8 @@ public class RegisterActivity extends BaseActivity {
 							Toast.makeText(getApplicationContext(), "服务器忙(RA)", Toast.LENGTH_LONG).show();
 							return;
 						}
+						
+						MyApplication.setUserInfo(user);
 
 						// 跳往首页
 						Intent intent = new Intent(RegisterActivity.this, MainActivity.class);

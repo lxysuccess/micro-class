@@ -17,12 +17,13 @@
 
         <ImageButton
             android:id="@+id/all_course_menu_imgbtn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/menu_bar" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_bar" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,13 +35,14 @@
 
         <ImageButton
             android:id="@+id/all_search_imgbtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/search" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/search" />
     </RelativeLayout>
 
     <TextView
@@ -59,7 +61,7 @@
         android:background="@color/white"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
-        android:divider="@color/front_gray"
+        android:divider="@color/default_line_color"
         android:dividerHeight="1px" >
     </ListView>
 

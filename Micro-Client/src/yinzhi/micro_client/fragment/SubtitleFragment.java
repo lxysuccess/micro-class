@@ -152,9 +152,6 @@ public class SubtitleFragment extends Fragment {
 				String time = sutitleDatas.get(position).getTime();
 				Long millsTime = getMillsTime(time);
 
-				Toast.makeText(getActivity(), "" + millsTime,
-						Toast.LENGTH_SHORT).show();
-
 				// TODO 视频跳至某个时间点
 				activity.seekTo(millsTime);
 

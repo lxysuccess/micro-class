@@ -13,20 +13,20 @@
 
         <ImageButton
             android:id="@+id/ranking_menu_imgbtn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
-            android:background="@drawable/menu_bar" />
+            android:background="@null"
+            android:src="@drawable/menu_bar" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/fragment_ranking_title"
-            android:textSize="@dimen/default_action_bar_font_size"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 
     <com.viewpagerindicator.TabPageIndicator

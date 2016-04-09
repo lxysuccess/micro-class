@@ -15,14 +15,16 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:background="@color/default_line_color" />
 
     <ListView
         android:id="@+id/video_comment_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_action_bar_height" >
+        android:layout_marginBottom="@dimen/default_action_bar_height"
+        android:divider="@color/default_action_bar_bg_color"
+        android:dividerHeight="1dp" >
     </ListView>
 
 </LinearLayout>

@@ -193,6 +193,7 @@ public class SubRankingFragment extends Fragment implements
 		datas.clear();
 
 		if (!YZNetworkUtils.isAllowedContinue(getActivity(), response)) {
+			rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 			return;
 		}
 

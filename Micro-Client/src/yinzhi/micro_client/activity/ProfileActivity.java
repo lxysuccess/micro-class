@@ -1,10 +1,9 @@
 package yinzhi.micro_client.activity;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.vo.YZUserVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -15,9 +14,15 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.network.vo.YZUserVO;
-import yinzhi.micro_client.utils.SpMessageUtil;
+import android.widget.Toast;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -76,7 +81,7 @@ public class ProfileActivity extends BaseActivity {
 	 * 获取在内存中的用户数据
 	 */
 	private void initData() {
-		userInfo = SpMessageUtil.getYZUserVO(this);
+		userInfo = SpMessageUtil.getYZUserVO(getApplicationContext());
 	}
 
 	private void initView() {
@@ -84,7 +89,7 @@ public class ProfileActivity extends BaseActivity {
 			mailTextView.setText(userInfo.getUsername());
 			nickEditText.setText(userInfo.getNickname());
 
-			LogUtils.i(userInfo.getNickname()+"----------->nickname");
+			LogUtils.i(userInfo.getNickname() + "----------->nickname");
 			classes.setText(userInfo.getClasses());
 			grade.setText(userInfo.getGrade());
 			collegeTextView.setText(userInfo.getCollege());
@@ -112,6 +117,35 @@ public class ProfileActivity extends BaseActivity {
 	 */
 	@OnClick(R.id.profile_save)
 	public void saveClick(View v) {
+
+		String nickname = nickEditText.getText().toString();
+
+		if (nickname.length() == 0 || nickname == null) {
+			Toast.makeText(ProfileActivity.this, "昵称不能为空", Toast.LENGTH_SHORT).show();
+
+			return;
+		}
+
+		YZNetworkUtils.modifyNickname(nickname,
+				SpMessageUtil.getLogonToken(getApplicationContext()),
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
+
+						if (!YZNetworkUtils.isAllowedContinue(ProfileActivity.this, response)) {
+							return;
+						}
+						Toast.makeText(ProfileActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+
+					}
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+
+					}
+				});
 
 	}
 

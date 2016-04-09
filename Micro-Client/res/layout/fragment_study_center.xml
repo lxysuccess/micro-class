@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clickable="true"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -21,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/my_avator"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -46,22 +47,24 @@
 
             <ImageButton
                 android:id="@+id/my_menu"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/default_action_bar_btn_height_width"
+                android:layout_height="@dimen/default_action_bar_btn_height_width"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="1dp"
-                android:background="@drawable/menu_bar" />
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/menu_bar" />
 
             <ImageButton
                 android:id="@+id/my_edit"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/default_action_bar_btn_height_width"
+                android:layout_height="@dimen/default_action_bar_btn_height_width"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="1dp"
-                android:background="@drawable/my_edit" />
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/my_edit" />
         </RelativeLayout>
     </FrameLayout>
 

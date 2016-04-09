@@ -143,7 +143,7 @@ public class IjkVideoActicity extends BaseActivity {
 			@Override
 			public void onPrepared(IMediaPlayer mp) {
 				videoView.setVideoLayout(IjkVideoView.VIDEO_LAYOUT_SCALE);
-				logo.setVisibility(View.VISIBLE);
+				logo.setVisibility(View.GONE);
 				if (stopPosition > 0) {
 					Log.d(TAG, "seek to stopPosition:" + stopPosition);
 					videoView.seekTo(stopPosition);
@@ -256,7 +256,7 @@ public class IjkVideoActicity extends BaseActivity {
 					}
 				});
 
-		mediaController = new MediaController(this, true);
+		mediaController = new MediaController(this, false);
 		mediaController.setIjkVideoView(videoView);
 		mediaController.setAnchorView(videoView);
 		videoView.setMediaController(mediaController);

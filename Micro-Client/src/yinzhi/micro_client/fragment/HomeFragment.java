@@ -224,6 +224,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 
 						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
 								response)) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 							return;
 						}
 
@@ -269,6 +270,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 
 						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
 								response)) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 							return;
 						}
 						// if
@@ -340,6 +342,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 
 						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
 								response)) {
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 							return;
 						}
 

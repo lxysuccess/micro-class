@@ -2,10 +2,13 @@ package yinzhi.micro_client.fragment;
 
 import java.util.ArrayList;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.MyApplication;
+import yinzhi.micro_client.adapter.NavDrawerListAdapter;
+import yinzhi.micro_client.bean.NavDrawerItem;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZUserVO;
+import yinzhi.micro_client.utils.ImageUtil;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -19,10 +22,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.adapter.NavDrawerListAdapter;
-import yinzhi.micro_client.bean.NavDrawerItem;
-import yinzhi.micro_client.utils.ImageUtil;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MenuFragment extends Fragment implements OnItemClickListener {
 
@@ -40,6 +46,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	@ViewInject(R.id.left_menu_user_avator)
 	private ImageView avatar;
+
+	@ViewInject(R.id.left_name_top_wall_nickname)
+	private TextView nickname;
 
 	private static MenuFragment menuFragment;
 
@@ -64,6 +73,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 	}
 
 	@Override
@@ -76,9 +86,26 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		ImageLoader
 				.getInstance()
 				.displayImage(
-						"http://roadshow.4i-test.com/data/upload/20160202/1454417235576.png",
+						"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
 						avatar, ImageUtil.getDisplayOption(90));
 
+		try {
+			YZUserVO userInfo = MyApplication.getUserInfo();
+
+			LogUtils.i(userInfo.toString());
+			// ImageLoader.getInstance()
+			// .displayImage(
+			// INetworkConstants.YZMC_SERVER
+			// + userInfo.getAvatarPicPath(), avatar,
+			// ImageUtil.getDisplayOption(90));
+
+			nickname.setText(userInfo.getNickname());
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e("用户信息读取异常");
+			nickname.setText("未登录");
+
+		}
 		findView(rootView);
 		return rootView;
 	}
@@ -162,6 +189,34 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	public interface SLMenuListOnItemClickListener {
 
 		public void selectItem(int position, String title);
+	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		ImageLoader
+				.getInstance()
+				.displayImage(
+						"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
+						avatar, ImageUtil.getDisplayOption(90));
+
+		try {
+			YZUserVO userInfo = MyApplication.getUserInfo();
+
+			// ImageLoader.getInstance()
+			// .displayImage(
+			// INetworkConstants.YZMC_SERVER
+			// + userInfo.getAvatarPicPath(), avatar,
+			// ImageUtil.getDisplayOption(90));
+
+			nickname.setText(userInfo.getNickname());
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.e("用户信息读取异常");
+			nickname.setText("未登录");
+
+		}
 	}
 
 }

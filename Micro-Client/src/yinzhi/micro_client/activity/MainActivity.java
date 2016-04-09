@@ -1,6 +1,7 @@
 package yinzhi.micro_client.activity;
 
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.MyApplication;
 import yinzhi.micro_client.fragment.AllCourseFragment;
 import yinzhi.micro_client.fragment.HomeFragment;
 import yinzhi.micro_client.fragment.MenuFragment;
@@ -8,6 +9,7 @@ import yinzhi.micro_client.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import yinzhi.micro_client.fragment.MyFragment;
 import yinzhi.micro_client.fragment.RankingFragment;
 import yinzhi.micro_client.fragment.SettingFragment;
+import yinzhi.micro_client.network.vo.YZUserVO;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +25,8 @@ import com.lidroid.xutils.util.LogUtils;
 
 public class MainActivity extends SlidingFragmentActivity implements
 		SLMenuListOnItemClickListener {
+	
+	private static String TAG = "MainActivity";
 
 	// 初始化一个侧边栏
 	private SlidingMenu mSlidingMenu;
@@ -40,11 +44,16 @@ public class MainActivity extends SlidingFragmentActivity implements
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.frame_left_menu);
 		
+		YZUserVO userInfo = MyApplication.getUserInfo();
+		if (userInfo == null) {
+			LoginActivity.intentTo(this, TAG);
+		}
+		
 
-		 ActionBar actionBar = getActionBar();
-		 actionBar.setDisplayHomeAsUpEnabled(true);
-		 actionBar.setDisplayShowTitleEnabled(false);
-		 actionBar.setDisplayUseLogoEnabled(false);
+		// ActionBar actionBar = getActionBar();
+		// actionBar.setDisplayHomeAsUpEnabled(true);
+		// actionBar.setDisplayShowTitleEnabled(false);
+		// actionBar.setDisplayUseLogoEnabled(false);
 
 		mSlidingMenu = getSlidingMenu();
 		mSlidingMenu.setMode(SlidingMenu.LEFT);

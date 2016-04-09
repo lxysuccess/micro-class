@@ -15,15 +15,13 @@
 
         <ImageButton
             android:id="@+id/home_menu_imgbtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
             android:background="@null"
             android:scaleType="centerInside"
             android:src="@drawable/menu_bar" />
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,11 +33,10 @@
 
         <ImageButton
             android:id="@+id/scan_imgbtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="1dp"
             android:background="@null"
             android:scaleType="centerInside"

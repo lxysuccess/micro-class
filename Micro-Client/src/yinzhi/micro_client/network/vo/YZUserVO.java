@@ -75,4 +75,12 @@ public class YZUserVO extends YZBaseVO {
 		this.school = school;
 	}
 
+	@Override
+	public String toString() {
+		return "YZUserVO [username=" + username + ", token=" + token
+				+ ", nickname=" + nickname + ", avatarPicPath=" + avatarPicPath
+				+ ", classes=" + classes + ", grade=" + grade + ", college="
+				+ college + ", school=" + school + "]";
+	}
+
 }

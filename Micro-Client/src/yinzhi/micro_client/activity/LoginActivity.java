@@ -4,12 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.MyApplication;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.YZResponseUtils;
 import yinzhi.micro_client.network.vo.YZUserVO;
 import yinzhi.micro_client.utils.SpMessageUtil;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,12 +45,31 @@ public class LoginActivity extends Activity {
 
 	@ViewInject(R.id.login_password)
 	private EditText inputPwd;
+	
+	/**
+	 * 来源页标志
+	 */
+	private String fromActivity = "";
+
+	public static Intent newIntent(Context context, String fromActivity) {
+		Intent intent = new Intent(context, LoginActivity.class);
+		intent.putExtra("fromActivity", fromActivity);
+		return intent;
+	}
+
+	public static void intentTo(Context context, String fromActivity) {
+		context.startActivity(newIntent(context, fromActivity));
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		ViewUtils.inject(this);
+
+//		// 接收来源页标志
+//		fromActivity = getIntent().getExtras().getString("fromActivity", "");
+
 	}
 
 	@OnClick(R.id.login_register)
@@ -73,41 +94,46 @@ public class LoginActivity extends Activity {
 			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 			return;
 		}
-		
-		YZNetworkUtils.doLogin(null, inputUsername.getText().toString(), inputPwd.getText().toString(), new RequestCallBack<String>() {
-			
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String response = arg0.result;
-				LogUtils.i("" + response);
-				
-				if(!YZNetworkUtils.isAllowedContinue(LoginActivity.this, response)){
-					return;
-				}
 
-				YZUserVO user = YZResponseUtils.parseObject(response,
-						YZUserVO.class);
-				if (user.getStatus() != 1) {
-					Toast.makeText(getApplicationContext(), user.getMsg(), Toast.LENGTH_LONG).show();
-					return;
-				}
-				Integer result = SpMessageUtil.storeYZUserVO(user,
-						getApplicationContext());
+		YZNetworkUtils.doLogin(null, inputUsername.getText().toString(),
+				inputPwd.getText().toString(), new RequestCallBack<String>() {
 
-				if (result != 1) {
-					Toast.makeText(getApplicationContext(), "写入信息失败(LA)",
-							Toast.LENGTH_LONG).show();
-					return;
-				}
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String response = arg0.result;
+						LogUtils.i("" + response);
 
-				finish();
-			}
-			
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				
-			}
-		});
+						if (!YZNetworkUtils.isAllowedContinue(
+								LoginActivity.this, response)) {
+							return;
+						}
+
+						YZUserVO user = YZResponseUtils.parseObject(response,
+								YZUserVO.class);
+						if (user.getStatus() != 1) {
+							Toast.makeText(getApplicationContext(),
+									user.getMsg(), Toast.LENGTH_LONG).show();
+							return;
+						}
+						Integer result = SpMessageUtil.storeYZUserVO(user,
+								getApplicationContext());
+
+						if (result != 1) {
+							Toast.makeText(getApplicationContext(),
+									"写入信息失败", Toast.LENGTH_LONG).show();
+							return;
+						}
+						
+						MyApplication.setUserInfo(user);
+
+						finish();
+					}
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+
+					}
+				});
 	}
 
 	@SuppressLint("NewApi")
@@ -138,10 +164,11 @@ public class LoginActivity extends Activity {
 	}
 
 	public Boolean isEmailAddress(String email) {
-		Pattern pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+		Pattern pattern = Pattern
+				.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
 		Matcher matcher = pattern.matcher(email);
-//		return matcher.matches();
-		//TODO
+		// return matcher.matches();
+		// TODO
 		return true;
 	}
 }

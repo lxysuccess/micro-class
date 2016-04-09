@@ -31,6 +31,7 @@ public interface INetworkConstants {
 	// 视频播放
 	public final static String API_VIDEO = YZMC_SERVER + "/api/v1/video";
 	public final static String API_VIDEO_SUBTITLE = YZMC_SERVER + "/api/v1/video/subtitle/list";
+	public final static String API_VIDEO_RANDOMEXERCISE = YZMC_SERVER + "/api/v1/video/randomExercise";
 
 	// 评论
 	public final static String API_COMMENT_PUBLISH = YZMC_SERVER + "/api/v1/comment/publish";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -12,23 +12,26 @@
         android:background="@color/default_action_bar_bg_color"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/exercise_close"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/back" />
+            android:layout_marginTop="1dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
 
         <Button
             android:id="@+id/exercise_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:background="#00ffffff"
             android:text="@string/submit"
-            android:textColor="@color/white"
+            android:textColor="@color/default_font_color_2"
             android:textSize="@dimen/default_action_bar_font_size" />
     </RelativeLayout>
 
@@ -36,6 +39,7 @@
         android:id="@+id/exercise_single"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/exercise_menu_bar"
         android:background="@color/white"
         android:orientation="horizontal" >
 
@@ -45,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:text="@string/exercise_question"
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -74,21 +77,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:background="#00ffffff"
             android:layout_below="@id/exercise_single_answer_list"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
             android:text="@string/exercise_answer_detail_btn"
             android:textColor="@color/main"
-            android:textSize="20dp" />
-        
+            android:textSize="@dimen/default_course_detail_title_font_size" />
+
         <LinearLayout
             android:id="@+id/exercise_answer_keys"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/exercise_answer_detail_btn"
             android:layout_margin="25dp"
             android:background="@drawable/border_sharp"
             android:orientation="vertical"
-            android:layout_below="@id/exercise_answer_detail_btn"
             android:visibility="gone" >
 
             <TextView
@@ -103,9 +106,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:padding="5dp"
-                android:text="this is reference answer" />
+                android:padding="5dp" />
         </LinearLayout>
     </RelativeLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/exercise_wait"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/exercise_menu_bar"
+        android:background="@color/white"
+        android:clickable="true" >
+
+        <ProgressBar
+            android:id="@+id/exercise_pb"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/default_action_bar_height"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exercise_pb"
+            android:layout_centerHorizontal="true"
+            android:text="拼命加载中" />
+    </RelativeLayout>
+
+</RelativeLayout>

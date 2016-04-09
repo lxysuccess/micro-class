@@ -95,7 +95,7 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 	/**
 	 * 记录用户是否已经订阅该课程
 	 */
-	private Integer isSubsribe = 0;
+	public static Integer isSubsribe = 0;
 
 	/**
 	 * 课程ID
@@ -151,6 +151,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_introduction);
 		ViewUtils.inject(this);
+		
+		//默认是没参加课程
+		isSubsribe = 0;
 
 		courseId = getIntent().getExtras().getString("courseId", "-1");
 		itemResourceId = getIntent().getExtras().getString("itemResourceId",
@@ -264,7 +267,8 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 						try {
 							// 用户已订阅，去除订阅按钮
 							if (course.getIsSubscribe() == 1) {
-								subscribe.setVisibility(View.GONE);
+								subscribe.setVisibility(View.INVISIBLE);
+								isSubsribe = 1;
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -350,7 +354,7 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 
 	@OnClick(R.id.introduction_subscribe)
 	public void subscribeClick(View v) {
-		YZNetworkUtils.courseSubscribe(
+		YZNetworkUtils.courseSubscribe(IntroductionActivity.this,
 				SpMessageUtil.getLogonToken(getApplicationContext()), courseId,
 				new RequestCallBack<String>() {
 
@@ -363,8 +367,8 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						String response = arg0.result;
-						
-						LogUtils.i("订阅-->"+response);
+
+						LogUtils.i("订阅-->" + response);
 
 						if (!YZNetworkUtils.isAllowedContinue(
 								IntroductionActivity.this, response)) {
@@ -373,10 +377,9 @@ public class IntroductionActivity extends BaseActivity implements IUpdateData,
 
 						Toast.makeText(IntroductionActivity.this, "订阅成功",
 								Toast.LENGTH_SHORT).show();
-						
-						subscribe.setVisibility(View.GONE);
+
+						subscribe.setVisibility(View.INVISIBLE);
 						isSubsribe = 1;
-						
 
 					}
 				});

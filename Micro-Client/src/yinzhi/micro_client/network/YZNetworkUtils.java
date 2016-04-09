@@ -6,14 +6,13 @@ import java.util.Map;
 
 import org.apache.http.entity.StringEntity;
 
-import yinzhi.micro_client.activity.CommentWriteActivity;
 import yinzhi.micro_client.activity.LoginActivity;
+import yinzhi.micro_client.activity.video.MyApplication;
 import yinzhi.micro_client.network.constants.INetworkConstants;
 import yinzhi.micro_client.network.vo.YZBaseVO;
-import yinzhi.micro_client.utils.MD5Util;
+import yinzhi.micro_client.utils.SecureUtil;
 import yinzhi.micro_client.utils.SpMessageUtil;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
@@ -24,9 +23,10 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.lidroid.xutils.util.LogUtils;
 
 /**
- * Created by LIXUYU on 16/2/19.
+ * Created by LIXUYU on 16/3/19.
  */
 public class YZNetworkUtils implements INetworkConstants {
 	public static HttpUtils http = new HttpUtils();
@@ -71,10 +71,14 @@ public class YZNetworkUtils implements INetworkConstants {
 
 				Toast.makeText(context, base.getMsg(), Toast.LENGTH_SHORT)
 						.show();
-				SpMessageUtil.deleteSPMsg("userinfo");
+				SpMessageUtil.deleteSPMsg("userinfo",
+						context.getApplicationContext());
+				
+				MyApplication.setUserInfo(null);
 
-				Intent intent = new Intent(context, LoginActivity.class);
-				context.startActivity(intent);
+				LoginActivity.intentTo(context, context.getClass().getName());
+				
+				LogUtils.i("this context's name-->"+context.getClass().getName());
 				return false;
 
 			} else {
@@ -361,10 +365,13 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param courseId
 	 * @param callBack
 	 */
-	public static void courseSubscribe(String logonToken, String courseId,
-			RequestCallBack<String> callBack) {
+	public static void courseSubscribe(Context context, String logonToken,
+			String courseId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		LogUtils.i("courseSubscribe======context.getClass.getName-->"
+				+ context.getClass().getName());
 
 		paramMap.clear();
 		paramMap.put("courseId", courseId);
@@ -390,8 +397,8 @@ public class YZNetworkUtils implements INetworkConstants {
 	 * @param logonToken
 	 * @param callBack
 	 */
-	public static void fetchExercise(String logonToken, String itemResourceId,
-			RequestCallBack<String> callBack) {
+	public static void fetchExercise(Context context, String logonToken,
+			String itemResourceId, RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
 
 		params.addHeader("Content-Type", "application/json;charset=utf-8");
@@ -400,9 +407,12 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		paramMap.put("itemResourceId", itemResourceId);
 
-		if (logonToken != null) {
-			paramMap.put(LOGON_TOKEN, logonToken);
+		if (logonToken == null) {
+			LogUtils.i("courseSubscribe======context.getClass.getName-->"
+					+ context.getClass().getName());
+			return;
 		}
+		paramMap.put(LOGON_TOKEN, logonToken);
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
 					INetworkConstants.CHARSET));
@@ -739,7 +749,7 @@ public class YZNetworkUtils implements INetworkConstants {
 		if (logonToken != null) {
 			paramMap.put(LOGON_TOKEN, logonToken);
 		}
-		
+
 		paramMap.put("page", page);
 		paramMap.put("size", size);
 
@@ -773,7 +783,7 @@ public class YZNetworkUtils implements INetworkConstants {
 			paramMap.put("deviceId", deviceId);
 		}
 		paramMap.put("username", username);
-		paramMap.put("password", MD5Util.MD5(password));
+		paramMap.put("password", SecureUtil.MD5(password));
 
 		try {
 			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
@@ -804,7 +814,7 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		paramMap.put("username", username);
 		paramMap.put("nickname", nickname);
-		paramMap.put("password", MD5Util.MD5(password));
+		paramMap.put("password", SecureUtil.MD5(password));
 
 		if (deviceId != null) {
 			paramMap.put("deviceId", deviceId);
@@ -844,8 +854,23 @@ public class YZNetworkUtils implements INetworkConstants {
 	public static void modifyNickname(String nickname, String logonToken,
 			RequestCallBack<String> callBack) {
 		RequestParams params = new RequestParams();
-		params.addHeader(LOGON_TOKEN, logonToken);
-		params.addBodyParameter("nickname", nickname);
+
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+
+		paramMap.clear();
+
+		paramMap.put("nickname", nickname);
+
+		if (logonToken != null) {
+			paramMap.put("logonToken", logonToken);
+		}
+
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		http.send(HttpMethod.POST, API_USER_MODIFYNICKNAME, callBack);
 	}
 }

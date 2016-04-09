@@ -100,13 +100,13 @@ public final class R {
 		public static final int default_title_indicator_top_padding = 0x7f0a000c;
 	}
 	public static final class drawable {
-		public static final int vpi__tab_indicator = 0x7f020049;
-		public static final int vpi__tab_selected_focused_holo = 0x7f02004a;
-		public static final int vpi__tab_selected_holo = 0x7f02004b;
-		public static final int vpi__tab_selected_pressed_holo = 0x7f02004c;
-		public static final int vpi__tab_unselected_focused_holo = 0x7f02004d;
-		public static final int vpi__tab_unselected_holo = 0x7f02004e;
-		public static final int vpi__tab_unselected_pressed_holo = 0x7f02004f;
+		public static final int vpi__tab_indicator = 0x7f020048;
+		public static final int vpi__tab_selected_focused_holo = 0x7f020049;
+		public static final int vpi__tab_selected_holo = 0x7f02004a;
+		public static final int vpi__tab_selected_pressed_holo = 0x7f02004b;
+		public static final int vpi__tab_unselected_focused_holo = 0x7f02004c;
+		public static final int vpi__tab_unselected_holo = 0x7f02004d;
+		public static final int vpi__tab_unselected_pressed_holo = 0x7f02004e;
 	}
 	public static final class id {
 		public static final int bottom = 0x7f060008;
@@ -116,7 +116,7 @@ public final class R {
 		public static final int none = 0x7f060005;
 		public static final int right = 0x7f060001;
 		public static final int selected_view = 0x7f060004;
-		public static final int slidingmenumain = 0x7f060108;
+		public static final int slidingmenumain = 0x7f060109;
 		public static final int top = 0x7f060009;
 		public static final int triangle = 0x7f060006;
 		public static final int underline = 0x7f060007;

@@ -46,37 +46,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="yinzhi.micro_client.activity.DetailContentActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/DetailContentTheme" >
+            android:name="yinzhi.micro_client.activity.ExerciseActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.ExerciseActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.SearchActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.SearchActivity" >
-        </activity>
-        <activity android:name="yinzhi.micro_client.activity.ProfileActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.ProfileActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="yinzhi.micro_client.activity.LoginActivity"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.RegisterActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.RegisterActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="yinzhi.micro_client.activity.CaptureActivity"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.CommentActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.CommentActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.CommentWriteActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.CommentWriteActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.TipsActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.TipsActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-        <activity android:name="yinzhi.micro_client.activity.CourseListActivity" >
+        <activity
+            android:name="yinzhi.micro_client.activity.CourseListActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="yinzhi.micro_client.activity.IntroductionActivity"
-            android:theme="@style/MyTheme" >
+            android:theme="@style/tabpagenobar" >
         </activity>
         <activity
             android:name="yinzhi.micro_client.activity.video.IjkVideoActicity"

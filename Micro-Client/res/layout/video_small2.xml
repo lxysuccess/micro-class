@@ -71,29 +71,33 @@
 
         <ImageView
             android:id="@+id/video_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/back" />
+            android:layout_marginTop="1dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
 
         <ImageView
             android:id="@+id/video_comment"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/video_comment" />
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/video_comment" />
 
         <ImageView
             android:id="@+id/video_subtitle_search"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/default_action_bar_btn_height_width"
+            android:layout_height="@dimen/default_action_bar_btn_height_width"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/video_subtitle_search" />
+             android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/video_search" />
     </RelativeLayout>
 
 </RelativeLayout>

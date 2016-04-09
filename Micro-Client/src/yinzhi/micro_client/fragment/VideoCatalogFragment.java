@@ -3,13 +3,21 @@ package yinzhi.micro_client.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.ExerciseActivity;
+import yinzhi.micro_client.activity.IntroductionActivity;
+import yinzhi.micro_client.activity.LoginActivity;
+import yinzhi.micro_client.activity.TipsActivity;
+import yinzhi.micro_client.activity.video.IjkVideoActicity;
+import yinzhi.micro_client.adapter.StickyHeaderListBaseAdapter;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZCatalogVO;
+import yinzhi.micro_client.network.vo.YZChapterVO;
+import yinzhi.micro_client.network.vo.YZItemResourceVO;
+import yinzhi.micro_client.network.vo.YZVideoVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -22,20 +30,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.ExerciseActivity;
-import yinzhi.micro_client.activity.IntroductionActivity;
-import yinzhi.micro_client.activity.TipsActivity;
-import yinzhi.micro_client.activity.video.IjkVideoActicity;
-import yinzhi.micro_client.adapter.StickyHeaderListBaseAdapter;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.vo.YZCatalogVO;
-import yinzhi.micro_client.network.vo.YZChapterVO;
-import yinzhi.micro_client.network.vo.YZItemResourceVO;
-import yinzhi.micro_client.network.vo.YZVideoVO;
-import yinzhi.micro_client.utils.SpMessageUtil;
+import android.widget.Toast;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 public class VideoCatalogFragment extends Fragment implements
 		AdapterView.OnItemClickListener,
@@ -113,6 +115,11 @@ public class VideoCatalogFragment extends Fragment implements
 
 		String selectedType = tempItem.getType();
 
+		if (introductionActivity.isSubsribe != 1) {
+			Toast.makeText(getActivity(), "请先订阅！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		switch (ResourceType.toRescourseType(selectedType)) {
 		case TEXT:
 			Intent intentText = new Intent(getActivity(), TipsActivity.class);
@@ -140,6 +147,7 @@ public class VideoCatalogFragment extends Fragment implements
 			// 跳转至视频加载界面
 
 			// TODO token
+			final String itemResourceId = tempItem.getItemResourceId();
 			YZNetworkUtils.fetchVideo(tempItem.getItemResourceId().toString(),
 					SpMessageUtil.getLogonToken(getActivity()
 							.getApplicationContext()),
@@ -165,16 +173,22 @@ public class VideoCatalogFragment extends Fragment implements
 									response, YZVideoVO.class);
 
 							if (video != null) {
-								// 测试数据
+
+								if (video.getIsAllowed() == 1) {
+									// 测试数据
+									IjkVideoActicity.intentTo(getActivity(),
+											IjkVideoActicity.PlayMode.portrait,
+											IjkVideoActicity.PlayType.vid,
+											video.getVideoId(), itemResourceId,
+											false);
+								} else {
+									LoginActivity.intentTo(getActivity(),
+											getActivity().getClass().getName());
+								}
 
 							}
 						}
 					});
-
-			// TODO 测试视频使用 itemResource 9
-			IjkVideoActicity.intentTo(getActivity(),
-					IjkVideoActicity.PlayMode.portrait,
-					IjkVideoActicity.PlayType.vid, videoId, "9", false);
 
 			break;
 

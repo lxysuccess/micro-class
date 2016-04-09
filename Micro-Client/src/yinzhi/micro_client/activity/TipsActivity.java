@@ -1,5 +1,18 @@
 package yinzhi.micro_client.activity;
 
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.vo.YZTipsVO;
+import yinzhi.micro_client.utils.SpMessageUtil;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
+import android.webkit.WebView;
+import android.widget.ImageButton;
+
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -8,26 +21,13 @@ import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebView;
-import android.widget.Button;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.vo.YZTipsVO;
-import yinzhi.micro_client.utils.SpMessageUtil;
-
 public class TipsActivity extends Activity {
 
 	@ViewInject(R.id.tips_content)
 	private WebView content;
 
 	@ViewInject(R.id.tips_close)
-	private Button close;
+	private ImageButton close;
 
 	/**
 	 * 小贴士内容
@@ -88,7 +88,7 @@ public class TipsActivity extends Activity {
 
 						String response = arg0.result;
 
-						LogUtils.i(response + " ==============");
+						LogUtils.i(response + "==============");
 
 						if (!YZNetworkUtils.isAllowedContinue(
 								TipsActivity.this, response)) {

@@ -274,7 +274,9 @@ public class CommentWriteActivity extends BaseActivity {
 						if (!YZNetworkUtils.isAllowedContinue(
 								CommentWriteActivity.this, response)) {
 							return;
-						}else{
+						} else {
+							Toast.makeText(CommentWriteActivity.this,
+									"评论已提交，一段时间后生效", Toast.LENGTH_LONG).show();
 							finish();
 							overridePendingTransition(0,
 									R.anim.activity_anim_left_out);

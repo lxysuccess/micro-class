@@ -17,10 +17,14 @@
     
     <dimen name="default_content_font_size_12">12sp</dimen>
     <dimen name="default_content_font_size_14">14sp</dimen>
+    <dimen name="default_content_font_size_16">16sp</dimen>
+    
     <dimen name="default_action_bar_font_size">18sp</dimen>
     <dimen name="default_course_detail_title_font_size">20sp</dimen>
     
     
     <dimen name="default_action_bar_height">50dp</dimen>
+    <dimen name="default_action_bar_btn_height_width">50dp</dimen>
+    
 
 </resources>
