@@ -648,8 +648,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int write_comment_star_selected=0x7f020050;
     }
     public static final class id {
-        public static final int action_scan=0x7f060119;
-        public static final int action_settings=0x7f060118;
+        public static final int action_scan=0x7f06011b;
+        public static final int action_settings=0x7f06011a;
         public static final int ad_rl=0x7f060077;
         public static final int adv_pager=0x7f060078;
         public static final int advertisement_image=0x7f0600eb;
@@ -700,7 +700,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int comment_list=0x7f06001b;
         public static final int comment_publish=0x7f06001a;
         public static final int comment_username=0x7f0600d9;
-        public static final int container=0x7f06010a;
+        public static final int container=0x7f06010c;
         public static final int content=0x7f060059;
         public static final int count_down=0x7f0600ec;
         public static final int counter=0x7f060082;
@@ -765,7 +765,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int home_swipelayout=0x7f06008c;
         public static final int icon=0x7f060081;
         public static final int id_ad_view=0x7f06008e;
-        public static final int id_content=0x7f06010f;
+        public static final int id_content=0x7f060111;
         public static final int introduction_back=0x7f060049;
         public static final int introduction_history_record=0x7f06004c;
         public static final int introduction_image=0x7f06004a;
@@ -794,7 +794,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int left_name_top_wall_nickname=0x7f060095;
         public static final int liuchang=0x7f0600c5;
         public static final int ll_popup=0x7f0600f0;
-        public static final int loadingprogress=0x7f06010d;
+        public static final int loadingprogress=0x7f06010f;
         public static final int login_action_menu=0x7f060052;
         public static final int login_close=0x7f060053;
         public static final int login_do=0x7f060058;
@@ -802,7 +802,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int login_password=0x7f060057;
         public static final int login_register=0x7f060054;
         public static final int login_username=0x7f060056;
-        public static final int logo=0x7f06010e;
+        public static final int logo=0x7f060110;
         public static final int margin=0x7f060002;
         public static final int mediacontroller_play_pause=0x7f0600ca;
         public static final int mediacontroller_seekbar=0x7f0600cb;
@@ -839,6 +839,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int profile_save=0x7f06005d;
         public static final int profile_school=0x7f060063;
         public static final int profile_school_layout=0x7f060062;
+        public static final int pull_to_refresh_load_progress=0x7f060109;
+        public static final int pull_to_refresh_loadmore_text=0x7f06010a;
         public static final int question_layout=0x7f0600f5;
         public static final int quit=0x7f06000e;
         public static final int ranking_indicator=0x7f06009c;
@@ -856,7 +858,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int return_scan_result=0x7f060010;
         public static final int rew=0x7f0600cf;
         public static final int right=0x7f060001;
-        public static final int rl=0x7f06010b;
+        public static final int rl=0x7f06010d;
         public static final int scan_imgbtn=0x7f06008b;
         public static final int score_and_content=0x7f060025;
         public static final int search_book_contents_failed=0x7f060014;
@@ -876,7 +878,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int setting_menu_imgbtn=0x7f06009f;
         public static final int setting_nickname=0x7f0600a2;
         public static final int setting_personal=0x7f0600a0;
-        public static final int slidingmenumain=0x7f060109;
+        public static final int slidingmenumain=0x7f06010b;
         public static final int submit_btn=0x7f060108;
         public static final int subtitle_content=0x7f0600e5;
         public static final int subtitle_search_input=0x7f0600af;
@@ -895,11 +897,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tv_comment_reply_writer=0x7f0600dc;
         public static final int txtLabel=0x7f0600b2;
         public static final int underline=0x7f060007;
-        public static final int video_back=0x7f060111;
-        public static final int video_bottom_bar=0x7f060110;
+        public static final int video_back=0x7f060113;
+        public static final int video_bottom_bar=0x7f060112;
         public static final int video_catalog_empty=0x7f0600b4;
         public static final int video_catalog_list=0x7f0600b3;
-        public static final int video_comment=0x7f060112;
+        public static final int video_comment=0x7f060114;
         public static final int video_comment_list=0x7f0600b6;
         public static final int video_comment_view_list=0x7f0600b5;
         public static final int video_container=0x7f06002e;
@@ -909,9 +911,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int video_description_lecturer_icon=0x7f0600b9;
         public static final int video_description_teacher=0x7f0600ba;
         public static final int video_description_teacher_desc=0x7f0600bb;
-        public static final int video_subtitle_search=0x7f060113;
+        public static final int video_subtitle_search=0x7f060115;
         public static final int videochange=0x7f0600c8;
-        public static final int videoview=0x7f06010c;
+        public static final int videoview=0x7f06010e;
         public static final int viewGroup=0x7f060079;
         public static final int viewfinder_view=0x7f060017;
         public static final int write_comment_action_menu=0x7f06001c;
@@ -926,10 +928,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int write_comment_star_three=0x7f060022;
         public static final int write_comment_star_two=0x7f060021;
         public static final int write_comment_word_count=0x7f060028;
-        public static final int xuezhi_item_class=0x7f060117;
-        public static final int xuezhi_item_content=0x7f060116;
-        public static final int xuezhi_item_date=0x7f060114;
-        public static final int xuezhi_item_title=0x7f060115;
+        public static final int xuezhi_item_class=0x7f060119;
+        public static final int xuezhi_item_content=0x7f060118;
+        public static final int xuezhi_item_date=0x7f060116;
+        public static final int xuezhi_item_title=0x7f060117;
     }
     public static final class integer {
         public static final int default_circle_indicator_orientation=0x7f090000;
@@ -990,11 +992,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int polyv_player_first_start_view=0x7f030030;
         public static final int popupwindows=0x7f030031;
         public static final int question=0x7f030032;
-        public static final int slidingmenumain=0x7f030033;
-        public static final int swipebackbase=0x7f030034;
-        public static final int video_full2=0x7f030035;
-        public static final int video_small2=0x7f030036;
-        public static final int xuezhi_list_item=0x7f030037;
+        public static final int refresh_footer=0x7f030033;
+        public static final int slidingmenumain=0x7f030034;
+        public static final int swipebackbase=0x7f030035;
+        public static final int video_full2=0x7f030036;
+        public static final int video_small2=0x7f030037;
+        public static final int xuezhi_list_item=0x7f030038;
     }
     public static final class menu {
         public static final int main=0x7f0e0000;
@@ -1028,6 +1031,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int left_menu_setting=0x7f0d0007;
         public static final int left_menu_top_wall_profession_default=0x7f0d0009;
         public static final int left_name_top_wall_username=0x7f0d000a;
+        /**  刷新加载 
+         */
+        public static final int loading=0x7f0d0029;
         public static final int login_title=0x7f0d001f;
         public static final int logout=0x7f0d001c;
         public static final int my=0x7f0d0006;

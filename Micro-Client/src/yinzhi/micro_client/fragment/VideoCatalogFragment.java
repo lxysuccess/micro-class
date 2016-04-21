@@ -175,11 +175,17 @@ public class VideoCatalogFragment extends Fragment implements
 							if (video != null) {
 
 								if (video.getIsAllowed() == 1) {
-									// 测试数据
+//									// 测试数据
+//									IjkVideoActicity.intentTo(getActivity(),
+//											IjkVideoActicity.PlayMode.portrait,
+//											IjkVideoActicity.PlayType.vid,
+//											"c3df59288d6ecd9eb4174822850cc858_c", "9",
+//											false);
+									
 									IjkVideoActicity.intentTo(getActivity(),
 											IjkVideoActicity.PlayMode.portrait,
 											IjkVideoActicity.PlayType.vid,
-											video.getVideoId(), itemResourceId,
+											"sl8da4jjbx80cb8878980c1626c51923_s", itemResourceId,
 											false);
 								} else {
 									LoginActivity.intentTo(getActivity(),

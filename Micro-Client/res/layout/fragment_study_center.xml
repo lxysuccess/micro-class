@@ -68,7 +68,7 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <yinzhi.micro_client.view.RefreshLayout
         android:id="@+id/my_course_list_swipelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -79,6 +79,6 @@
             android:layout_height="match_parent"
             android:background="@color/white" >
         </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </yinzhi.micro_client.view.RefreshLayout>
 
 </LinearLayout>

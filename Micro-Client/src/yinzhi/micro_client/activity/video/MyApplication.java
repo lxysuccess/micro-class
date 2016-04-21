@@ -61,7 +61,7 @@ public class MyApplication extends Application {
 		// android.os.Process.myTid()获取到调用线程的id
 		this.mMainTheadId = android.os.Process.myTid();// 主線程id
 
-		//获取sp中的用户信息
+		// 获取sp中的用户信息
 		userInfo = SpMessageUtil.getYZUserVO(mContext);
 
 		File cacheDir = StorageUtils.getOwnCacheDirectory(
@@ -116,8 +116,9 @@ public class MyApplication extends Application {
 		PolyvSDKClient client = PolyvSDKClient.getInstance();
 		// 设置SDK加密串
 		// client.setConfig("你的SDK加密串");
-		// client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
-		client.setConfig("mxQYuEGNwyYwdd6LbK5IcPf1DfoeukQubN9L6HRKMlLM6Y+kGhCX8rrMsD5bXLiJ8DrgJmFSrlb9HuBT1JXn2PJldgTmVrWIxKg/1FEq8Hcrrrq8HNddgbYp9Ld2JGRkE9Xz1RWG1FfAe6uorAqk0g==");
+		// 测试数据
+		client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
+		// client.setConfig("mxQYuEGNwyYwdd6LbK5IcPf1DfoeukQubN9L6HRKMlLM6Y+kGhCX8rrMsD5bXLiJ8DrgJmFSrlb9HuBT1JXn2PJldgTmVrWIxKg/1FEq8Hcrrrq8HNddgbYp9Ld2JGRkE9Xz1RWG1FfAe6uorAqk0g==");
 		// 下载文件的目录
 		client.setDownloadDir(saveDir);
 		// 初始化数据库服务
@@ -173,12 +174,12 @@ public class MyApplication extends Application {
 	public static int getMainThreadId() {
 		return mMainTheadId;
 	}
-	
-	public static void setUserInfo(YZUserVO user){
+
+	public static void setUserInfo(YZUserVO user) {
 		userInfo = user;
 	}
-	
-	public static YZUserVO getUserInfo(){
+
+	public static YZUserVO getUserInfo() {
 		return userInfo;
 	}
 

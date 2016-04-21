@@ -1,6 +1,7 @@
 package yinzhi.micro_client.activity;
 
 import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.video.IjkVideoActicity;
 import yinzhi.micro_client.activity.video.MyApplication;
 import yinzhi.micro_client.fragment.AllCourseFragment;
 import yinzhi.micro_client.fragment.HomeFragment;

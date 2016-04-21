@@ -64,12 +64,12 @@ public class TipsActivity extends Activity {
 
 		// 支持javascript
 		content.getSettings().setJavaScriptEnabled(true);
-		// 设置可以支持缩放
-		content.getSettings().setSupportZoom(true);
-		// 设置出现缩放工具
-		content.getSettings().setBuiltInZoomControls(true);
-		// 扩大比例的缩放
-		content.getSettings().setUseWideViewPort(true);
+//		// 设置可以支持缩放
+//		content.getSettings().setSupportZoom(true);
+//		// 设置出现缩放工具
+//		content.getSettings().setBuiltInZoomControls(true);
+//		// 扩大比例的缩放
+//		content.getSettings().setUseWideViewPort(true);
 		// 自适应屏幕
 		content.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		content.getSettings().setLoadWithOverviewMode(true);
@@ -90,16 +90,18 @@ public class TipsActivity extends Activity {
 
 						LogUtils.i(response + "==============");
 
-						if (!YZNetworkUtils.isAllowedContinue(
-								TipsActivity.this, response)) {
-							return;
-						}
+						
+						// TODO 数据校验，权限控制
+//						if (!YZNetworkUtils.isAllowedContinue(
+//								TipsActivity.this, response)) {
+//							return;
+//						}
 
 						tip = YZResponseUtils.parseObject(response,
 								YZTipsVO.class);
 
 						tip.getContent();
-						// TODO 数据校验，权限控制
+						
 						initView();
 
 					}

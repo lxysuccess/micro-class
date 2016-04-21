@@ -19,6 +19,8 @@ import yinzhi.micro_client.network.vo.YZCourseVO;
 import yinzhi.micro_client.network.vo.YZUserVO;
 import yinzhi.micro_client.utils.ImageUtil;
 import yinzhi.micro_client.utils.SpMessageUtil;
+import yinzhi.micro_client.view.RefreshLayout;
+import yinzhi.micro_client.view.RefreshLayout.OnLoadListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +34,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,13 +93,15 @@ public class MyFragment extends Fragment implements
 	@ViewInject(R.id.my_course_list_result)
 	private ListView listView;
 
-	@ViewInject(R.id.my_course_list_swipelayout)
-	private SwipeRefreshLayout mSwipeLayout;
+	private RefreshLayout mSwipeLayout;
 
 	// 存储搜索结果
 	private List<YZCourseVO> datas = new ArrayList<YZCourseVO>();
 
 	private LxyCommonAdapter<YZCourseVO> adapter;
+
+	// 当前列表加载至第几页，0开始
+	private static int currentPage = -1;
 
 	/**
 	 * 下拉刷新
@@ -104,11 +109,16 @@ public class MyFragment extends Fragment implements
 	 * @return
 	 */
 	private static final int REFRESH_COMPLETE = 0X110;
+	private static final int LOAD_COMPLETE = 0x111;
 
 	private Handler rHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case REFRESH_COMPLETE:
+				mSwipeLayout.setRefreshing(false);
+				break;
+			case LOAD_COMPLETE:
+				mSwipeLayout.setLoading(false);
 				mSwipeLayout.setRefreshing(false);
 				break;
 
@@ -162,8 +172,21 @@ public class MyFragment extends Fragment implements
 						avatar, ImageUtil.getDisplayOption(90));
 
 		initView();
+		mSwipeLayout = (RefreshLayout) rootView
+				.findViewById(R.id.my_course_list_swipelayout);
 
 		mSwipeLayout.setOnRefreshListener(this);
+		mSwipeLayout.setOnLoadListener(new OnLoadListener() {
+
+			@Override
+			public void onLoad() {
+				mSwipeLayout.setRefreshing(true);
+
+				currentPage++;
+				initData(currentPage, 10, false);
+
+			}
+		});
 		onRefresh();
 
 		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark,
@@ -179,19 +202,19 @@ public class MyFragment extends Fragment implements
 		// TODO Auto-generated method stub
 		super.onStart();
 		ImageLoader
-		.getInstance()
-		.displayImage(
-				"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
-				avatar, ImageUtil.getDisplayOption(90));
+				.getInstance()
+				.displayImage(
+						"http://roadshow.4i-test.com/data/upload/20160405/1459849464214.jpeg",
+						avatar, ImageUtil.getDisplayOption(90));
 		try {
 			YZUserVO userInfo = MyApplication.getUserInfo();
 
-//			LogUtils.i(userInfo.toString());
-//			ImageLoader.getInstance()
-//					.displayImage(
-//							INetworkConstants.YZMC_SERVER
-//									+ userInfo.getAvatarPicPath(), avatar,
-//							ImageUtil.getDisplayOption(90));
+			// LogUtils.i(userInfo.toString());
+			// ImageLoader.getInstance()
+			// .displayImage(
+			// INetworkConstants.YZMC_SERVER
+			// + userInfo.getAvatarPicPath(), avatar,
+			// ImageUtil.getDisplayOption(90));
 
 			nickname.setText(userInfo.getNickname());
 		} catch (Exception e) {
@@ -204,10 +227,10 @@ public class MyFragment extends Fragment implements
 		}
 	}
 
-	private void initData() {
+	private void initData(int page, int size, final boolean isInit) {
 		YZNetworkUtils.fetchMyCourseList(SpMessageUtil
-				.getLogonToken(getActivity().getApplicationContext()), 0,
-				10000, new RequestCallBack<String>() {
+				.getLogonToken(getActivity().getApplicationContext()), page,
+				size, new RequestCallBack<String>() {
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
@@ -217,7 +240,13 @@ public class MyFragment extends Fragment implements
 
 						if (!YZNetworkUtils.isAllowedContinue(getActivity(),
 								response)) {
-							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+							if (isInit) {
+								// 若isInit为true，则为刷新操作
+								rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+							} else {
+
+								rHandler.sendEmptyMessage(LOAD_COMPLETE);
+							}
 							return;
 						}
 
@@ -225,19 +254,41 @@ public class MyFragment extends Fragment implements
 								response, YZCourseVO.class);
 
 						if (courses == null) {
-							Toast.makeText(getActivity(), "未参与相关课程",
-									Toast.LENGTH_LONG).show();
+							if (isInit) {
+								Toast.makeText(getActivity(), "未参与相关课程",
+										Toast.LENGTH_LONG).show();
+								rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+								currentPage = -1;
+
+							} else {
+								Toast.makeText(getActivity(), "无更多课程",
+										Toast.LENGTH_LONG).show();
+								rHandler.sendEmptyMessage(LOAD_COMPLETE);
+							}
+
 							return;
 						}
 
-						datas.clear();
+						if (isInit) {
+							// 若isInit为true，则为刷新操作，清除之前数据重新加载，并将当前页面置为初始-1
+							datas.clear();
+							currentPage = -1;
+						}
 
 						datas.addAll(courses);
 
 						// 通知列表数据变化
 						adapter.notifyDataSetChanged();
 
-						rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+						currentPage++;
+
+						if (isInit) {
+							// 若isInit为true，则为刷新操作
+							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
+						} else {
+
+							rHandler.sendEmptyMessage(LOAD_COMPLETE);
+						}
 
 					}
 
@@ -415,7 +466,6 @@ public class MyFragment extends Fragment implements
 			intent.putExtra("courseId", datas.get(position).getCourseId());
 			startActivity(intent);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			LogUtils.e("intent to introductionactivity error,  myfragment");
 		}
@@ -425,7 +475,7 @@ public class MyFragment extends Fragment implements
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		initData();
+		initData(0, 10, true);
 	}
+
 }

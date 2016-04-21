@@ -46,5 +46,8 @@
 
     <!-- 评论 -->
     <string name="write_comment_score_tip">点亮星星评分</string>
+    
+    <!-- 刷新加载 -->
+    <string name="loading">正在加载</string>
 
 </resources>
