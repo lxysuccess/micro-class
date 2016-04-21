@@ -403,11 +403,11 @@ public class IjkVideoActicity extends BaseActivity {
 
 			case R.id.video_comment:
 
-				setSelectTab(0);
+				setSelectTab(1);
 
 				break;
 			case R.id.video_subtitle_search:
-				setSelectTab(1);
+				setSelectTab(0);
 
 				break;
 			default:
