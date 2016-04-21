@@ -4,8 +4,13 @@ import yinzhi.micro_client.R;
 import yinzhi.micro_client.network.YZNetworkUtils;
 import yinzhi.micro_client.network.vo.YZUserVO;
 import yinzhi.micro_client.utils.SpMessageUtil;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -106,8 +111,53 @@ public class ProfileActivity extends BaseActivity {
 	 */
 	@OnClick(R.id.profile_close)
 	public void closeClick(View v) {
-		ProfileActivity.this.finish();
-		overridePendingTransition(0, R.anim.activity_anim_left_out);
+
+		// TODO 若昵称已修改，提示未保存
+
+		String nickname = nickEditText.getText().toString();
+
+		if (!SpMessageUtil.getYZUserVO(getApplicationContext()).getNickname()
+				.equals(nickname)) {
+			dialog();
+
+		} else {
+			ProfileActivity.this.finish();
+			overridePendingTransition(0, R.anim.activity_anim_left_out);
+		}
+
+	}
+
+	private void dialog() {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder build = new Builder(ProfileActivity.this);
+		build.setMessage("未保存，确定退出？");
+		build.setPositiveButton("确定", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				ProfileActivity.this.finish();
+				overridePendingTransition(0, R.anim.activity_anim_left_out);
+
+			}
+		});
+		build.setNegativeButton("取消", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.dismiss();
+			}
+		});
+
+		build.create().show();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			dialog();
+		}
+
+		return false;
 	}
 
 	/**
@@ -121,8 +171,15 @@ public class ProfileActivity extends BaseActivity {
 		String nickname = nickEditText.getText().toString();
 
 		if (nickname.length() == 0 || nickname == null) {
-			Toast.makeText(ProfileActivity.this, "昵称不能为空", Toast.LENGTH_SHORT).show();
+			Toast.makeText(ProfileActivity.this, "昵称不能为空", Toast.LENGTH_SHORT)
+					.show();
+			return;
+		}
 
+		if (SpMessageUtil.getYZUserVO(getApplicationContext()).getNickname()
+				.equals(nickname)) {
+			Toast.makeText(ProfileActivity.this, "昵称未修改", Toast.LENGTH_SHORT)
+					.show();
 			return;
 		}
 
@@ -134,10 +191,17 @@ public class ProfileActivity extends BaseActivity {
 					public void onSuccess(ResponseInfo<String> arg0) {
 						String response = arg0.result;
 
-						if (!YZNetworkUtils.isAllowedContinue(ProfileActivity.this, response)) {
+						if (!YZNetworkUtils.isAllowedContinue(
+								ProfileActivity.this, response)) {
 							return;
 						}
-						Toast.makeText(ProfileActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+
+						ProfileActivity.this.finish();
+						overridePendingTransition(0,
+								R.anim.activity_anim_left_out);
+
+						Toast.makeText(ProfileActivity.this, "修改成功",
+								Toast.LENGTH_SHORT).show();
 
 					}
 

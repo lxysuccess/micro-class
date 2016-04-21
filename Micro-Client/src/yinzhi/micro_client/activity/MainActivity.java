@@ -12,11 +12,16 @@ import yinzhi.micro_client.fragment.RankingFragment;
 import yinzhi.micro_client.fragment.SettingFragment;
 import yinzhi.micro_client.network.vo.YZUserVO;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -221,4 +226,39 @@ public class MainActivity extends SlidingFragmentActivity implements
 		}
 		LogUtils.i("hideFragment completed");
 	}
+	
+	
+	private void dialog() {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder build = new Builder(MainActivity.this);
+		build.setMessage("确定退出？");
+		build.setPositiveButton("确定", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				MainActivity.this.finish();
+				overridePendingTransition(0, R.anim.activity_anim_left_out);
+
+			}
+		});
+		build.setNegativeButton("取消", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.dismiss();
+			}
+		});
+
+		build.create().show();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			dialog();
+		}
+
+		return false;
+	}
+	
 }
