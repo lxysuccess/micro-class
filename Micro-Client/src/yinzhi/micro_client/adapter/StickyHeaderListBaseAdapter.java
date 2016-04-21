@@ -38,7 +38,6 @@ public class StickyHeaderListBaseAdapter extends BaseAdapter implements
 		combineData();
 		mSectionIndices = getSectionIndices();
 		mSectionLetters = getSectionLetters();
-
 	}
 
 	/**

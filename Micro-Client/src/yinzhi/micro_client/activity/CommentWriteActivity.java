@@ -69,7 +69,8 @@ public class CommentWriteActivity extends BaseActivity {
 
 		ViewUtils.inject(this);
 
-		itemResourceId = getIntent().getExtras().getString("itemResourceId");
+		itemResourceId = getIntent().getExtras().getString("itemResourceId",
+				"0");
 
 		init();
 
@@ -120,6 +121,8 @@ public class CommentWriteActivity extends BaseActivity {
 
 						String response = arg0.result;
 
+						LogUtils.i("用户个人评分获取+response-》" + response);
+
 						if (!YZNetworkUtils.isAllowedContinue(
 								CommentWriteActivity.this, response)) {
 							return;
@@ -133,6 +136,7 @@ public class CommentWriteActivity extends BaseActivity {
 						orginalScore = Integer.valueOf(score);
 						if (orginalScore != 0) {
 							// 如果评分不等于0，用户已经评论
+							LogUtils.i("用户已经评分，分数为--》" + orginalScore);
 							updateStarStae(orginalScore);
 
 							starOne.setClickable(false);
@@ -150,60 +154,35 @@ public class CommentWriteActivity extends BaseActivity {
 
 	@OnClick(R.id.write_comment_star_one)
 	public void starOneClick(View v) {
-		if (orginalScore != 0) {
-			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+
 		updateStarStae(-1);
 		updateStarStae(1);
 	}
 
 	@OnClick(R.id.write_comment_star_two)
 	public void starTwoClick(View v) {
-		if (orginalScore != 0) {
-			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+
 		updateStarStae(-1);
 		updateStarStae(2);
 	}
 
 	@OnClick(R.id.write_comment_star_three)
 	public void starThreelick(View v) {
-		if (orginalScore != 0) {
-			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+
 		updateStarStae(-1);
 		updateStarStae(3);
 	}
 
 	@OnClick(R.id.write_comment_star_four)
 	public void starFourClick(View v) {
-		if (orginalScore != 0) {
-			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+
 		updateStarStae(-1);
 		updateStarStae(4);
 	}
 
 	@OnClick(R.id.write_comment_star_five)
 	public void starFiveClick(View v) {
-		if (orginalScore != 0) {
-			// 用户已评论
-			Toast.makeText(getApplicationContext(), "您已发表过评分",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
+
 		updateStarStae(-1);
 		updateStarStae(5);
 	}
@@ -299,11 +278,18 @@ public class CommentWriteActivity extends BaseActivity {
 	public void markScore() {
 
 		if (orginalScore != 0) {
+			// 用户已经评过分，不再向后台请求评分
+			return;
+		}
+		String token = SpMessageUtil.getLogonToken(getApplicationContext());
+		if (token == null) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
 			return;
 		}
 
-		YZNetworkUtils.markScore("", currentScore.toString(), itemResourceId,
-				new RequestCallBack<String>() {
+		YZNetworkUtils.markScore(token, currentScore.toString(),
+				itemResourceId, new RequestCallBack<String>() {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {

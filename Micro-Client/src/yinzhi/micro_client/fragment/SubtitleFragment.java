@@ -191,12 +191,22 @@ public class SubtitleFragment extends Fragment {
 						List<YZSubtitleVO> results = new ArrayList<YZSubtitleVO>();
 						results = YZResponseUtils.parseArray(response,
 								YZSubtitleVO.class);
+						
+						if (results == null) {
+							Toast.makeText(getActivity(), "未找到相关内容", Toast.LENGTH_SHORT).show();
+							return;
+						}
 
 						if (isReset) {
 							// 如果用户点击了搜索按钮，则清空之前的数据重新刷新列表
 							sutitleDatas.clear();
 						}
-						sutitleDatas.addAll(results);
+						try {
+							sutitleDatas.addAll(results);
+						} catch (Exception e) {
+							e.printStackTrace();
+							LogUtils.e("sutitleDatas add results error,results maybe null");
+						}
 
 						stAdapter.notifyDataSetChanged();
 

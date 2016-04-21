@@ -26,6 +26,7 @@ public interface INetworkConstants {
 
 	// 练习
 	public final static String API_EXERCISE = YZMC_SERVER + "/api/v1/exercise";
+	public final static String API_RANDOM_EXERCISE = YZMC_SERVER + "/api/v1/video/randomExercise";
 	public final static String API_EXERCISE_RECORD = YZMC_SERVER + "/api/v1/exercise/record";
 
 	// 视频播放

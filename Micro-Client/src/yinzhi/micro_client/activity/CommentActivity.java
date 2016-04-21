@@ -46,10 +46,7 @@ public class CommentActivity extends BaseActivity {
 		setContentView(R.layout.activity_comment);
 		ViewUtils.inject(this);
 
-		// itemResourceId = getIntent().getExtras().getString("itemResourceId");
-
-		// TODO 测试
-		itemResourceId = "9";
+		 itemResourceId = getIntent().getExtras().getString("itemResourceId");
 
 		updateData(0, 20);
 

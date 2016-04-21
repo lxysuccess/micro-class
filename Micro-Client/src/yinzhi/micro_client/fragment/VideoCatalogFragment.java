@@ -249,7 +249,13 @@ public class VideoCatalogFragment extends Fragment implements
 	public void updateCatalogCompleted(YZCatalogVO catalog) {
 		// TODO
 
-		mAdapter = new StickyHeaderListBaseAdapter(getActivity(), catalog);
+		try {
+			mAdapter = new StickyHeaderListBaseAdapter(getActivity(), catalog);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			LogUtils.e("init StickyHeaderListBaseAdapter error  , maybe getActivity() has been destory and it is null now");
+		}
 
 		stickyList.setOnItemClickListener(this);
 		stickyList.setOnStickyHeaderOffsetChangedListener(this);

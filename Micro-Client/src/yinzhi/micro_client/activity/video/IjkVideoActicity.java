@@ -91,7 +91,6 @@ public class IjkVideoActicity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_small2);
-		
 
 		bottomBar = (RelativeLayout) findViewById(R.id.video_bottom_bar);
 
@@ -163,6 +162,7 @@ public class IjkVideoActicity extends BaseActivity {
 
 					@Override
 					public void onStatus(int status) {
+						LogUtils.i("video status listener->  status-->"+status);
 
 					}
 				});
@@ -355,7 +355,7 @@ public class IjkVideoActicity extends BaseActivity {
 
 		// 播放界面底部三个按钮事件监听
 		setIvListener();
-		
+
 		setSelectTab(0);
 
 	}
@@ -620,15 +620,6 @@ public class IjkVideoActicity extends BaseActivity {
 
 		switch (index) {
 		case 0:
-			// 选择查看评论页
-			if (mCommentTab == null) {
-				mCommentTab = new VideoCommentFragment(itemResourceId);
-				ft.add(R.id.id_content, mCommentTab);
-			} else {
-				ft.show(mCommentTab);
-			}
-			break;
-		case 1:
 
 			// 选择查看字幕搜索页
 
@@ -639,6 +630,16 @@ public class IjkVideoActicity extends BaseActivity {
 				ft.show(mSubtitleTab);
 			}
 			break;
+		case 1:
+			// 选择查看评论页
+			if (mCommentTab == null) {
+				mCommentTab = new VideoCommentFragment(itemResourceId);
+				ft.add(R.id.id_content, mCommentTab);
+			} else {
+				ft.show(mCommentTab);
+			}
+			break;
+
 		default:
 			break;
 		}

@@ -90,12 +90,11 @@ public class TipsActivity extends Activity {
 
 						LogUtils.i(response + "==============");
 
-						
 						// TODO 数据校验，权限控制
-//						if (!YZNetworkUtils.isAllowedContinue(
-//								TipsActivity.this, response)) {
-//							return;
-//						}
+						if (!YZNetworkUtils.isAllowedContinue(
+								TipsActivity.this, response)) {
+							return;
+						}
 
 						tip = YZResponseUtils.parseObject(response,
 								YZTipsVO.class);

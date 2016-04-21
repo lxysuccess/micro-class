@@ -478,7 +478,7 @@ int id video_back 0x7f060113
 int id video_bottom_bar 0x7f060112
 int id video_catalog_empty 0x7f0600b4
 int id video_catalog_list 0x7f0600b3
-int id video_comment 0x7f060114
+int id video_comment 0x7f060115
 int id video_comment_list 0x7f0600b6
 int id video_comment_view_list 0x7f0600b5
 int id video_container 0x7f06002e
@@ -488,7 +488,7 @@ int id video_description_course_title 0x7f0600b7
 int id video_description_lecturer_icon 0x7f0600b9
 int id video_description_teacher 0x7f0600ba
 int id video_description_teacher_desc 0x7f0600bb
-int id video_subtitle_search 0x7f060115
+int id video_subtitle_search 0x7f060114
 int id videochange 0x7f0600c8
 int id videoview 0x7f06010e
 int id viewGroup 0x7f060079

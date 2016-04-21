@@ -25,17 +25,17 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 public class MyApplication extends Application {
 
 	// 获取到主线程的上下文
-	private static MyApplication mContext = null;
+	public static MyApplication mContext = null;
 	// 获取到主线程的handler
-	private static Handler mMainThreadHandler = null;
+	public static Handler mMainThreadHandler = null;
 	// 获取到主线程的looper
-	private static Looper mMainThreadLooper = null;
+	public static Looper mMainThreadLooper = null;
 	// 获取到主线程
-	private static Thread mMainThead = null;
+	public static Thread mMainThead = null;
 	// 获取到主线程的id
-	private static int mMainTheadId;
+	public static int mMainTheadId;
 
-	private static YZUserVO userInfo = null;
+	public static YZUserVO userInfo = null;
 
 	public MyApplication() {
 
@@ -131,7 +131,7 @@ public class MyApplication extends Application {
 		// client.crashReportSetUserId(userId);
 	}
 
-	private class LoadConfigTask extends AsyncTask<String, String, String> {
+	public class LoadConfigTask extends AsyncTask<String, String, String> {
 
 		@Override
 		protected String doInBackground(String... params) {

@@ -901,7 +901,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int video_bottom_bar=0x7f060112;
         public static final int video_catalog_empty=0x7f0600b4;
         public static final int video_catalog_list=0x7f0600b3;
-        public static final int video_comment=0x7f060114;
+        public static final int video_comment=0x7f060115;
         public static final int video_comment_list=0x7f0600b6;
         public static final int video_comment_view_list=0x7f0600b5;
         public static final int video_container=0x7f06002e;
@@ -911,7 +911,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int video_description_lecturer_icon=0x7f0600b9;
         public static final int video_description_teacher=0x7f0600ba;
         public static final int video_description_teacher_desc=0x7f0600bb;
-        public static final int video_subtitle_search=0x7f060115;
+        public static final int video_subtitle_search=0x7f060114;
         public static final int videochange=0x7f0600c8;
         public static final int videoview=0x7f06010e;
         public static final int viewGroup=0x7f060079;

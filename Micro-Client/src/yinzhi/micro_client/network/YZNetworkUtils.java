@@ -422,6 +422,38 @@ public class YZNetworkUtils implements INetworkConstants {
 
 		http.send(HttpRequest.HttpMethod.POST, API_EXERCISE, params, callBack);
 	}
+	/**
+	 * 请求视频播放随机弹出练习
+	 * 
+	 * @param itemResourceId
+	 * @param logonToken
+	 * @param callBack
+	 */
+	public static void fetchrandomExercise(Context context, String logonToken,
+			String itemResourceId, RequestCallBack<String> callBack) {
+		RequestParams params = new RequestParams();
+		
+		params.addHeader("Content-Type", "application/json;charset=utf-8");
+		
+		paramMap.clear();
+		
+		paramMap.put("itemResourceId", itemResourceId);
+		
+		if (logonToken == null) {
+			LogUtils.i("courseSubscribe======context.getClass.getName-->"
+					+ context.getClass().getName());
+			return;
+		}
+		paramMap.put(LOGON_TOKEN, logonToken);
+		try {
+			params.setBodyEntity(new StringEntity(JSON.toJSONString(paramMap),
+					INetworkConstants.CHARSET));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		http.send(HttpRequest.HttpMethod.POST, API_RANDOM_EXERCISE, params, callBack);
+	}
 
 	/**
 	 * 记录练习情况
