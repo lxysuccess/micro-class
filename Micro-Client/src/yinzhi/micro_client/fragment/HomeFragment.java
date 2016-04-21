@@ -3,17 +3,20 @@ package yinzhi.micro_client.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
-import com.lidroid.xutils.view.annotation.event.OnItemClick;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
+import yinzhi.micro_client.R;
+import yinzhi.micro_client.activity.CaptureActivity;
+import yinzhi.micro_client.activity.IntroductionActivity;
+import yinzhi.micro_client.activity.MainActivity;
+import yinzhi.micro_client.adapter.LxyCommonAdapter;
+import yinzhi.micro_client.adapter.LxyViewHolder;
+import yinzhi.micro_client.network.YZNetworkUtils;
+import yinzhi.micro_client.network.YZResponseUtils;
+import yinzhi.micro_client.network.constants.INetworkConstants;
+import yinzhi.micro_client.network.vo.YZCourseVO;
+import yinzhi.micro_client.network.vo.YZSlideVO;
+import yinzhi.micro_client.utils.ImageUtil;
+import yinzhi.micro_client.utils.SpMessageUtil;
+import yinzhi.micro_client.view.ImageCycleView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,22 +33,16 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import yinzhi.micro_client.R;
-import yinzhi.micro_client.activity.CaptureActivity;
-import yinzhi.micro_client.activity.IntroductionActivity;
-import yinzhi.micro_client.activity.MainActivity;
-import yinzhi.micro_client.activity.SearchActivity;
-import yinzhi.micro_client.activity.video.IjkVideoActicity;
-import yinzhi.micro_client.adapter.LxyCommonAdapter;
-import yinzhi.micro_client.adapter.LxyViewHolder;
-import yinzhi.micro_client.network.YZNetworkUtils;
-import yinzhi.micro_client.network.YZResponseUtils;
-import yinzhi.micro_client.network.constants.INetworkConstants;
-import yinzhi.micro_client.network.vo.YZCourseVO;
-import yinzhi.micro_client.network.vo.YZSlideVO;
-import yinzhi.micro_client.utils.ImageUtil;
-import yinzhi.micro_client.utils.SpMessageUtil;
-import yinzhi.micro_client.view.ImageCycleView;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class HomeFragment extends Fragment implements OnPageChangeListener,
 		SwipeRefreshLayout.OnRefreshListener {
@@ -96,7 +93,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 
 	private MainActivity activity;
 
-	private static Boolean isInit = true;
+	// private static Boolean isInit = true;
 
 	/**
 	 * 下拉刷新
@@ -150,7 +147,9 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 		initView();
 
 		mSwipeLayout.setOnRefreshListener(this);
-		onRefresh();
+		mSwipeLayout.setRefreshing(true);
+		updateDatas();
+		setAdvImageUrl();
 
 		mSwipeLayout.setColorScheme(android.R.color.holo_green_dark,
 				android.R.color.holo_green_light,
@@ -196,7 +195,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 			}
 		};
 		chargeList.setAdapter(chargeAdapter);
-		isInit = false;
+		// isInit = false;
 
 	}
 
@@ -246,9 +245,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 						}
 						freeAdapter.notifyDataSetChanged();
 
-						if (!isInit) {
-							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
-						}
+						rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 					}
 				});
 
@@ -291,9 +288,7 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 						}
 						chargeAdapter.notifyDataSetChanged();
 
-						if (!isInit) {
-							rHandler.sendEmptyMessage(REFRESH_COMPLETE);
-						}
+						rHandler.sendEmptyMessage(REFRESH_COMPLETE);
 
 					}
 				});
@@ -325,7 +320,6 @@ public class HomeFragment extends Fragment implements OnPageChangeListener,
 	public void menuClick(View v) {
 		activity.toggle();
 	}
-
 
 	/**
 	 * 获取轮播图片数据
