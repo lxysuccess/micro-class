@@ -40,7 +40,7 @@ public class ImageCycleView extends LinearLayout {
 	/**
 	 * 图片轮播视图
 	 */
-	private ViewPager mAdvPager = null;
+	private DecoratorViewPager mAdvPager = null;
 
 	/**
 	 * 滚动图片视图适配器
@@ -88,7 +88,10 @@ public class ImageCycleView extends LinearLayout {
 		mContext = context;
 		mScale = context.getResources().getDisplayMetrics().density;
 		LayoutInflater.from(context).inflate(R.layout.ad_cycle_view, this);
-		mAdvPager = (ViewPager) findViewById(R.id.adv_pager);
+		mAdvPager = (DecoratorViewPager) findViewById(R.id.adv_pager);
+		
+		mAdvPager.setNestedpParent((ViewGroup)mAdvPager.getParent()); 
+		
 		mAdvPager.setOnPageChangeListener(new GuidePageChangeListener());
 		mAdvPager.setOnTouchListener(new OnTouchListener() {
 
