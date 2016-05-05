@@ -33,6 +33,7 @@ import com.easefun.polyvsdk.BitRateEnum;
 import com.easefun.polyvsdk.PolyvSDKClient;
 import com.easefun.polyvsdk.ijk.IjkBaseMediaController;
 import com.easefun.polyvsdk.ijk.IjkVideoView;
+import com.lidroid.xutils.util.LogUtils;
 
 public class MediaController extends IjkBaseMediaController {
 	private static final String TAG = "MediaController";
@@ -491,6 +492,8 @@ public class MediaController extends IjkBaseMediaController {
 		if (mCurrentTime != null)
 			mCurrentTime.setText(generateTime(position));
 
+		LogUtils.i(position+"<-position,generateTime->"+generateTime(position));
+		
 		return position;
 	}
 	

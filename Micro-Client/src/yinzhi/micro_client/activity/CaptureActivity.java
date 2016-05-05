@@ -161,36 +161,40 @@ public class CaptureActivity extends Activity implements Callback {
 			startActivity(intent);
 			return;
 		}
+		//TODO 测试，请求barcode 返回读取失败
+		IntroductionActivity.intentTo(CaptureActivity.this, "9",
+				"1", 1, "CaptureActivity");
+		finish();
 
-		YZNetworkUtils.barcode(token, obj.getText(), "acc-study", new RequestCallBack<String>() {
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-
-				String response = arg0.result;
-
-				LogUtils.i(response + "barcodebarcodebarcodebarcodebarcode");
-
-				if(!YZNetworkUtils.isAllowedContinue(CaptureActivity.this, response)){
-					return;
-				}
-				
-				YZBarcodeVO barcodeVO = YZResponseUtils.parseObject(response, YZBarcodeVO.class);
-
-				if (barcodeVO != null) {
-					IntroductionActivity.intentTo(CaptureActivity.this, barcodeVO.getItemResourceId(),
-							barcodeVO.getCourseId(), 1, "CaptureActivity");
-				}
-				finish();
-
-			}
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+//		YZNetworkUtils.barcode(token, obj.getText(), "acc-study", new RequestCallBack<String>() {
+//
+//			@Override
+//			public void onSuccess(ResponseInfo<String> arg0) {
+//
+//				String response = arg0.result;
+//
+//				LogUtils.i(response + "barcodebarcodebarcodebarcodebarcode");
+//
+//				if(!YZNetworkUtils.isAllowedContinue(CaptureActivity.this, response)){
+//					return;
+//				}
+//				
+//				YZBarcodeVO barcodeVO = YZResponseUtils.parseObject(response, YZBarcodeVO.class);
+//
+//				if (barcodeVO != null) {
+//					IntroductionActivity.intentTo(CaptureActivity.this, barcodeVO.getItemResourceId(),
+//							barcodeVO.getCourseId(), 1, "CaptureActivity");
+//				}
+//				finish();
+//
+//			}
+//
+//			@Override
+//			public void onFailure(HttpException arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 		
 

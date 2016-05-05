@@ -60,7 +60,8 @@ public class VideoCatalogFragment extends Fragment implements
 	private boolean fadeHeader = true;
 
 	// 测试播放视频ID 保利威视
-	private static String videoId = "c3df59288d6ecd9eb4174822850cc858_c";
+//	private static String videoId = "c3df59288d6ecd9eb4174822850cc858_c";
+	private static String videoId = "72f9eacfd512699a508f4046ebe92c95_7";//namedlxy
 
 	// 存储一个课程的所有子资源的List
 	private List<YZItemResourceVO> itemResources = new ArrayList<YZItemResourceVO>();
@@ -185,7 +186,7 @@ public class VideoCatalogFragment extends Fragment implements
 									IjkVideoActicity.intentTo(getActivity(),
 											IjkVideoActicity.PlayMode.portrait,
 											IjkVideoActicity.PlayType.vid,
-											"sl8da4jjbx80cb8878980c1626c51923_s", itemResourceId,
+											"72f9eacfd512699a508f4046ebe92c95_7", itemResourceId,
 											false);
 								} else {
 									LoginActivity.intentTo(getActivity(),

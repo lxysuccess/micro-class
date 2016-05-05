@@ -117,8 +117,10 @@ public class MyApplication extends Application {
 		// 设置SDK加密串
 		// client.setConfig("你的SDK加密串");
 		// 测试数据
-		client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
-		// client.setConfig("mxQYuEGNwyYwdd6LbK5IcPf1DfoeukQubN9L6HRKMlLM6Y+kGhCX8rrMsD5bXLiJ8DrgJmFSrlb9HuBT1JXn2PJldgTmVrWIxKg/1FEq8Hcrrrq8HNddgbYp9Ld2JGRkE9Xz1RWG1FfAe6uorAqk0g==");
+//		client.setConfig("iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsW");
+//		 client.setConfig("mxQYuEGNwyYwdd6LbK5IcPf1DfoeukQubN9L6HRKMlLM6Y+kGhCX8rrMsD5bXLiJ8DrgJmFSrlb9HuBT1JXn2PJldgTmVrWIxKg/1FEq8Hcrrrq8HNddgbYp9Ld2JGRkE9Xz1RWG1FfAe6uorAqk0g==");
+		//namedlxy@gmail.com
+		client.setConfig("ef795GrLXSAQ7MZdpt9B2qOLWRPqjF3VeY63gjnhuHOqeE6UOmqDL56wgVcNm1yA9tid0utAiLt3Px8vUFt968szXhOxNelUP+rOCMlxi0y7WXOMy8aVM9SPds0mVoTXOxF7oaR8egyu+tSBEaKx2w==");
 		// 下载文件的目录
 		client.setDownloadDir(saveDir);
 		// 初始化数据库服务

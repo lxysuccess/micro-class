@@ -1,13 +1,13 @@
 package yinzhi.micro_client.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import yinzhi.micro_client.R;
 import yinzhi.micro_client.utils.UIUtils;
 import yinzhi.micro_client.view.LoadingPager;
 import yinzhi.micro_client.view.LoadingPager.LoadResult;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public abstract class LoadingActivity extends Activity {
 	public LoadingPager loadingPage;
@@ -16,7 +16,8 @@ public abstract class LoadingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		loadingPage = new LoadingPager(UIUtils.getContext(), R.layout.loadpage_loading, R.layout.loadpage_error,
+		loadingPage = new LoadingPager(UIUtils.getContext(),
+				R.layout.loadpage_loading, R.layout.loadpage_error,
 				R.layout.loadpage_empty) {
 			@Override
 			protected LoadResult load() {
@@ -38,6 +39,7 @@ public abstract class LoadingActivity extends Activity {
 		// 显示 loading的页面
 		loadingPage.show();
 		setContentView(loadingPage);
+
 	}
 
 	/**
@@ -52,5 +54,6 @@ public abstract class LoadingActivity extends Activity {
 	 * 
 	 */
 	protected abstract LoadResult load();
+
 
 }
