@@ -11,8 +11,8 @@ public interface INetworkConstants {
 
 	// ==============接口相关==============
 	// public final static String YZMC_SERVER = "http://10.189.202.66:8080";
-//	public final static String YZMC_SERVER = "http://acc.4i-test.com";
-	public final static String YZMC_SERVER = "http://10.0.3.2:8080";
+	public final static String YZMC_SERVER = "http://acc.4i-test.com";
+//	public final static String YZMC_SERVER = "http://10.0.3.2:8080";
 	// 首页
 	public final static String API_COURSE_SLIDELIST = YZMC_SERVER + "/api/v1/course/slide/list";
 	public final static String API_COURSE_CHARGERECOMMEND = YZMC_SERVER + "/api/v1/course/chargeLastedRecommend";
